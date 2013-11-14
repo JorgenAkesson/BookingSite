@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BookingSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BookingSiteModelStoreContainer">
+    <EntitySet Name="Activity" EntityType="BookingSiteModel.Store.Activity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Booking_Activity" Association="BookingSiteModel.Store.FK_Booking_Activity">
+      <End Role="Activity" EntitySet="Activity" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="CompanyActivity" Association="BookingSiteModel.Store.CompanyActivity">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Activity" EntitySet="Activity" />
+    </AssociationSet>
+    <AssociationSet Name="PersonBooking" Association="BookingSiteModel.Store.PersonBooking">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="PersonCompany" Association="BookingSiteModel.Store.PersonCompany">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Date" Type="datetime" Nullable="true" />
+    <Property Name="MaxPerson" Type="int" Nullable="true" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityId" Type="int" Nullable="true" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AdministratorPersonId" Type="int" Nullable="true" />
+    <Property Name="HasAdministrator" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Booking_Activity">
+    <End Role="Activity" Type="BookingSiteModel.Store.Activity" Multiplicity="0..1" />
+    <End Role="Booking" Type="BookingSiteModel.Store.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompanyActivity">
+    <End Role="Company" Type="BookingSiteModel.Store.Company" Multiplicity="1" />
+    <End Role="Activity" Type="BookingSiteModel.Store.Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonBooking">
+    <End Role="Person" Type="BookingSiteModel.Store.Person" Multiplicity="1" />
+    <End Role="Booking" Type="BookingSiteModel.Store.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonCompany">
+    <End Role="Person" Type="BookingSiteModel.Store.Person" Multiplicity="0..1" />
+    <End Role="Company" Type="BookingSiteModel.Store.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="AdministratorPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookingSiteModel" Alias="Self" p1:UseStrongSpatialTypes="false"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookingSiteEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Activity" EntityType="BookingSiteModel.Activity" />
+          <EntitySet Name="Booking" EntityType="BookingSiteModel.Booking" />
+          <AssociationSet Name="FK_Booking_Activity" Association="BookingSiteModel.FK_Booking_Activity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <EntitySet Name="Company" EntityType="BookingSiteModel.Company" />
+          <EntitySet Name="Person" EntityType="BookingSiteModel.Person" />
+          <AssociationSet Name="CompanyActivity" Association="BookingSiteModel.CompanyActivity">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="PersonBooking" Association="BookingSiteModel.PersonBooking">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="PersonCompany" Association="BookingSiteModel.PersonCompany">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="MaxPerson" Type="Int32" />
+          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Activity"
+                              ToRole="Booking" />
+          <Property Type="Int32" Name="Duration" Nullable="false" />
+          <Property Type="Int32" Name="CompanyId" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="BookingSiteModel.CompanyActivity" FromRole="Activity"
+                              ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityId" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Booking"
+                              ToRole="Activity" />
+          <NavigationProperty Name="Person" Relationship="BookingSiteModel.PersonBooking" FromRole="Booking"
+                              ToRole="Person" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Booking_Activity">
+          <End Role="Activity" Type="BookingSiteModel.Activity" Multiplicity="0..1" />
+          <End Role="Booking" Type="BookingSiteModel.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.CompanyActivity" FromRole="Company"
+                              ToRole="Activity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="AdministratorPersonId" Nullable="true" />
+          <Property Type="Boolean" Name="HasAdministrator" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="BookingSiteModel.PersonCompany" FromRole="Company" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.PersonBooking" FromRole="Person"
+                              ToRole="Booking" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="BookingSiteModel.PersonCompany" FromRole="Person" ToRole="Company" />
+        </EntityType>
+        <Association Name="CompanyActivity">
+          <End Type="BookingSiteModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="BookingSiteModel.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonBooking">
+          <End Type="BookingSiteModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="BookingSiteModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonCompany">
+          <End Type="BookingSiteModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="BookingSiteModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AdministratorPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BookingSiteModelStoreContainer" CdmEntityContainer="BookingSiteEntities">
+    <EntitySetMapping Name="Activity">
+      <EntityTypeMapping TypeName="IsTypeOf(BookingSiteModel.Activity)">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Booking">
+      <EntityTypeMapping TypeName="IsTypeOf(BookingSiteModel.Booking)">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="IsTypeOf(BookingSiteModel.Company)">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AdministratorPersonId" ColumnName="AdministratorPersonId" />
+          <ScalarProperty Name="HasAdministrator" ColumnName="HasAdministrator" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="IsTypeOf(BookingSiteModel.Person)">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
