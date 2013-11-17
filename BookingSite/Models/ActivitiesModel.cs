@@ -9,7 +9,8 @@ namespace MvcApplication1.Models
     public class ActivitiesModel
     {
         public int PersonId { get; set; }
-        public string FirstName{ get; set; }
+        public int CopanyId { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<Activity> Activities { get; set; }
     }

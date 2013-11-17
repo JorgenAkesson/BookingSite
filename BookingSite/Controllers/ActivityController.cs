@@ -49,6 +49,7 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Activity/
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Index()
         {
             var userId = WebSecurity.CurrentUserId;
@@ -60,11 +61,14 @@ namespace MvcApplication1.Controllers
             return View(db.Activity.Where(a=>a.CompanyId == company.Id).ToList());
         }
 
-        public ActionResult Booking(int CompanyId = 0)
+        public ActionResult Booking(DateTime fromDate, DateTime toDate, int CompanyId = 0)
         {
             var id = WebSecurity.CurrentUserId;
             Person person = db.Person.Where(a => a.UserId == id).FirstOrDefault();
-            var booking = new ActivitiesModel() {PersonId = person.Id, FirstName = person.FirstName, LastName = person.LastName, Activities = db.Activity.Where(a=> a.CompanyId == CompanyId).ToList()};
+            var activities = db.Activity.Where(a => a.CompanyId == CompanyId && a.Date >= fromDate.Date && a.Date <= toDate.Date).ToList();
+            var booking = new ActivitiesModel() { CopanyId = CompanyId, PersonId = person.Id, FirstName = person.FirstName, LastName = person.LastName, Activities = activities };
+            ViewData["fromDate"] = fromDate;
+            ViewData["toDate"] = toDate;
 
             return View( booking );
         }
@@ -77,7 +81,7 @@ namespace MvcApplication1.Controllers
         }
 
 
-        public ActionResult Book(int activityId)
+        public ActionResult Book(int activityId, DateTime fromDate, DateTime toDate)
         {
             var userId = WebSecurity.CurrentUserId;
             Person person = db.Person.Where(a => a.UserId == userId).FirstOrDefault();
@@ -86,15 +90,15 @@ namespace MvcApplication1.Controllers
             db.SaveChanges();
 
             var CompanyId = db.Activity.First(a => a.Id == activityId).CompanyId;
-            return RedirectToAction("Booking", new {CompanyId = CompanyId});
+            return RedirectToAction("Booking", new { CompanyId = CompanyId, fromDate = fromDate, toDate = toDate });
         }
 
-        public ActionResult UnBook(int activityId)
+        public ActionResult UnBook(int activityId, DateTime fromDate, DateTime toDate)
         {
             var userId = WebSecurity.CurrentUserId;
             Person person = db.Person.Where(a => a.UserId == userId).FirstOrDefault();
 
-            var bookings = db.Booking.Where(a=> a.PersonId == person.Id);
+            var bookings = db.Booking.Where(a=> a.PersonId == person.Id && a.ActivityId == activityId);
             foreach (var booking in bookings)
             {
                 db.Booking.Remove(booking);
@@ -102,12 +106,13 @@ namespace MvcApplication1.Controllers
             db.SaveChanges();
 
             var companyId = db.Activity.First(a => a.Id == activityId).CompanyId;
-            return RedirectToAction("Booking", new { CompanyId = companyId });
+            return RedirectToAction("Booking", new { CompanyId = companyId, fromDate = fromDate, toDate = toDate });
         }
 
         //
         // GET: /Activity/Details/5
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Details(int id = 0, int number = 0)
         {
             Activity activity = db.Activity.Find(id);
@@ -121,6 +126,7 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Activity/Create
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -129,6 +135,7 @@ namespace MvcApplication1.Controllers
         //
         // POST: /Activity/Create
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost]
         public ActionResult Create(Activity activity)
         {
@@ -148,6 +155,7 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Activity/Edit/5
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Edit(int id = 0)
         {
             Activity activity = db.Activity.Find(id);
@@ -161,7 +169,7 @@ namespace MvcApplication1.Controllers
         //
         // POST: /Activity/Edit/5
 
-        // Test
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost]
         public ActionResult Edit(Activity activity, DateTime datepicker)
         {
@@ -178,6 +186,7 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Activity/Delete/5
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Delete(int id = 0)
         {
             Activity activity = db.Activity.Find(id);
@@ -191,6 +200,7 @@ namespace MvcApplication1.Controllers
         //
         // POST: /Activity/Delete/5
 
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -205,7 +215,8 @@ namespace MvcApplication1.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-        
+
+        [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Print(int activityId = 0)
         {
             Activity activity = db.Activity.Find(activityId);

@@ -8,13 +8,18 @@
 
     <h2>ViewCompaniesAndSelect</h2>
 
-    <% using (Html.BeginForm("CompanySelected", "Company", FormMethod.Get ))
+    <% using (Html.BeginForm("CompanySelected", "Company", FormMethod.Get))
        {%>
 
     <table>
-        <%: Html.DropDownList("MovieType") %>
+        <%: Html.DropDownList("CompanyList") %>
     </table>
     <input type="submit" value="Submit" />
+
+    <% foreach (var url in ViewData["Strings"] as List<String>)
+       { %>
+    <a href="<%= Url.Action("CompanySelected2", new {CompanyId = 1})  %>"><img src="<%: Url.Content(url) %>" alt="IMAGES" /></a>
+    <% } %>
 
     <% } %>
 </asp:Content>

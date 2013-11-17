@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using MvcApplication4.Models;
 using MvcApplication4.Extensions;
 using WebMatrix.WebData;
+using System.Web.Security;
 
 
 namespace MvcApplication4.Controllers
@@ -19,6 +20,7 @@ namespace MvcApplication4.Controllers
         //
         // GET: /Company/
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Company.ToList());
@@ -33,22 +35,36 @@ namespace MvcApplication4.Controllers
                 items.Add(new SelectListItem { Text = comp.Name, Value = comp.Id.ToString() });
             }
 
-            ViewBag.MovieType = items;
+            List<String> strings = new List<string>();
+            strings.Add("~/Images/friskis.jpg");
+            strings.Add("~/Images/goldenwellness.png");
+            
+            ViewData["CompanyList"] = items;
+            ViewData["Strings"] = strings;
 
             return View();
         }
 
-        public ActionResult CompanySelected(string MovieType)
+        public ActionResult CompanySelected(string CompanyList)
         {
-            ViewBag.messageString = MovieType;
+            ViewBag.messageString = CompanyList;
 
-            return RedirectToAction("Booking", "Activity", new { CompanyId = MovieType });
+            return RedirectToAction("Booking", "Activity", new { CompanyId = CompanyList, fromDate = DateTime.Now.Date, toDate = DateTime.Now.AddDays(7).Date });
+
+        }
+
+        public ActionResult CompanySelected2(string CompanyId)
+        {
+            ViewBag.messageString = CompanyId;
+
+            return RedirectToAction("Booking", "Activity", new { CompanyId = CompanyId, fromDate = DateTime.Now.Date, toDate = DateTime.Now.AddDays(7).Date });
 
         }
 
         //
         // GET: /Company/Details/5
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id = 0)
         {
             Company company = db.Company.Find(id);
@@ -62,6 +78,7 @@ namespace MvcApplication4.Controllers
         //
         // GET: /Company/Create
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             List<SelectListItem> items = new List<SelectListItem>();
@@ -82,9 +99,12 @@ namespace MvcApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                company.AdministratorPersonId = int.Parse(Persons);
+                int? personId = company.AdministratorPersonId = int.Parse(Persons);
                 db.Company.Add(company);
                 db.SaveChanges();
+
+                HandleUserRole(null, personId);
+
                 return RedirectToAction("Index");
             }
             return View(company);
@@ -104,12 +124,13 @@ namespace MvcApplication4.Controllers
             List<SelectListItem> selectListItems = new List<SelectListItem>();
             foreach (var comp in db.Person)
             {
-                selectListItems.Add(new SelectListItem { Text = comp.FirstName + comp.LastName, Value = comp.Id.ToString() });
+                selectListItems.Add(new SelectListItem { Text = comp.FirstName + " " + comp.LastName, Value = comp.Id.ToString() });
             }
             // Set selected person
             var person = selectListItems.Where(a => a.Value == company.AdministratorPersonId.ToString()).FirstOrDefault();
             person.Selected = true;
-            ViewBag.Persons = selectListItems;
+            ViewData["Persons"] = selectListItems;
+            ViewData["OldAdminPersonId"] = company.AdministratorPersonId;
 
             return View(company);
         }
@@ -119,21 +140,55 @@ namespace MvcApplication4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Company company, string Persons)
+        public ActionResult Edit(Company company, int OldAdminPersonId, string Persons)
         {
             if (ModelState.IsValid)
             {
-                company.AdministratorPersonId = int.Parse(Persons);
+                int? personId = company.AdministratorPersonId = (int.Parse(Persons));
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
+
+                HandleUserRole(OldAdminPersonId, personId);
+
                 return RedirectToAction("Index");
             }
             return View(company);
         }
 
+        private void HandleUserRole(int? OldAdminPersonId, int? personId)
+        {
+            int userId = db.Person.First(a => a.Id == personId).UserId;
+            int oldUserId = OldAdminPersonId != null ? db.Person.First(a => a.Id == OldAdminPersonId).UserId : -1;
+
+            // Handle Roles and asp.net membership
+            if (!Roles.RoleExists("CompanyAdmin"))
+                Roles.CreateRole("CompanyAdmin");
+
+            string userName = "";
+            string oldUserName = "";
+            using (var ctx = new UsersContext())
+            {
+                userName = ctx.UserProfiles.First(a => a.UserId == userId).UserName;
+                oldUserName = oldUserId != -1 ? ctx.UserProfiles.First(a => a.UserId == oldUserId).UserName : "";
+            }
+
+            // Remove old user admin
+            if (Roles.GetUsersInRole("CompanyAdmin").Contains(oldUserName))
+            {
+                Roles.RemoveUserFromRole(oldUserName, "CompanyAdmin");
+            }
+
+            // Add new user admin
+            if (!Roles.GetUsersInRole("CompanyAdmin").Contains(userName))
+            {
+                Roles.AddUserToRole(userName, "CompanyAdmin");
+            }
+        }
+
         //
         // GET: /Company/Delete/5
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id = 0)
         {
             Company company = db.Company.Find(id);

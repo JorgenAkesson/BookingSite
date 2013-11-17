@@ -15,6 +15,17 @@
     <%:  Html.DisplayFor(modelItem => Model.LastName) %>
     <br />
 
+    From:
+    <%: ((DateTime)ViewData["fromDate"]).ToShortDateString() %>
+    <%  DateTime dtFrom = (DateTime)ViewData["fromDate"];
+        dtFrom = dtFrom.AddDays(-7); %>
+    <%= Html.ActionLink("Previus", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = dtFrom, toDate = ViewData["fromDate"] }, null) %>
+    To:
+    <%: ((DateTime)ViewData["toDate"]).ToShortDateString() %>
+    <%  DateTime dt = (DateTime)ViewData["toDate"];
+        dt = dt.AddDays(7); %>
+    <%= Html.ActionLink("Next", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = ViewData["toDate"], toDate = dt }, null) %>
+
     <script>
         $(document).ready(function () {
             //debugger;
@@ -47,6 +58,9 @@
             </th>
             <th>Date <%--<%: Html.DisplayNameFor(model => model.Date) %>--%>
             </th>
+            </th>
+            <th>Duration <%--<%: Html.DisplayNameFor(model => model.Date) %>--%>
+            </th>
             <th>MaxPerson <%--<%: Html.DisplayNameFor(model => model.MaxPerson) %>--%>
             </th>
             <th>PersonBooked
@@ -64,7 +78,10 @@
                 <%: Html.DisplayFor(modelItem => item.Description) %>
             </td>
             <td>
-                <%: Html.DisplayFor(modelItem => item.Date) %>
+                <%: DateTime.Parse(Html.DisplayFor(modelItem => item.Date).ToString()).ToShortDateString() %>
+            </td>
+            <td>
+                <%: Html.DisplayFor(modelItem => item.Duration) %>
             </td>
             <td>
                 <%: Html.DisplayFor(modelItem => item.MaxPerson) %>
@@ -78,11 +95,11 @@
                 var isBooked = book == null ? false : true;
                 if (item.Booking.Count < item.MaxPerson && !isBooked)
                 { %>
-                <%= Html.ActionLink("Book", "Book", "Activity", new { activityId = item.Id }, null) %>
+                <%= Html.ActionLink("Book", "Book", "Activity", new { activityId = item.Id, fromDate = ViewData["fromDate"], toDate = ViewData["toDate"]}, null) %>
                 <% } %>
                 <%else
                 { %>
-                <%= Html.ActionLink("UnBook", "UnBook", "Activity", new { activityId=item.Id}, null) %>
+                <%= Html.ActionLink("UnBook", "UnBook", "Activity", new { activityId=item.Id, fromDate = ViewData["fromDate"], toDate = ViewData["toDate"]}, null) %>
                 <% } %>
 
                 <input type="button" style="background: none; border: 0; color: #0026ff; text-decoration: underline;" value="Check Booked" onclick="myFunction(<%= item.Id %>)" />

@@ -31,14 +31,20 @@
                         <li><%: Html.ActionLink("SelectCompany", "ViewCompaniesAndSelect", "Company") %></li>
                         <li><%: Html.ActionLink("About", "About", "Home") %></li>
                         <li><%: Html.ActionLink("Contact", "Contact", "Home") %></li>
-                        <%--<% if (Roles.IsUserInRole("Admin"))
-                           { %>--%>
+                        <% if (Roles.IsUserInRole("Admin") || Roles.IsUserInRole("CompanyAdmin"))
+                           { %>
                         <li><%: Html.ActionLink("Activity", "Index", "Activity") %></li>
-                        <%--<% } %>--%>
-                        <li><%: Html.ActionLink("Booking", "Booking", "Activity") %></li>
+                        <% } %>
+                        <%--<li><%: Html.ActionLink("Booking", "Booking", "Activity") %></li>--%>
                         <li><%: Html.ActionLink("Test", "Test", "Activity") %></li>
+                        <% if (HttpContext.Current.User.Identity.IsAuthenticated)
+                           { %>
                         <li><%: Html.ActionLink("Person", "Edit", "Person") %></li>
+                        <% } %>
+                        <% if (Roles.IsUserInRole("Admin"))
+                           { %>
                         <li><%: Html.ActionLink("Company", "Index", "Company") %></li>
+                        <% } %>
                     </ul>
                 </nav>
             </div>

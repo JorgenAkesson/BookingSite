@@ -19,6 +19,7 @@
         <legend>Company</legend>
 
         <%: Html.HiddenFor(model => model.Id) %>
+        <%: Html.Hidden("OldAdminPersonId",  ViewData["OldAdminPersonId"]  ) %>
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
