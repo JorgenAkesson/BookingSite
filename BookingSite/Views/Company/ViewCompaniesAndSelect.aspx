@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<MvcApplication4.Models.Company>>" %>
+<%@ Import Namespace="MvcApplication4.Controllers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     ViewCompaniesAndSelect
@@ -16,9 +17,9 @@
     </table>
     <input type="submit" value="Submit" />
 
-    <% foreach (var url in ViewData["Strings"] as List<String>)
+    <% foreach (var viewCompaniesData in ViewData["ViewCompaniesData"] as List<CompanyController.ViewCompaniesDataModel>)
        { %>
-    <a href="<%= Url.Action("CompanySelected2", new {CompanyId = 1})  %>"><img src="<%: Url.Content(url) %>" alt="IMAGES" /></a>
+    <a href="<%= Url.Action("CompanySelected", new {CompanyId = viewCompaniesData.CompanyId })  %>"><img src="<%= Url.Content(viewCompaniesData.ImageUrl) %>" alt="IMAGES" /></a>
     <% } %>
 
     <% } %>

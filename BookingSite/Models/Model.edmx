@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookingSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="BookingSiteModelStoreContainer">
-    <EntitySet Name="Activity" EntityType="BookingSiteModel.Store.Activity" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Activity" EntityType="BookingSiteModel.Store.Activity" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
     <AssociationSet Name="FK_Booking_Activity" Association="BookingSiteModel.Store.FK_Booking_Activity">
       <End Role="Activity" EntitySet="Activity" />
       <End Role="Booking" EntitySet="Booking" />
@@ -117,9 +116,7 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BookingSiteModel" Alias="Self" p1:UseStrongSpatialTypes="false"
-              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
-              xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BookingSiteModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="BookingSiteEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Activity" EntityType="BookingSiteModel.Activity" />
           <EntitySet Name="Booking" EntityType="BookingSiteModel.Booking" />
@@ -146,28 +143,24 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="MaxPerson" Type="Int32" />
-          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Activity"
-                              ToRole="Booking" />
+          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Activity" ToRole="Booking" />
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <Property Type="Int32" Name="CompanyId" Nullable="false" />
-          <NavigationProperty Name="Company" Relationship="BookingSiteModel.CompanyActivity" FromRole="Activity"
-                              ToRole="Company" />
+          <NavigationProperty Name="Company" Relationship="BookingSiteModel.CompanyActivity" FromRole="Activity" ToRole="Company" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="ActivityId" Type="Int32" />
-          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Booking"
-                              ToRole="Activity" />
-          <NavigationProperty Name="Person" Relationship="BookingSiteModel.PersonBooking" FromRole="Booking"
-                              ToRole="Person" />
+          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Booking" ToRole="Activity" />
+          <NavigationProperty Name="Person" Relationship="BookingSiteModel.PersonBooking" FromRole="Booking" ToRole="Person" />
           <Property Type="Int32" Name="PersonId" Nullable="false" />
         </EntityType>
         <Association Name="FK_Booking_Activity">
@@ -186,9 +179,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.CompanyActivity" FromRole="Company"
-                              ToRole="Activity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.CompanyActivity" FromRole="Company" ToRole="Activity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="Int32" Name="AdministratorPersonId" Nullable="true" />
           <Property Type="Boolean" Name="HasAdministrator" Nullable="false" />
@@ -198,11 +190,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="FirstName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="LastName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.PersonBooking" FromRole="Person"
-                              ToRole="Booking" />
+          <NavigationProperty Name="Booking" Relationship="BookingSiteModel.PersonBooking" FromRole="Person" ToRole="Booking" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="BookingSiteModel.PersonCompany" FromRole="Person" ToRole="Company" />
         </EntityType>
@@ -309,6 +300,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams />
   </Designer>
 </edmx:Edmx>

@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MvcApplication1.Models.ActivitiesModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
+    Inherits="System.Web.Mvc.ViewPage<MvcApplication1.Models.ActivitiesModel>" %>
 
 <%@ Import Namespace="MvcApplication4.Models" %>
 
@@ -19,12 +20,19 @@
     <%: ((DateTime)ViewData["fromDate"]).ToShortDateString() %>
     <%  DateTime dtFrom = (DateTime)ViewData["fromDate"];
         dtFrom = dtFrom.AddDays(-7); %>
-    <%= Html.ActionLink("Previus", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = dtFrom, toDate = ViewData["fromDate"] }, null) %>
+    <%--<%= Html.ActionLink("Previus", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = dtFrom, toDate = dtFrom.AddDays(6) }, null) %>--%>
+    <a href="<%= Url.Action("Booking", new { CompanyId = Model.CopanyId, fromDate = dtFrom, toDate = dtFrom.AddDays(6) }) %>">
+        <img alt="Next" src="../../Images/Left.png" />
+    </a>
     To:
     <%: ((DateTime)ViewData["toDate"]).ToShortDateString() %>
     <%  DateTime dt = (DateTime)ViewData["toDate"];
-        dt = dt.AddDays(7); %>
-    <%= Html.ActionLink("Next", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = ViewData["toDate"], toDate = dt }, null) %>
+        DateTime dtF = dt.AddDays(1);
+        DateTime dtT = dt.AddDays(7); %>
+    <%--<%= Html.ActionLink("Next", "Booking", "Activity", new { CompanyId = Model.CopanyId, fromDate = dtF, toDate = dtT }, null) %>--%>
+    <a href="<%= Url.Action("Booking", new { CompanyId = Model.CopanyId, fromDate = dtF, toDate = dtT }) %>">
+        <img alt="Next" src="../../Images/Right.png" />
+    </a>
 
     <script>
         $(document).ready(function () {
@@ -50,6 +58,77 @@
             $("#a" + id).dialog("open");
         }
     </script>
+    <div />
+    <div style="width: 910px; border-color: gray">
+        <div class="GeneralDate FirstDate">
+            <%: ((DateTime)ViewData["fromDate"]).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(1).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(1).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(2).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(2).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(3).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(3).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(4).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(4).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(5).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(5).ToString("dd MMM") %>
+        </div>
+        <div class="GeneralDate LastDate">
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(6).ToString("dddd").ToUpper() %>
+            <br />
+            <%: ((DateTime)ViewData["fromDate"]).AddDays(6).ToString("dd MMM") %>
+        </div>
+        <div style="clear: both" />
+    </div>
+    <div style="width: 910px; border-color: gray">
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(1); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(2); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(3); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(4); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(5); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div class="DataCollumn">
+            <% ViewData["DayDate"] = ((DateTime)ViewData["fromDate"]).AddDays(6); %>
+            <%:Html.Partial("PartialBooking", Model) %>
+        </div>
+        <div style="clear: both" />
+    </div>
+    <br />
     <table>
         <tr>
             <th>Name <%--<%: Html.DisplayNameFor(model => model.Activities.Name) %>--%>
@@ -57,7 +136,6 @@
             <th>Description <%--<%: Html.DisplayNameFor(model => model.Description) %>--%>
             </th>
             <th>Date <%--<%: Html.DisplayNameFor(model => model.Date) %>--%>
-            </th>
             </th>
             <th>Duration <%--<%: Html.DisplayNameFor(model => model.Date) %>--%>
             </th>
@@ -91,14 +169,14 @@
             </td>
             <td>
                 <%
-                var book = item.Booking.Where(a => a.PersonId == Model.PersonId).FirstOrDefault();
-                var isBooked = book == null ? false : true;
-                if (item.Booking.Count < item.MaxPerson && !isBooked)
-                { %>
+                    var book = item.Booking.Where(a => a.PersonId == Model.PersonId).FirstOrDefault();
+                    var isBooked = book == null ? false : true;
+                    if (item.Booking.Count < item.MaxPerson && !isBooked)
+                    { %>
                 <%= Html.ActionLink("Book", "Book", "Activity", new { activityId = item.Id, fromDate = ViewData["fromDate"], toDate = ViewData["toDate"]}, null) %>
                 <% } %>
                 <%else
-                { %>
+                    { %>
                 <%= Html.ActionLink("UnBook", "UnBook", "Activity", new { activityId=item.Id, fromDate = ViewData["fromDate"], toDate = ViewData["toDate"]}, null) %>
                 <% } %>
 
@@ -106,7 +184,8 @@
                 <%= Html.ActionLink("Print", "Print",  new { activityId=item.Id}) %>
 
                 <%
-                if (isBooked) { %>
+                    if (isBooked)
+                    { %>
                 <asp:Label ID="Label1" runat="server" Text="Booked"></asp:Label>
                 <% } %>
             </td>

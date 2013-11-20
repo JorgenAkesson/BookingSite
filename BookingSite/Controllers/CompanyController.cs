@@ -35,29 +35,29 @@ namespace MvcApplication4.Controllers
                 items.Add(new SelectListItem { Text = comp.Name, Value = comp.Id.ToString() });
             }
 
-            List<String> strings = new List<string>();
-            strings.Add("~/Images/friskis.jpg");
-            strings.Add("~/Images/goldenwellness.png");
+            List<ViewCompaniesDataModel> ViewCompaniesData = new List<ViewCompaniesDataModel>();
+            ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = 6, Name = "Friskis", ImageUrl = "~/Images/friskis.jpg" });
+            ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = 7, Name = "Golden Wellness", ImageUrl = "~/Images/goldenwellness.png" });
             
             ViewData["CompanyList"] = items;
-            ViewData["Strings"] = strings;
+            ViewData["ViewCompaniesData"] = ViewCompaniesData;
 
             return View();
         }
 
-        public ActionResult CompanySelected(string CompanyList)
+        public class ViewCompaniesDataModel
         {
-            ViewBag.messageString = CompanyList;
-
-            return RedirectToAction("Booking", "Activity", new { CompanyId = CompanyList, fromDate = DateTime.Now.Date, toDate = DateTime.Now.AddDays(7).Date });
-
+            public string  ImageUrl { get; set; }
+            public int CompanyId { get; set; }
+            public string Name { get; set; }
         }
 
-        public ActionResult CompanySelected2(string CompanyId)
+        public ActionResult CompanySelected(string CompanyId)
         {
             ViewBag.messageString = CompanyId;
-
-            return RedirectToAction("Booking", "Activity", new { CompanyId = CompanyId, fromDate = DateTime.Now.Date, toDate = DateTime.Now.AddDays(7).Date });
+            DateTime firstDayOfWeek = DateTime.Now.GetFirstDayOfWeek();
+            DateTime lastDayOfWeek = DateTime.Now.GetLastDayOfWeek();
+            return RedirectToAction("Booking", "Activity", new { CompanyId = CompanyId, fromDate = firstDayOfWeek, toDate = lastDayOfWeek });
 
         }
 
