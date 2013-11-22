@@ -13,7 +13,7 @@ using System.Web.Security;
 
 namespace MvcApplication4.Controllers
 {
-    public class CompanyController : Controller
+    public class CompanyController : BaseController
     {
         private BookingSiteEntities db = new BookingSiteEntities();
 

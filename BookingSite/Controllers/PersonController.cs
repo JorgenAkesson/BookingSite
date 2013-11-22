@@ -10,7 +10,7 @@ using WebMatrix.WebData;
 
 namespace MvcApplication4.Controllers
 {
-    public class PersonController : Controller
+    public class PersonController : BaseController
     {
         private BookingSiteEntities db = new BookingSiteEntities();
 

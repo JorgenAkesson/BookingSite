@@ -9,18 +9,19 @@
     </title>
     <link href="<%: Url.Content("~/favicon.ico") %>" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="wactivityIdth=device-wactivityIdth" />
+    <%: Styles.Render("~/Content/CustomStyleSite.css") %>
     <%: Styles.Render("~/Content/css") %>
     <%--<%: Scripts.Render("~/bundles/modernizr") %>--%>
     <link href="../../Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <link href="../../Content/CustomStyle.css" rel="stylesheet" />
     <script src="../../Scripts/jquery-1.7.1.js"></script>
     <script src="../../Scripts/jquery-ui-1.8.20.js"></script>
+    <script src="../../Scripts/jquery-validate.js"></script>
 </head>
 <body>
     <header>
         <div class="content-wrapper">
             <div class="float-left">
-                <p class="site-title"><%: Html.ActionLink("your logo here", "Index", "Home") %></p>
+                <p class="site-title"><%: Html.ActionLink("Site", "Index", "Home") %></p>
             </div>
             <div class="float-right">
                 <section id="login">

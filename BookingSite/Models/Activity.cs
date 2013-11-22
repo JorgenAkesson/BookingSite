@@ -26,6 +26,7 @@ namespace MvcApplication4.Models
         public Nullable<int> MaxPerson { get; set; }
         public int Duration { get; set; }
         public int CompanyId { get; set; }
+        public string Time { get; set; }
     
         public virtual ICollection<Booking> Booking { get; set; }
         public virtual Company Company { get; set; }

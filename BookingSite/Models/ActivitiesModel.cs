@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using MvcApplication4.Models;
 
-namespace MvcApplication1.Models
+namespace MvcApplication4.Models
 {
     public class ActivitiesModel
     {

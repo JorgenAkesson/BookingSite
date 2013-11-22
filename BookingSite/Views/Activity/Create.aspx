@@ -6,14 +6,23 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Create</h2>
+    <h2>Create</h2>
 
-<% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
 
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+
+    </script>
+    <h1>Time Validation</h1>
+    <br />
     <fieldset>
         <legend>Activity</legend>
-        
+
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
         </div>
@@ -34,8 +43,17 @@
             <%: Html.LabelFor(model => model.Date) %>
         </div>
         <div class="editor-field">
-            <%: Html.EditorFor(model => model.Date) %>
-            <%: Html.ValidationMessageFor(model => model.Date) %>
+            <%--            <%: Html.EditorFor(model => model.Date) %>
+            <%: Html.ValidationMessageFor(model => model.Date) %>--%>
+            <input type="text" id="datepicker" name="datepicker" />
+        </div>
+
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Time) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Time) %>
+            <%: Html.ValidationMessageFor(model => model.Time) %>
         </div>
 
         <div class="editor-label">
@@ -57,11 +75,11 @@
             <input type="submit" value="Create" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Back to List", "Index") %>
-</div>
+    <div>
+        <%: Html.ActionLink("Back to List", "Index") %>
+    </div>
 
 </asp:Content>
 

@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookingSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="BookingSiteModelStoreContainer">
-    <EntitySet Name="Activity" EntityType="BookingSiteModel.Store.Activity" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Activity" EntityType="BookingSiteModel.Store.Activity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_Booking_Activity" Association="BookingSiteModel.Store.FK_Booking_Activity">
       <End Role="Activity" EntitySet="Activity" />
       <End Role="Booking" EntitySet="Booking" />
@@ -38,6 +38,7 @@
     <Property Name="MaxPerson" Type="int" Nullable="true" />
     <Property Name="Duration" Type="int" Nullable="false" />
     <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Booking">
     <Key>
@@ -152,6 +153,7 @@
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <Property Type="Int32" Name="CompanyId" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="BookingSiteModel.CompanyActivity" FromRole="Activity" ToRole="Company" />
+          <Property Type="String" Name="Time" Nullable="true" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -249,6 +251,7 @@
           <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
           <ScalarProperty Name="Duration" ColumnName="Duration" />
           <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

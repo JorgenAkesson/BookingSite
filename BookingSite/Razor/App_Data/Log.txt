@@ -1,0 +1,1 @@
+2013-11-21T15:32:01.2132733Z - 10552 - Info - Created provider from embedded device data 'FiftyOne.Foundation.Mobile.Detection.Binary.Resources.51Degrees.mobi-Lite.dat'.

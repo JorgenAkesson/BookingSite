@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#"
-    Inherits="System.Web.Mvc.ViewUserControl<MvcApplication1.Models.ActivitiesModel>" %>
+    Inherits="System.Web.Mvc.ViewUserControl<MvcApplication4.Models.ActivitiesModel>" %>
 
 <%: ((DateTime)ViewData["DayDate"]).ToShortDateString() %>
 

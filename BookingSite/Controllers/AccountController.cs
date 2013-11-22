@@ -15,7 +15,7 @@ namespace MvcApplication4.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private BookingSiteEntities db = new BookingSiteEntities();
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<MvcApplication1.Models.ActivityModel>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<MvcApplication4.Models.Activity>" %>
 
 <!DOCTYPE html>
 
@@ -16,11 +16,11 @@
         }
     </script>
 
-    <%: Html.DisplayNameFor(model => model.Activity.Name) %>:
-    <%: Html.DisplayFor(model => model.Activity.Name) %>
+    <%: Html.DisplayNameFor(model => model.Name) %>:
+    <%: Html.DisplayFor(model => model.Name) %>
     <br />
-    <%: Html.DisplayNameFor(model => model.Activity.Description) %>:
-    <%: Html.DisplayFor(model => model.Activity.Description) %>
+    <%: Html.DisplayNameFor(model => model.Description) %>:
+    <%: Html.DisplayFor(model => model.Description) %>
     <table>
         <tr>
             <th>First name
@@ -31,7 +31,7 @@
             </th>
         </tr>
 
-        <%  foreach (var item in Model.Activity.Booking)
+        <%  foreach (var item in Model.Booking)
             { %>
         <tr>
             <td>
@@ -47,7 +47,6 @@
         <% } %>
     </table>
     <p>
-        <%: Html.ActionLink("Back to List", "Booking") %>
         <input type="button" value="Print this page" onclick="printpage()" />
     </p>
 </body>

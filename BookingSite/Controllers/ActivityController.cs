@@ -8,13 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
-using MvcApplication1.Models;
 using MvcApplication4.Models;
 using WebMatrix.WebData;
 
 namespace MvcApplication1.Controllers
 {
-    public class ActivityController : Controller
+    public class ActivityController : MvcApplication4.Controllers.BaseController
     {
         private BookingSiteEntities db = new BookingSiteEntities();
 
@@ -44,6 +43,12 @@ namespace MvcApplication1.Controllers
 
             //pers = new Person("Jörgen", 45);
             return  View();
+        }
+
+        public ActionResult Test2()
+        {
+            var data = new MvcApplication4.Models.TestModels()._dataList[0];
+            return View(data);
         }
 
         //
@@ -137,12 +142,15 @@ namespace MvcApplication1.Controllers
 
         [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost]
-        public ActionResult Create(Activity activity)
+        public ActionResult Create(Activity activity, string datepicker)
         {
             if (ModelState.IsValid)
             {
                 var id = WebSecurity.CurrentUserId;
                 var companyId = db.Company.Where(a=> a.Person.UserId == id).FirstOrDefault().Id;
+                DateTime time = Convert.ToDateTime(activity.Time);
+                activity.Date = Convert.ToDateTime(datepicker);
+                activity.Date = activity.Date.Value.Add(time.TimeOfDay);
                 activity.CompanyId = companyId;
                 db.Activity.Add(activity);
                 db.SaveChanges();
@@ -225,8 +233,8 @@ namespace MvcApplication1.Controllers
                 return HttpNotFound();
             }
 
-            ActivityModel act = new ActivityModel() {Activity = activity};
-            return View(act);
+            Activity act = new Activity() {};
+            return PartialView(activity);
         }
     }
 }
