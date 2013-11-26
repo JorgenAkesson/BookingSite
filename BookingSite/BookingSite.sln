@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSite", "BookingSite.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Razor", "Razor\Razor.csproj", "{27AAD808-D1DD-4925-95B1-779295E2C2EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empty", "..\Empty\Empty.csproj", "{3F99FB93-5333-4684-8191-431EA225955E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{27AAD808-D1DD-4925-95B1-779295E2C2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27AAD808-D1DD-4925-95B1-779295E2C2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27AAD808-D1DD-4925-95B1-779295E2C2EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F99FB93-5333-4684-8191-431EA225955E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F99FB93-5333-4684-8191-431EA225955E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F99FB93-5333-4684-8191-431EA225955E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F99FB93-5333-4684-8191-431EA225955E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

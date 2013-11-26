@@ -47,7 +47,13 @@
                 <%: Html.DisplayNameFor(model => model.Date) %>
             </th>
             <th>
+                <%: Html.DisplayNameFor(model => model.Time) %>
+            </th>
+            <th>
                 <%: Html.DisplayNameFor(model => model.MaxPerson) %>
+            </th>
+            <th>
+                <%: Html.DisplayNameFor(model => model.Duration) %>
             </th>
             <th></th>
         </tr>
@@ -65,7 +71,13 @@
                 <%: Html.DisplayFor(modelItem => item.Date) %>
             </td>
             <td>
+                <%: Html.DisplayFor(modelItem => item.Time) %>
+            </td>
+            <td>
                 <%: Html.DisplayFor(modelItem => item.MaxPerson) %>
+            </td>
+            <td>
+                <%: Html.DisplayFor(modelItem => item.Duration) %>
             </td>
             <td>
                 <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |

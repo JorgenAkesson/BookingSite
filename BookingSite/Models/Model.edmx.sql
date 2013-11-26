@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/21/2013 14:33:52
+-- Date Created: 11/26/2013 13:59:13
 -- Generated from EDMX file: H:\Development\BookingSite\BookingSite\Models\Model.edmx
 -- --------------------------------------------------
 
@@ -56,11 +56,12 @@ CREATE TABLE [dbo].[Activity] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NULL,
     [Description] nvarchar(max)  NULL,
-    [Date] datetime  NULL,
-    [MaxPerson] int  NULL,
+    [Date] datetime  NOT NULL,
+    [MaxPerson] int  NOT NULL,
     [Duration] int  NOT NULL,
     [CompanyId] int  NOT NULL,
-    [Time] nvarchar(max)  NULL
+    [Time] nvarchar(max)  NULL,
+    [CityId] int  NOT NULL
 );
 GO
 
@@ -90,6 +91,13 @@ CREATE TABLE [dbo].[Person] (
 );
 GO
 
+-- Creating table 'City'
+CREATE TABLE [dbo].[City] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -115,6 +123,12 @@ GO
 -- Creating primary key on [Id] in table 'Person'
 ALTER TABLE [dbo].[Person]
 ADD CONSTRAINT [PK_Person]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'City'
+ALTER TABLE [dbo].[City]
+ADD CONSTRAINT [PK_City]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -176,6 +190,20 @@ ADD CONSTRAINT [FK_PersonCompany]
 CREATE INDEX [IX_FK_PersonCompany]
 ON [dbo].[Company]
     ([AdministratorPersonId]);
+GO
+
+-- Creating foreign key on [CityId] in table 'Activity'
+ALTER TABLE [dbo].[Activity]
+ADD CONSTRAINT [FK_ActivityCity]
+    FOREIGN KEY ([CityId])
+    REFERENCES [dbo].[City]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActivityCity'
+CREATE INDEX [IX_FK_ActivityCity]
+ON [dbo].[Activity]
+    ([CityId]);
 GO
 
 -- --------------------------------------------------

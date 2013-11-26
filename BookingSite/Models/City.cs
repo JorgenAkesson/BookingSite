@@ -12,25 +12,16 @@ namespace MvcApplication4.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Activity
+    public partial class City
     {
-        public Activity()
+        public City()
         {
-            this.Booking = new HashSet<Booking>();
+            this.Activity = new HashSet<Activity>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public System.DateTime Date { get; set; }
-        public int MaxPerson { get; set; }
-        public int Duration { get; set; }
-        public int CompanyId { get; set; }
-        public string Time { get; set; }
-        public int CityId { get; set; }
     
-        public virtual ICollection<Booking> Booking { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual City City { get; set; }
+        public virtual ICollection<Activity> Activity { get; set; }
     }
 }

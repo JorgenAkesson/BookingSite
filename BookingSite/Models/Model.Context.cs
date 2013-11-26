@@ -29,5 +29,6 @@ namespace MvcApplication4.Models
         public DbSet<Booking> Booking { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Person> Person { get; set; }
+        public DbSet<City> City { get; set; }
     }
 }

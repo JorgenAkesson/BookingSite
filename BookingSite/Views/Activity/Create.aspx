@@ -14,14 +14,14 @@
 
     <script type="text/javascript">
         $(function () {
-            $("#datepicker").datepicker();
+            $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
         });
 
     </script>
-    <h1>Time Validation</h1>
     <br />
     <fieldset>
         <legend>Activity</legend>
+        <%: Html.DropDownList("Cities") %>
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>

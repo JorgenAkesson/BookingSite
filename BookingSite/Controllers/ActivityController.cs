@@ -134,6 +134,12 @@ namespace MvcApplication1.Controllers
         [Authorize(Roles = "Admin, CompanyAdmin")]
         public ActionResult Create()
         {
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var city in db.City)
+            {
+                items.Add(new SelectListItem { Text = city.Name, Value = city.Id.ToString() });
+            }
+            ViewBag.Cities = items;
             return View();
         }
 
@@ -142,7 +148,7 @@ namespace MvcApplication1.Controllers
 
         [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost]
-        public ActionResult Create(Activity activity, string datepicker)
+        public ActionResult Create(Activity activity, string datepicker, string cities)
         {
             if (ModelState.IsValid)
             {
@@ -150,8 +156,9 @@ namespace MvcApplication1.Controllers
                 var companyId = db.Company.Where(a=> a.Person.UserId == id).FirstOrDefault().Id;
                 DateTime time = Convert.ToDateTime(activity.Time);
                 activity.Date = Convert.ToDateTime(datepicker);
-                activity.Date = activity.Date.Value.Add(time.TimeOfDay);
+                activity.Date = activity.Date.Add(time.TimeOfDay);
                 activity.CompanyId = companyId;
+                activity.CityId = int.Parse(cities);
                 db.Activity.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -171,6 +178,18 @@ namespace MvcApplication1.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var city in db.City)
+            {
+                items.Add(new SelectListItem { Text = city.Name, Value = city.Id.ToString() });
+            }
+
+            // Set selected City
+            var cit = items.Where(a => a.Value == activity.CityId.ToString()).FirstOrDefault();
+            cit.Selected = true;
+            ViewBag.Cities = items;
+
             return View(activity);
         }
 
@@ -179,11 +198,12 @@ namespace MvcApplication1.Controllers
 
         [Authorize(Roles = "Admin, CompanyAdmin")]
         [HttpPost]
-        public ActionResult Edit(Activity activity, DateTime datepicker)
+        public ActionResult Edit(Activity activity, DateTime datepicker, string cities)
         {
             if (ModelState.IsValid)
             {
                 activity.Date = datepicker;
+                activity.CityId = int.Parse(cities);
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

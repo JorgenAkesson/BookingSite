@@ -10,6 +10,7 @@
     <EntitySet Name="Booking" EntityType="BookingSiteModel.Store.Booking" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Company" EntityType="BookingSiteModel.Store.Company" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Person" EntityType="BookingSiteModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="City" EntityType="BookingSiteModel.Store.City" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_Booking_Activity" Association="BookingSiteModel.Store.FK_Booking_Activity">
       <End Role="Activity" EntitySet="Activity" />
       <End Role="Booking" EntitySet="Booking" />
@@ -26,6 +27,10 @@
       <End Role="Person" EntitySet="Person" />
       <End Role="Company" EntitySet="Company" />
     </AssociationSet>
+    <AssociationSet Name="ActivityCity" Association="BookingSiteModel.Store.ActivityCity">
+      <End Role="Activity" EntitySet="Activity" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Activity">
     <Key>
@@ -34,11 +39,12 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Date" Type="datetime" Nullable="true" />
-    <Property Name="MaxPerson" Type="int" Nullable="true" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="MaxPerson" Type="int" Nullable="false" />
     <Property Name="Duration" Type="int" Nullable="false" />
     <Property Name="CompanyId" Type="int" Nullable="false" />
     <Property Name="Time" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CityId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Booking">
     <Key>
@@ -65,6 +71,13 @@
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_Booking_Activity">
     <End Role="Activity" Type="BookingSiteModel.Store.Activity" Multiplicity="0..1" />
@@ -114,6 +127,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ActivityCity">
+    <End Role="Activity" Type="BookingSiteModel.Store.Activity" Multiplicity="*" />
+    <End Role="City" Type="BookingSiteModel.Store.City" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -139,6 +164,11 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="Company" EntitySet="Company" />
           </AssociationSet>
+          <EntitySet Name="City" EntityType="BookingSiteModel.City" />
+          <AssociationSet Name="ActivityCity" Association="BookingSiteModel.ActivityCity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Activity">
           <Key>
@@ -147,13 +177,15 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="MaxPerson" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="MaxPerson" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Booking" Relationship="BookingSiteModel.FK_Booking_Activity" FromRole="Activity" ToRole="Booking" />
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <Property Type="Int32" Name="CompanyId" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="BookingSiteModel.CompanyActivity" FromRole="Activity" ToRole="Company" />
           <Property Type="String" Name="Time" Nullable="true" />
+          <Property Type="Int32" Name="CityId" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="BookingSiteModel.ActivityCity" FromRole="Activity" ToRole="City" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -235,6 +267,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Activity" Relationship="BookingSiteModel.ActivityCity" FromRole="City" ToRole="Activity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="ActivityCity">
+          <End Type="BookingSiteModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="BookingSiteModel.City" Role="City" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -252,6 +304,7 @@
           <ScalarProperty Name="Duration" ColumnName="Duration" />
           <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -281,6 +334,14 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="City">
+      <EntityTypeMapping TypeName="IsTypeOf(BookingSiteModel.City)">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

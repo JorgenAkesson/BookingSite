@@ -8,36 +8,56 @@
 
 <h2>Details</h2>
 
+    <style>
+        .head {
+            font-weight: bold;
+        }
+    </style>
 <fieldset>
     <legend>Activity</legend>
 
-    <div class="display-label">
+    <div class="display-label head">
         <%: Html.DisplayNameFor(model => model.Name) %>
     </div>
     <div class="display-field">
         <%: Html.DisplayFor(model => model.Name) %>
     </div>
 
-    <div class="display-label">
+    <div class="display-label head">
         <%: Html.DisplayNameFor(model => model.Description) %>
     </div>
     <div class="display-field">
         <%: Html.DisplayFor(model => model.Description) %>
     </div>
 
-    <div class="display-label">
+    <div class="display-label head">
         <%: Html.DisplayNameFor(model => model.Date) %>
     </div>
     <div class="display-field">
         <%: Html.DisplayFor(model => model.Date) %>
     </div>
 
-    <div class="display-label">
+    <div class="display-label head">
+        <%: Html.DisplayNameFor(model => model.Time) %>
+    </div>
+    <div class="display-field">
+        <%: Html.DisplayFor(model => model.Time) %>
+    </div>
+
+    <div class="display-label head">
         <%: Html.DisplayNameFor(model => model.MaxPerson) %>
     </div>
     <div class="display-field">
         <%: Html.DisplayFor(model => model.MaxPerson) %>
     </div>
+
+    <div class="display-label head">
+        <%: Html.DisplayNameFor(model => model.Duration) %>
+    </div>
+    <div class="display-field">
+        <%: Html.DisplayFor(model => model.Duration) %>
+    </div>
+
 </fieldset>
 <p>
 

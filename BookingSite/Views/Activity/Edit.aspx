@@ -14,7 +14,7 @@
 
     <script>
         $(function () {
-            $("#datepicker").datepicker();
+            $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
         });
     </script>
 
@@ -24,6 +24,8 @@
 
         <%: Html.HiddenFor(model => model.Id) %>
         <%: Html.HiddenFor(model => model.CompanyId) %>
+
+        <%: Html.DropDownList("Cities") %>
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
@@ -46,7 +48,14 @@
         <div class="editor-field">
             <%--<%: Html.EditorFor(model => model.Date) %>--%>
             <%--<%: Html.ValidationMessageFor(model => model.Date) %>--%>
-            <input type="text" id="datepicker" name="datepicker" value=<%: Model.Date %> />
+            <input type="text" id="datepicker" name="datepicker" value="<%: Model.Date.ToShortDateString() %>" />
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Time) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Time) %>
+            <%: Html.ValidationMessageFor(model => model.Time) %>
         </div>
 
         <div class="editor-label">
