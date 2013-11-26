@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/26/2013 13:59:13
--- Generated from EDMX file: H:\Development\BookingSite\BookingSite\Models\Model.edmx
+-- Date Created: 11/26/2013 14:56:58
+-- Generated from EDMX file: G:\Development\BookingSite\BookingSite\Models\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -29,6 +29,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PersonCompany]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Company] DROP CONSTRAINT [FK_PersonCompany];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ActivityCity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Activity] DROP CONSTRAINT [FK_ActivityCity];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -45,6 +48,9 @@ IF OBJECT_ID(N'[dbo].[Company]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Person]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Person];
+GO
+IF OBJECT_ID(N'[dbo].[City]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[City];
 GO
 
 -- --------------------------------------------------
