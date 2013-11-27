@@ -25,6 +25,7 @@
             <%: Html.DisplayFor(modelItem => item.Name) %>
         </td>
         <td>
+            <%: Html.ActionLink("Upload Image", "Image", new { id=item.Id }) %> |
             <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
             <%: Html.ActionLink("Details", "Details", new { id=item.Id }) %> |
             <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %>

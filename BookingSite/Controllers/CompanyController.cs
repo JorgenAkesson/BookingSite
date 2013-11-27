@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,7 @@ namespace MvcApplication4.Controllers
 {
     public class CompanyController : BaseController
     {
+        private const string ImageFolder = "~/Images/Uploads";
         private BookingSiteEntities db = new BookingSiteEntities();
 
         //
@@ -26,20 +28,60 @@ namespace MvcApplication4.Controllers
             return View(db.Company.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Image(int id = 0)
+        {
+            Company company = db.Company.Find(id);
+            if (company == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(company);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Image(HttpPostedFileBase file, Company company)
+        {
+            if (file.ContentLength > 0)
+            {
+                // Remove old images first
+                DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@ImageFolder));
+                var filesInfos = directory.GetFiles().ToList().Where(a => a.Name.Contains("_" + company.Id.ToString()));
+                foreach (var filesInfo in filesInfos)
+                {
+                    System.IO.File.Delete(filesInfo.FullName);
+                }
+
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath(ImageFolder), fileName + "_" + company.Id + Path.GetExtension(file.FileName));
+                file.SaveAs(path);
+            }
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult ViewCompaniesAndSelect()
         {
             List<SelectListItem> items = new List<SelectListItem>();
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@ImageFolder));
+            List<ViewCompaniesDataModel> ViewCompaniesData = new List<ViewCompaniesDataModel>();
+
             foreach (var comp in db.Company)
             {
-                items.Add(new SelectListItem { Text = comp.Name, Value = comp.Id.ToString() });
-            }
+                items.Add(new SelectListItem {Text = comp.Name, Value = comp.Id.ToString()});
 
-            List<ViewCompaniesDataModel> ViewCompaniesData = new List<ViewCompaniesDataModel>();
-            ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = 6, Name = "Friskis", ImageUrl = "~/Images/friskis.jpg" });
-            ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = 7, Name = "Golden Wellness", ImageUrl = "~/Images/goldenwellness.png" });
+                var files = directory.GetFiles().ToList();
+                var fileInfo = files.Where(a => a.Name.Contains("_" + comp.Id.ToString())).FirstOrDefault();
+
+                if (fileInfo != null)
+                {
+                    string filPath = ImageFolder + "/" + fileInfo.Name;
+                    ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = comp.Id, Name = comp.Name, ImageUrl = filPath });
+                }
+            }
             
-            ViewData["CompanyList"] = items;
             ViewData["ViewCompaniesData"] = ViewCompaniesData;
 
             return View();

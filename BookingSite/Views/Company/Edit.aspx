@@ -28,6 +28,7 @@
             <%: Html.EditorFor(model => model.Name) %>
             <%: Html.ValidationMessageFor(model => model.Name) %>
         </div>
+        <label class="editor-label">Välj vem som skall adminstrera företaget</label>
         <%: Html.DropDownList("Persons") %>
         <p>
             <input type="submit" value="Save" />

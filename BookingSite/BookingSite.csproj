@@ -346,6 +346,7 @@
     <Content Include="Views\Company\Delete.aspx" />
     <Content Include="Views\Company\Details.aspx" />
     <Content Include="Views\Company\Edit.aspx" />
+    <Content Include="Views\Company\Image.aspx" />
     <Content Include="Views\Company\Index.aspx" />
     <Content Include="Views\Company\ViewCompaniesAndSelect.aspx" />
     <Content Include="Views\Person\Create.aspx" />
@@ -396,7 +397,7 @@
     <Content Include="Views\Shared\Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Uploads\" />
     <Folder Include="RESTApi\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
