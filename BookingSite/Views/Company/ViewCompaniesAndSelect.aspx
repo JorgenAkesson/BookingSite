@@ -12,15 +12,22 @@
 
     <% using (Html.BeginForm("CompanySelected", "Company", FormMethod.Get))
        {%>
+    <label class="editor-label">Filtrera på stad</label>
+    <%: Html.DropDownList("ViewBagCities") %>
+
     <div>
         <% foreach (var viewCompaniesData in ViewData["ViewCompaniesData"] as List<CompanyController.ViewCompaniesDataModel>)
            { %>
-        <div style="float: left; width: 110px;">
+        <div style="float: left;">
             <a href="<%= Url.Action("CompanySelected", new {CompanyId = viewCompaniesData.CompanyId })  %>">
-                <div>
-                    <img src="<%= Url.Content(viewCompaniesData.ImageUrl) %>" alt=<%: viewCompaniesData.Name %> style="width: 100px" />
-                    <label><%: viewCompaniesData.Name %></label>
-                </div>
+                <ul style="list-style-type: none; -webkit-padding-start: 5px">
+                    <li style="font-weight: bold">
+                        <%: viewCompaniesData.Name %>
+                    </li>
+                    <li>
+                        <img src="<%= Url.Content(viewCompaniesData.ImageUrl) %>" alt="<%: viewCompaniesData.Name %>" style="width: 100px" />
+                    </li>
+                </ul>
             </a>
         </div>
         <% } %>

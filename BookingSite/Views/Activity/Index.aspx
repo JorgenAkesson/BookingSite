@@ -55,6 +55,9 @@
             <th>
                 <%: Html.DisplayNameFor(model => model.Duration) %>
             </th>
+            <th>
+                City
+            </th>
             <th></th>
         </tr>
 
@@ -78,6 +81,9 @@
             </td>
             <td>
                 <%: Html.DisplayFor(modelItem => item.Duration) %>
+            </td>
+            <td>
+                <%: Html.DisplayFor(modelItem => item.City.Name) %>
             </td>
             <td>
                 <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |

@@ -62,7 +62,7 @@ namespace MvcApplication4.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ViewCompaniesAndSelect()
+        public ActionResult ViewCompaniesAndSelect(int CityId = 1)
         {
             List<SelectListItem> items = new List<SelectListItem>();
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@ImageFolder));
@@ -70,19 +70,31 @@ namespace MvcApplication4.Controllers
 
             foreach (var comp in db.Company)
             {
-                items.Add(new SelectListItem {Text = comp.Name, Value = comp.Id.ToString()});
+                // Get all unique sities
+                foreach(var activity in  comp.Activity)
+                {
+                    if(items.Count(a=> a.Value == activity.CityId.ToString()) == 0)
+                    {
+                        items.Add(new SelectListItem{Text = activity.City.Name, Value = activity.Id.ToString()});
+                    }
+                }
 
                 var files = directory.GetFiles().ToList();
                 var fileInfo = files.Where(a => a.Name.Contains("_" + comp.Id.ToString())).FirstOrDefault();
 
                 if (fileInfo != null)
                 {
-                    string filPath = ImageFolder + "/" + fileInfo.Name;
-                    ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = comp.Id, Name = comp.Name, ImageUrl = filPath });
+                    var hasCity = comp.Activity.Where(a => a.CityId == CityId).Count() > 0;
+                    if (hasCity)
+                    {
+                        string filPath = ImageFolder + "/" + fileInfo.Name;
+                        ViewCompaniesData.Add(new ViewCompaniesDataModel() { CompanyId = comp.Id, Name = comp.Name, ImageUrl = filPath });
+                    }
                 }
             }
             
             ViewData["ViewCompaniesData"] = ViewCompaniesData;
+            ViewData["ViewBagCities"] = items;
 
             return View();
         }
