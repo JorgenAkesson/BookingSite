@@ -47,6 +47,10 @@
                            { %>
                         <li><%: Html.ActionLink("Company", "Index", "Company") %></li>
                         <% } %>
+                        <% if (Roles.IsUserInRole("Admin"))
+                           { %>
+                        <li><%: Html.ActionLink("WebCam", "Index", "WebCam") %></li>
+                        <% } %>
                     </ul>
                 </nav>
             </div>

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\WebCamController.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -314,6 +315,7 @@
     <Content Include="51Degrees.mobi.config" />
     <None Include="Properties\PublishProfiles\BookingOnAkessonHomeProfile.pubxml" />
     <None Include="Properties\PublishProfiles\BookingProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\LocalFolder.pubxml" />
     <None Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -354,6 +356,7 @@
     <Content Include="Views\Person\Details.aspx" />
     <Content Include="Views\Person\Edit.aspx" />
     <Content Include="Views\Person\Index.aspx" />
+    <Content Include="Views\WebCam\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
