@@ -68,6 +68,7 @@ namespace MvcApplication4.Controllers
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@ImageFolder));
             List<ViewCompaniesDataModel> ViewCompaniesData = new List<ViewCompaniesDataModel>();
 
+            items.Add(new SelectListItem(){Text = "Välj", Value = "0"});
             foreach (var comp in db.Company)
             {
                 // Get all unique sities
