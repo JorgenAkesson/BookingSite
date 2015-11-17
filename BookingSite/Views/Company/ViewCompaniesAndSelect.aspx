@@ -12,7 +12,7 @@
 
     <% using (Html.BeginForm("CompanySelected", "Company", FormMethod.Get))
        {%>
-    <label class="editor-label">Filtrera på stad</label>
+    <label class="editor-label">Filtrera på stad!</label>
     <%: Html.DropDownList("ViewBagCities") %>
 
     <div>
