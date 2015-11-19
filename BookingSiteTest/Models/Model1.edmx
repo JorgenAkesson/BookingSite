@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="BookingModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="BookingModel.Store.__MigrationHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Activities" EntityType="BookingModel.Store.Activities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Bookings" EntityType="BookingModel.Store.Bookings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Cities" EntityType="BookingModel.Store.Cities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Companies" EntityType="BookingModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="People" EntityType="BookingModel.Store.People" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_dbo_Activities_dbo_Cities_CityId" Association="BookingModel.Store.FK_dbo_Activities_dbo_Cities_CityId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Activities_dbo_Companies_CompanyId" Association="BookingModel.Store.FK_dbo_Activities_dbo_Companies_CompanyId">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Activities_ActivityId" Association="BookingModel.Store.FK_dbo_Bookings_dbo_Activities_ActivityId">
+            <End Role="Activities" EntitySet="Activities" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_People_PersonId" Association="BookingModel.Store.FK_dbo_Bookings_dbo_People_PersonId">
+            <End Role="People" EntitySet="People" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Companies_dbo_People_Person_Id" Association="BookingModel.Store.FK_dbo_Companies_dbo_People_Person_Id">
+            <End Role="People" EntitySet="People" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Activities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="MaxPerson" Type="int" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityId" Type="int" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="AdministratorPersonId" Type="int" />
+          <Property Name="HasAdministrator" Type="bit" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Activities_dbo_Cities_CityId">
+          <End Role="Cities" Type="BookingModel.Store.Cities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activities" Type="BookingModel.Store.Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Activities_dbo_Companies_CompanyId">
+          <End Role="Companies" Type="BookingModel.Store.Companies" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activities" Type="BookingModel.Store.Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Activities_ActivityId">
+          <End Role="Activities" Type="BookingModel.Store.Activities" Multiplicity="0..1" />
+          <End Role="Bookings" Type="BookingModel.Store.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_People_PersonId">
+          <End Role="People" Type="BookingModel.Store.People" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bookings" Type="BookingModel.Store.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Companies_dbo_People_Person_Id">
+          <End Role="People" Type="BookingModel.Store.People" Multiplicity="0..1" />
+          <End Role="Companies" Type="BookingModel.Store.Companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookingModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookingEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="BookingModel.C__MigrationHistory" />
+          <EntitySet Name="Activities" EntityType="BookingModel.Activities" />
+          <EntitySet Name="Bookings" EntityType="BookingModel.Bookings" />
+          <EntitySet Name="Cities" EntityType="BookingModel.Cities" />
+          <EntitySet Name="Companies" EntityType="BookingModel.Companies" />
+          <EntitySet Name="People" EntityType="BookingModel.People" />
+          <AssociationSet Name="FK_dbo_Activities_dbo_Cities_CityId" Association="BookingModel.FK_dbo_Activities_dbo_Cities_CityId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Activities_dbo_Companies_CompanyId" Association="BookingModel.FK_dbo_Activities_dbo_Companies_CompanyId">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Activities" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Activities_ActivityId" Association="BookingModel.FK_dbo_Bookings_dbo_Activities_ActivityId">
+            <End Role="Activities" EntitySet="Activities" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_People_PersonId" Association="BookingModel.FK_dbo_Bookings_dbo_People_PersonId">
+            <End Role="People" EntitySet="People" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Companies_dbo_People_Person_Id" Association="BookingModel.FK_dbo_Companies_dbo_People_Person_Id">
+            <End Role="People" EntitySet="People" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Activities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaxPerson" Type="Int32" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="BookingModel.FK_dbo_Activities_dbo_Cities_CityId" FromRole="Activities" ToRole="Cities" />
+          <NavigationProperty Name="Companies" Relationship="BookingModel.FK_dbo_Activities_dbo_Companies_CompanyId" FromRole="Activities" ToRole="Companies" />
+          <NavigationProperty Name="Bookings" Relationship="BookingModel.FK_dbo_Bookings_dbo_Activities_ActivityId" FromRole="Activities" ToRole="Bookings" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityId" Type="Int32" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activities" Relationship="BookingModel.FK_dbo_Bookings_dbo_Activities_ActivityId" FromRole="Bookings" ToRole="Activities" />
+          <NavigationProperty Name="People" Relationship="BookingModel.FK_dbo_Bookings_dbo_People_PersonId" FromRole="Bookings" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Activities" Relationship="BookingModel.FK_dbo_Activities_dbo_Cities_CityId" FromRole="Cities" ToRole="Activities" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AdministratorPersonId" Type="Int32" />
+          <Property Name="HasAdministrator" Type="Boolean" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <NavigationProperty Name="Activities" Relationship="BookingModel.FK_dbo_Activities_dbo_Companies_CompanyId" FromRole="Companies" ToRole="Activities" />
+          <NavigationProperty Name="People" Relationship="BookingModel.FK_dbo_Companies_dbo_People_Person_Id" FromRole="Companies" ToRole="People" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="BookingModel.FK_dbo_Bookings_dbo_People_PersonId" FromRole="People" ToRole="Bookings" />
+          <NavigationProperty Name="Companies" Relationship="BookingModel.FK_dbo_Companies_dbo_People_Person_Id" FromRole="People" ToRole="Companies" />
+        </EntityType>
+        <Association Name="FK_dbo_Activities_dbo_Cities_CityId">
+          <End Role="Cities" Type="BookingModel.Cities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activities" Type="BookingModel.Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Activities_dbo_Companies_CompanyId">
+          <End Role="Companies" Type="BookingModel.Companies" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activities" Type="BookingModel.Activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Activities">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Activities_ActivityId">
+          <End Role="Activities" Type="BookingModel.Activities" Multiplicity="0..1" />
+          <End Role="Bookings" Type="BookingModel.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_People_PersonId">
+          <End Role="People" Type="BookingModel.People" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bookings" Type="BookingModel.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Companies_dbo_People_Person_Id">
+          <End Role="People" Type="BookingModel.People" Multiplicity="0..1" />
+          <End Role="Companies" Type="BookingModel.Companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookingModelStoreContainer" CdmEntityContainer="BookingEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="BookingModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="BookingModel.Activities">
+              <MappingFragment StoreEntitySet="Activities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="BookingModel.Bookings">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="BookingModel.Cities">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="BookingModel.Companies">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AdministratorPersonId" ColumnName="AdministratorPersonId" />
+                <ScalarProperty Name="HasAdministrator" ColumnName="HasAdministrator" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="BookingModel.People">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

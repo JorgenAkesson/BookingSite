@@ -32,7 +32,7 @@ namespace MvcApplication1.Controllers
 
             ViewData["Message"] = "Viewbag data";
 
-            using (var client = new WebClient());
+            using (var client = new WebClient())
             {
                 string json = "";//" client.DownloadString("http://localhost:51012/RESTApi/APIActivity");
 

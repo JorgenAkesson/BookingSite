@@ -232,6 +232,7 @@
     <Compile Include="RESTApi\Models\RestHttpVerbFilter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Uploads\friskis_1.jpg" />
     <Content Include="Content\CustomStyleMobile.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -400,7 +401,6 @@
     <Content Include="Views\Shared\Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Uploads\" />
     <Folder Include="RESTApi\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

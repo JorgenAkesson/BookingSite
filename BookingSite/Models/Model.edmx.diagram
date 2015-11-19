@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="52d602864ad5426e90b5a207cf1f33be" Name="Diagram1" ZoomLevel="95">
-        <EntityTypeShape EntityType="BookingSiteModel.Activity" Width="1.5" PointX="5.625" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteModel.Booking" Width="1.5" PointX="7.75" PointY="4.625" IsExpanded="true" />
+      <Diagram DiagramId="52d602864ad5426e90b5a207cf1f33be" Name="Diagram1" ZoomLevel="95" ShowGrid="false">
+        <EntityTypeShape EntityType="BookingSiteModel.Activity" Width="1.5" PointX="5.625" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteModel.Booking" Width="1.5" PointX="7.875" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="BookingSiteModel.FK_Booking_Activity" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BookingSiteModel.Company" Width="1.875" PointX="3" PointY="3.125" />
-        <EntityTypeShape EntityType="BookingSiteModel.Person" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="BookingSiteModel.Company" Width="1.875" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="BookingSiteModel.Person" Width="1.5" PointX="0.75" PointY="3.625" />
         <AssociationConnector Association="BookingSiteModel.CompanyActivity" />
         <AssociationConnector Association="BookingSiteModel.PersonBooking" />
         <AssociationConnector Association="BookingSiteModel.PersonCompany" />
-        <EntityTypeShape EntityType="BookingSiteModel.City" Width="1.5" PointX="8.375" PointY="2.625" />
+        <EntityTypeShape EntityType="BookingSiteModel.City" Width="1.5" PointX="7.875" PointY="4" />
         <AssociationConnector Association="BookingSiteModel.ActivityCity" />
         </Diagram>
     </edmx:Diagrams>
