@@ -11,7 +11,7 @@ using WebMatrix.WebData;
 using MvcApplication4.Filters;
 using MvcApplication4.Models;
 
-namespace MvcApplication4.Controllers
+namespace MvcApplication4.Controllers 
 {
     [Authorize]
     [InitializeSimpleMembership]
