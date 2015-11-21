@@ -27,15 +27,14 @@ namespace BookingSiteTest.Migrations
             //    );
             //
 
-            context.Cities.AddOrUpdate(
-              p => p.Id,
-              new BookingSiteTest.Models.City { Name = "Varberg" },
-              new BookingSiteTest.Models.City { Name = "Träslövsläge" });
 
             context.Persons.AddOrUpdate(
-                p => p.Id,
-                new BookingSiteTest.Models.Person { FirstName = "Jörgen" },
-                new BookingSiteTest.Models.Person { FirstName = "Ingrid" });
+                p => p.FirstName,
+                new BookingSiteTest.Models.Person { FirstName = "Jörgen", LastName = "Åkesson" },
+                new BookingSiteTest.Models.Person { FirstName = "Ingrid", LastName = "Åkesson" });
+
+            //context.Companies.AddOrUpdate( p=>p.Name,
+            //    new
         }
     }
 }

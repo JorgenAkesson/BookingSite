@@ -10,7 +10,7 @@
   <Class Name="BookingSiteTest.Models.Company">
     <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAAAAAIAAAAQAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAIAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Company.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -32,7 +32,7 @@
   <Class Name="BookingSiteTest.Models.Calender">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Models\Calender.cs</FileName>
     </TypeIdentifier>
   </Class>

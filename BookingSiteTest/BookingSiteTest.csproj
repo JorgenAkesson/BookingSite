@@ -164,25 +164,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511200519350_InitialCreate.cs" />
-    <Compile Include="Migrations\201511200519350_InitialCreate.Designer.cs">
-      <DependentUpon>201511200519350_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511201510034_Initial.cs" />
-    <Compile Include="Migrations\201511201510034_Initial.Designer.cs">
-      <DependentUpon>201511201510034_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201511211240511_Initial.cs" />
+    <Compile Include="Migrations\201511211240511_Initial.Designer.cs">
+      <DependentUpon>201511211240511_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Calender.cs" />
-    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyPerson.cs" />
     <Compile Include="Models\DAL\BookingContext.cs" />
@@ -190,6 +187,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Booking.mdf" />
+    <Content Include="App_Data\Booking_log.ldf" />
     <Content Include="App_Data\Default.mdf" />
     <Content Include="App_Data\Default_log.ldf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -269,6 +268,11 @@
     <Content Include="Views\Activity\Details.aspx" />
     <Content Include="Views\Activity\Edit.aspx" />
     <Content Include="Views\Activity\Index.aspx" />
+    <Content Include="Views\Person\Create.aspx" />
+    <Content Include="Views\Person\Delete.aspx" />
+    <Content Include="Views\Person\Details.aspx" />
+    <Content Include="Views\Person\Edit.aspx" />
+    <Content Include="Views\Person\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -315,14 +319,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511200519350_InitialCreate.resx">
-      <DependentUpon>201511200519350_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511201510034_Initial.resx">
-      <DependentUpon>201511201510034_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511211240511_Initial.resx">
+      <DependentUpon>201511211240511_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
