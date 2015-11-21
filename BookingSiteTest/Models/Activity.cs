@@ -24,6 +24,6 @@ namespace BookingSiteTest.Models
 
         public virtual ICollection<Booking> Booking { get; set; }
         public virtual Company Company { get; set; }
-        public virtual City City { get; set; }
+        //public virtual City City { get; set; }
     }
 }
