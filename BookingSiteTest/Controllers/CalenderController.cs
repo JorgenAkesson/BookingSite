@@ -37,6 +37,19 @@ namespace BookingSiteTest.Controllers
         }
 
         //
+        // GET: /Calender/Details/5
+
+        public ActionResult View(int id = 0)
+        {
+            Calender calender = db.Calenders.Find(id);
+            if (calender == null)
+            {
+                return HttpNotFound();
+            }
+            return View(calender);
+        }
+
+        //
         // GET: /Calender/Create
 
         public ActionResult Create()

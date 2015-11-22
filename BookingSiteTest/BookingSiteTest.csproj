@@ -318,6 +318,7 @@
     <Content Include="Views\Calender\Details.aspx" />
     <Content Include="Views\Calender\Edit.aspx" />
     <Content Include="Views\Calender\Index.aspx" />
+    <Content Include="Views\Calender\View.aspx" />
     <Content Include="Views\Person\Create.aspx" />
     <Content Include="Views\Person\Delete.aspx" />
     <Content Include="Views\Person\Details.aspx" />
