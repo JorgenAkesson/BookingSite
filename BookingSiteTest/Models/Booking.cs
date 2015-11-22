@@ -12,7 +12,7 @@ namespace BookingSiteTest.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Nullable<int> ActivityId { get; set; }
+        public int ActivityId { get; set; }
         public int PersonId { get; set; }
 
         public virtual Activity Activity { get; set; }

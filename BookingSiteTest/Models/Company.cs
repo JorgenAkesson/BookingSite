@@ -11,7 +11,7 @@ namespace BookingSiteTest.Models
     {
         public Company()
         {
-            this.Callenders = new HashSet<Calender>();
+            this.Calenders = new HashSet<Calender>();
         }
 
         [Key]
@@ -19,6 +19,6 @@ namespace BookingSiteTest.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Calender> Callenders { get; set; }
+        public virtual ICollection<Calender> Calenders { get; set; }
     }
 }

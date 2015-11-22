@@ -165,6 +165,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -175,6 +176,18 @@
     <Compile Include="Migrations\201511211240511_Initial.Designer.cs">
       <DependentUpon>201511211240511_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511221217384_2015-11-22.cs" />
+    <Compile Include="Migrations\201511221217384_2015-11-22.Designer.cs">
+      <DependentUpon>201511221217384_2015-11-22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511221240552_a.cs" />
+    <Compile Include="Migrations\201511221240552_a.Designer.cs">
+      <DependentUpon>201511221240552_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511221425498_New data.cs" />
+    <Compile Include="Migrations\201511221425498_New data.Designer.cs">
+      <DependentUpon>201511221425498_New data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -183,6 +196,21 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyPerson.cs" />
     <Compile Include="Models\DAL\BookingContext.cs" />
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -248,6 +276,23 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ClassDiagram2.cd" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -268,6 +313,11 @@
     <Content Include="Views\Activity\Details.aspx" />
     <Content Include="Views\Activity\Edit.aspx" />
     <Content Include="Views\Activity\Index.aspx" />
+    <Content Include="Views\Calender\Create.aspx" />
+    <Content Include="Views\Calender\Delete.aspx" />
+    <Content Include="Views\Calender\Details.aspx" />
+    <Content Include="Views\Calender\Edit.aspx" />
+    <Content Include="Views\Calender\Index.aspx" />
     <Content Include="Views\Person\Create.aspx" />
     <Content Include="Views\Person\Delete.aspx" />
     <Content Include="Views\Person\Details.aspx" />
@@ -321,6 +371,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511211240511_Initial.resx">
       <DependentUpon>201511211240511_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511221217384_2015-11-22.resx">
+      <DependentUpon>201511221217384_2015-11-22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511221240552_a.resx">
+      <DependentUpon>201511221240552_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511221425498_New data.resx">
+      <DependentUpon>201511221425498_New data.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

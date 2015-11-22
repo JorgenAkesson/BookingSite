@@ -13,7 +13,10 @@ namespace BookingSiteTest.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+        public int CompanyID { get; set; }
+
 
         public virtual ICollection<Activity> Activities { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

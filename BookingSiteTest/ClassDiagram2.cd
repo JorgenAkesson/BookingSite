@@ -10,37 +10,37 @@
   <Class Name="BookingSiteTest.Models.Company">
     <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAIAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Company.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BookingSiteTest.Models.CompanyPerson">
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AIACAAAAAAIAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\CompanyPerson.cs</FileName>
       <NewMemberFileName>Models\Person.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BookingSiteTest.Models.Activity">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="BookingSiteTest.Models.Person">
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIACAAABAAIiAAAAAAAAAAQAAABAAAABAAAABAAAAQA=</HashCode>
-      <FileName>Models\Activity.cs</FileName>
+      <HashCode>AAACAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BookingSiteTest.Models.Calender">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAIAAAAAAAAAAAQAAAAAAAAAAAAABIAAAAA=</HashCode>
       <FileName>Models\Calender.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BookingSiteTest.Models.Person">
-    <Position X="7.75" Y="2.25" Width="1.5" />
+  <Class Name="BookingSiteTest.Models.Activity">
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>Models\Person.cs</FileName>
+      <HashCode>AIACAEAAAAAiAAAAAAAAAAQAAAAAAABBAAAAAAAAAQA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

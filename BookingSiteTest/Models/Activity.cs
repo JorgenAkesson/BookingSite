@@ -11,7 +11,7 @@ namespace BookingSiteTest.Models
     {
         public Activity()
         {
-            this.Booking = new HashSet<Booking>();
+            this.Bookings = new HashSet<Booking>();
         }
 
         [Key]
@@ -22,12 +22,10 @@ namespace BookingSiteTest.Models
         public System.DateTime Date { get; set; }
         public int MaxPerson { get; set; }
         public int Duration { get; set; }
-        public int CompanyId { get; set; }
         public string Time { get; set; }
-        public int CityId { get; set; }
+        public int CalenderId { get; set; }
 
-        public virtual ICollection<Booking> Booking { get; set; }
-        public virtual Company Company { get; set; }
-        //public virtual City City { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual Calender Calender { get; set; }
     }
 }
