@@ -13,9 +13,9 @@ namespace BookingSiteTest.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int ActivityId { get; set; }
-        public int PersonId { get; set; }
+        public int UserId { get; set; }
 
         public virtual Activity Activity { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual UserProfile User { get; set; }
     }
 }

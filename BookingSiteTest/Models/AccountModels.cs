@@ -25,6 +25,10 @@ namespace BookingSiteTest.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -38,6 +42,10 @@ namespace BookingSiteTest.Models
 
     public class LocalPasswordModel
     {
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
@@ -75,6 +83,22 @@ namespace BookingSiteTest.Models
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email name")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]

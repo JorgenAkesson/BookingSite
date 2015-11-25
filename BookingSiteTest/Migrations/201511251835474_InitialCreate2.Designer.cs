@@ -5,13 +5,13 @@ namespace BookingSiteTest.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class Newdata : IMigrationMetadata
+    public sealed partial class InitialCreate2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Newdata));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511221425498_New data"; }
+            get { return "201511251835474_InitialCreate2"; }
         }
         
         string IMigrationMetadata.Source

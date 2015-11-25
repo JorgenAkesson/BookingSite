@@ -39,14 +39,25 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Calender/Details/5
 
-        public ActionResult View(int id = 0)
+        public ActionResult ViewWeek(int id = 0)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
             {
                 return HttpNotFound();
             }
+
+            var activities = db.Activities.Where(a => a.CalenderId == id).ToList();
+            ViewData["ActivitiesData"] = activities;
+
             return View(calender);
+        }
+
+        public ActionResult BookActivity(int id, int activityId)
+        {
+            var activity = db.Activities.FirstOrDefault(a => a.Id == activityId);
+            //var person = db.Persons.FirstOrDefault(a => a.Id == personId);
+            return View(activity);
         }
 
         //
@@ -55,7 +66,7 @@ namespace BookingSiteTest.Controllers
         public ActionResult Create()
         {
             ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name");
-            return View();
+            return ViewWeek();
         }
 
         //
@@ -134,6 +145,19 @@ namespace BookingSiteTest.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ActionResult Book(int id)
+        {
+            db.Bookings.Add(new Booking()
+            {
+                ActivityId = id,
+                UserId = 0, //Todo:
+            });
+            db.SaveChanges();
+            var activity = db.Activities.FirstOrDefault(a => a.Id == id);
+
+            return RedirectToAction("ViewWeek", activity.CalenderId);
         }
     }
 }

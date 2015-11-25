@@ -16,42 +16,31 @@ namespace BookingSiteTest.Migrations
 
         protected override void Seed(BookingSiteTest.Models.DAL.BookingContext context)
         {
-            context.Persons.AddOrUpdate(
-                p => p.FirstName,
-                new BookingSiteTest.Models.Person { FirstName = "Jörgen", LastName = "Åkesson1" },
-                new BookingSiteTest.Models.Person { FirstName = "Ingrid", LastName = "Åkesson" });
-
-
-            //var activities = new List<Activity>();
-            //activities.Add(new Activity
-            //{
-            //    Name = "MyActivity"
-            //});
-
-            //var calenders = new List<Calender>();
-            //calenders.Add(new Calender
-            //{
-            //    Name = "MyCalender",
-            //    Activities = activities
-            //});
-
             context.Companies.AddOrUpdate(p => p.Name,
                new Company
                {
-                   Name = "MyCompany2",
+                   Name = "MyCompany1",
                });
+
+            context.SaveChanges();
+
+            var comp1 = context.Companies.FirstOrDefault(a => a.Name == "MyCompany1");
 
             context.Calenders.AddOrUpdate(p => p.Name,
                new Calender
                {
-                   CompanyID = 2,
-                   Name = "MyCalender",
+                   CompanyID = comp1.Id,
+                   Name = "MyCalender1",
                });
+
+            context.SaveChanges();
+
+            var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender1");
 
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
-                    CalenderId = 3,
+                    CalenderId = cal1.Id,
                     Name = "MyActivity1",
                     Date = new DateTime(2015, 11, 10),
                 });
@@ -59,7 +48,7 @@ namespace BookingSiteTest.Migrations
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
-                    CalenderId = 3,
+                    CalenderId = cal1.Id,
                     Name = "MyActivity2",
                     Date = new DateTime(2015, 11, 11),
                 });

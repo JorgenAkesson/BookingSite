@@ -10,104 +10,109 @@ using BookingSiteTest.Models.DAL;
 
 namespace BookingSiteTest.Controllers
 {
-    public class PersonController : Controller
+    public class ActivityController : Controller
     {
         private BookingContext db = new BookingContext();
 
         //
-        // GET: /Person/
+        // GET: /Activity/
 
         public ActionResult Index()
         {
-            return View(db.Persons.ToList());
+            var activities = db.Activities.Include(a => a.Calender);
+            return View(activities.ToList());
         }
 
         //
-        // GET: /Person/Details/5
+        // GET: /Activity/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(activity);
         }
 
         //
-        // GET: /Person/Create
+        // GET: /Activity/Create
 
         public ActionResult Create()
         {
+            ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name");
             return View();
         }
 
         //
-        // POST: /Person/Create
+        // POST: /Activity/Create
 
         [HttpPost]
-        public ActionResult Create(Person person)
+        public ActionResult Create(Activity activity)
         {
             if (ModelState.IsValid)
             {
-                db.Persons.Add(person);
+                db.Activities.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(person);
+            ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
+            return View(activity);
         }
 
         //
-        // GET: /Person/Edit/5
+        // GET: /Activity/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
+            return View(activity);
         }
 
         //
-        // POST: /Person/Edit/5
+        // POST: /Activity/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Person person)
+        public ActionResult Edit(Activity activity)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
+            return View(activity);
         }
 
         //
-        // GET: /Person/Delete/5
+        // GET: /Activity/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(activity);
         }
 
         //
-        // POST: /Person/Delete/5
+        // POST: /Activity/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.Persons.Find(id);
-            db.Persons.Remove(person);
+            Activity activity = db.Activities.Find(id);
+            db.Activities.Remove(activity);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

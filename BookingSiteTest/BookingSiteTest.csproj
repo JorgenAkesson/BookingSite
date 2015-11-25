@@ -165,28 +165,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\CalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511211240511_Initial.cs" />
-    <Compile Include="Migrations\201511211240511_Initial.Designer.cs">
-      <DependentUpon>201511211240511_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201511251812398_InitialCreate.cs" />
+    <Compile Include="Migrations\201511251812398_InitialCreate.Designer.cs">
+      <DependentUpon>201511251812398_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511221217384_2015-11-22.cs" />
-    <Compile Include="Migrations\201511221217384_2015-11-22.Designer.cs">
-      <DependentUpon>201511221217384_2015-11-22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511221240552_a.cs" />
-    <Compile Include="Migrations\201511221240552_a.Designer.cs">
-      <DependentUpon>201511221240552_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511221425498_New data.cs" />
-    <Compile Include="Migrations\201511221425498_New data.Designer.cs">
-      <DependentUpon>201511221425498_New data.cs</DependentUpon>
+    <Compile Include="Migrations\201511251835474_InitialCreate2.cs" />
+    <Compile Include="Migrations\201511251835474_InitialCreate2.Designer.cs">
+      <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -194,7 +186,7 @@
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Calender.cs" />
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\CompanyPerson.cs" />
+    <Compile Include="Models\CompanyUser.cs" />
     <Compile Include="Models\DAL\BookingContext.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -211,14 +203,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Booking.mdf" />
-    <Content Include="App_Data\Booking_log.ldf" />
-    <Content Include="App_Data\Default.mdf" />
-    <Content Include="App_Data\Default_log.ldf" />
+    <Content Include="App_Data\Booking_log.ldf">
+      <DependentUpon>Booking.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -280,6 +271,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="HtmlPage1.html" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -294,6 +286,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Models\Notes.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -313,17 +306,13 @@
     <Content Include="Views\Activity\Details.aspx" />
     <Content Include="Views\Activity\Edit.aspx" />
     <Content Include="Views\Activity\Index.aspx" />
+    <Content Include="Views\Calender\BookActivity.aspx" />
     <Content Include="Views\Calender\Create.aspx" />
     <Content Include="Views\Calender\Delete.aspx" />
     <Content Include="Views\Calender\Details.aspx" />
     <Content Include="Views\Calender\Edit.aspx" />
     <Content Include="Views\Calender\Index.aspx" />
-    <Content Include="Views\Calender\View.aspx" />
-    <Content Include="Views\Person\Create.aspx" />
-    <Content Include="Views\Person\Delete.aspx" />
-    <Content Include="Views\Person\Details.aspx" />
-    <Content Include="Views\Person\Edit.aspx" />
-    <Content Include="Views\Person\Index.aspx" />
+    <Content Include="Views\Calender\ViewWeek.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -370,17 +359,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511211240511_Initial.resx">
-      <DependentUpon>201511211240511_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511251812398_InitialCreate.resx">
+      <DependentUpon>201511251812398_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511221217384_2015-11-22.resx">
-      <DependentUpon>201511221217384_2015-11-22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511221240552_a.resx">
-      <DependentUpon>201511221240552_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511221425498_New data.resx">
-      <DependentUpon>201511221425498_New data.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511251835474_InitialCreate2.resx">
+      <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -399,7 +382,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>63814</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:50956/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
