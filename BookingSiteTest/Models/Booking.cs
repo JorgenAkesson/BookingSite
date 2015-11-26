@@ -16,6 +16,5 @@ namespace BookingSiteTest.Models
         public int UserId { get; set; }
 
         public virtual Activity Activity { get; set; }
-        public virtual UserProfile User { get; set; }
     }
 }

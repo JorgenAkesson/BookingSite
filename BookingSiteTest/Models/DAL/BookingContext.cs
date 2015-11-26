@@ -14,6 +14,7 @@ namespace BookingSiteTest.Models.DAL
         public DbSet<Calender> Calenders { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyUser> CompanyPersons { get; set; }
+        public DbSet<Test> Test { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

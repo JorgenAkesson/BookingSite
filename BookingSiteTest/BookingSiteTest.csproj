@@ -168,6 +168,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\CalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,6 +180,14 @@
     <Compile Include="Migrations\201511251835474_InitialCreate2.cs" />
     <Compile Include="Migrations\201511251835474_InitialCreate2.Designer.cs">
       <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511260648588_InitialCreat3.cs" />
+    <Compile Include="Migrations\201511260648588_InitialCreat3.Designer.cs">
+      <DependentUpon>201511260648588_InitialCreat3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511261620550_InitialCreat4.cs" />
+    <Compile Include="Migrations\201511261620550_InitialCreat4.Designer.cs">
+      <DependentUpon>201511261620550_InitialCreat4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -203,12 +212,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Booking.mdf" />
     <Content Include="App_Data\Booking_log.ldf">
       <DependentUpon>Booking.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Default.mdf" />
+    <Content Include="App_Data\Default_log.ldf">
+      <DependentUpon>Default.mdf</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -313,6 +327,11 @@
     <Content Include="Views\Calender\Edit.aspx" />
     <Content Include="Views\Calender\Index.aspx" />
     <Content Include="Views\Calender\ViewWeek.aspx" />
+    <Content Include="Views\Test\Create.aspx" />
+    <Content Include="Views\Test\Delete.aspx" />
+    <Content Include="Views\Test\Details.aspx" />
+    <Content Include="Views\Test\Edit.aspx" />
+    <Content Include="Views\Test\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -364,6 +383,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511251835474_InitialCreate2.resx">
       <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260648588_InitialCreat3.resx">
+      <DependentUpon>201511260648588_InitialCreat3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511261620550_InitialCreat4.resx">
+      <DependentUpon>201511261620550_InitialCreat4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

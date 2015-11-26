@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
+using WebMatrix.WebData;
 
 namespace BookingSiteTest.Controllers
 {
@@ -66,7 +68,8 @@ namespace BookingSiteTest.Controllers
         public ActionResult Create()
         {
             ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name");
-            return ViewWeek();
+            //return ViewWeek();
+            return View();
         }
 
         //
@@ -149,15 +152,28 @@ namespace BookingSiteTest.Controllers
 
         public ActionResult Book(int id)
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection(
+                    "DefaultConnection", "UserProfile", "UserId", "UserName",
+                    autoCreateTables: false);
+            }
+
+            UsersContext uc = new UsersContext();
+            UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
+
+            var fname = userProfile.FirstName;
+            var laname = userProfile.LastName;
+            
             db.Bookings.Add(new Booking()
             {
                 ActivityId = id,
-                UserId = 0, //Todo:
-            });
+                UserId = WebSecurity.CurrentUserId,});
+
             db.SaveChanges();
             var activity = db.Activities.FirstOrDefault(a => a.Id == id);
 
-            return RedirectToAction("ViewWeek", activity.CalenderId);
+            return RedirectToAction("ViewWeek", new {id = activity.CalenderId});
         }
     }
 }

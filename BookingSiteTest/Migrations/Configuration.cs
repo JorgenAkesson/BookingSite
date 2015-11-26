@@ -42,7 +42,8 @@ namespace BookingSiteTest.Migrations
                 {
                     CalenderId = cal1.Id,
                     Name = "MyActivity1",
-                    Date = new DateTime(2015, 11, 10),
+                    Date = new DateTime(2015, 11, 10, 8, 0, 0),
+                    Duration = 30,
                 });
 
             context.Activities.AddOrUpdate(p => p.Name,
@@ -50,8 +51,27 @@ namespace BookingSiteTest.Migrations
                 {
                     CalenderId = cal1.Id,
                     Name = "MyActivity2",
-                    Date = new DateTime(2015, 11, 11),
+                    Date = new DateTime(2015, 11, 11, 12, 0, 0),
+                    Duration = 30,
                 });
+
+            context.Activities.AddOrUpdate(p => p.Name,
+            new Activity
+            {
+                CalenderId = cal1.Id,
+                Name = "MyActivity3",
+                Date = new DateTime(2015, 11, 11, 13, 0, 0),
+                Duration = 30,
+            });
+
+            context.Activities.AddOrUpdate(p => p.Name,
+            new Activity
+            {
+                CalenderId = cal1.Id,
+                Name = "MyActivity4",
+                Date = new DateTime(2015, 11, 11, 15, 30, 0),
+                Duration = 30,
+            });
         }
     }
 }

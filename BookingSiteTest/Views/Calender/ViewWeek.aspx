@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>ViewWeek</h2>
-    <div>
+    <%--    <div>
         <% foreach (var activityData in ViewData["ActivitiesData"] as List<BookingSiteTest.Models.Activity>)
            { %>
         <div>
@@ -22,22 +22,33 @@
         </div>
 
         <% } %>
-    </div>
+    </div>--%>
 
     <%--Set--%>
-    <div>
+    <div style="position: relative; width: 600px; height: 500px">
+        <% for (int x = 0; x <= 500; x = x + 50)
+           { %>
+        <hr style="margin: 0px; position: absolute; top: <%: x %>px; width: 600px" />
+        <% } %>
+
         <% var persId = ViewData["UserId"] as int?;
            foreach (var aD in ViewData["ActivitiesData"] as List<BookingSiteTest.Models.Activity>)
            {
                int topMin = 8 * 60;
-               int y = (aD.Date.Hour * 60 + aD.Date.Minute - topMin) / 10;
+               int y = (aD.Date.Hour * 60 + aD.Date.Minute - topMin) / 2;
                int x = 100;
+               var fullyBooked = aD.Bookings.Count() >= aD.MaxPerson;
+               string color = "#00FF00";
+               if (fullyBooked)
+                   color = "#FF0000";
         %>
-
-        <a style="position: relative; top: <%: y.ToString() %>px; left: <%: x.ToString() %>px;" href='<%: Url.Action("BookActivity", new RouteValueDictionary(new { id = Model.Id, activityId = aD.Id })) %>'>
-            <p><%: aD.Name %></p>
-        </a>
-
+        <div style="position: absolute; top: <%: y.ToString() %>px; left: <%: x.ToString() %>px;">
+            <a href='<%: Url.Action("BookActivity", new RouteValueDictionary(new { id = Model.Id, activityId = aD.Id })) %>'>
+                <p>
+                    <input type="button" value="<%: aD.Name %>" style="background-color: <%: color%>" />
+                </p>
+            </a>
+        </div>
         <% } %>
     </div>
 
