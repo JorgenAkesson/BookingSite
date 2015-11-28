@@ -8,6 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>ViewWeek</h2>
+    <%: Scripts.Render("~/bundles/fullcalendarjs") %>
 
     <script>
         $(document).ready(function () {
@@ -19,7 +20,11 @@
                     right: " agendaWeek, month,"
                 },
                 editable: false,
+                minTime: "08:00",
+                maxTime: "19:00",
+                height: 575,
                 defaultView: "agendaWeek",
+                allDaySlot: false,
                 //theme: true,
                 events: {
                     url: '/Calender/GetEvents',

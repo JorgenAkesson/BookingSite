@@ -37,42 +37,47 @@ namespace BookingSiteTest.Migrations
 
             var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender1");
 
+            var date = DateTime.Now;
+            var newDate = new DateTime(date.Year, date.Month, date.Day, 12, 00, 00);
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
                     CalenderId = cal1.Id,
                     Name = "MyActivity1",
-                    Date = DateTime.Now,
+                    Date = newDate,
                     MaxPerson = 2,
                     Duration = 30,
                 });
 
+            newDate = new DateTime(date.Year, date.Month, date.Day, 14, 00, 00);
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
                     CalenderId = cal1.Id,
                     Name = "MyActivity2",
-                    Date = DateTime.Now.AddHours(2),
+                    Date = newDate,
                     MaxPerson = 2,
                     Duration = 30,
                 });
 
+            newDate = new DateTime(date.Year, date.Month, date.Day + 1, 14, 00, 00);
             context.Activities.AddOrUpdate(p => p.Name,
             new Activity
             {
                 CalenderId = cal1.Id,
                 Name = "MyActivity3",
-                Date = DateTime.Now.AddDays(1),
+                Date = newDate,
                 MaxPerson = 2,
                 Duration = 30,
             });
 
+            newDate = new DateTime(date.Year, date.Month, date.Day + 1, 16, 00, 00);
             context.Activities.AddOrUpdate(p => p.Name,
             new Activity
             {
                 CalenderId = cal1.Id,
                 Name = "MyActivity4",
-                Date = DateTime.Now.AddDays(2).AddHours(2),
+                Date = newDate,
                 MaxPerson = 2,
                 Duration = 30,
             });

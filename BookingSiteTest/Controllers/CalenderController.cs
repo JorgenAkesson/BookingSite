@@ -178,8 +178,8 @@ namespace BookingSiteTest.Controllers
             UsersContext uc = new UsersContext();
             UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
 
-            var fname = userProfile.FirstName;
-            var laname = userProfile.LastName;
+            //var fname = userProfile.FirstName;
+            //var laname = userProfile.LastName;
             
             db.Bookings.Add(new Booking()
             {
@@ -207,7 +207,8 @@ namespace BookingSiteTest.Controllers
                     start = activity.Date.ToString(),
                     end = activity.Date.AddMinutes(activity.Duration).ToString(),
                     allDay = false,
-                    color = activity.Bookings.Count() >= activity.MaxPerson ? "#FF0000" : "#00ff63",
+                    color = activity.Bookings.Count() >= activity.MaxPerson ? "#FCBABB" : "#ABE99C",
+                    textColor = "#444444",
                     description = activity.Bookings.Count() >= activity.MaxPerson ? true :false,
                 };
                 eventList.Add(ev);

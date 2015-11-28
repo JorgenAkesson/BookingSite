@@ -8,8 +8,8 @@ namespace BookingSiteTest
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-            //            "~/Scripts/jquery-1.11.3.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/jquery-1.11.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-1.8.20.js"));
@@ -46,8 +46,8 @@ namespace BookingSiteTest
 
             //Calendar Script file
 
-            bundles.Add(new ScriptBundle("~/Bundles/fullcalendarjs").Include(
-                      "~/Scripts/jquery-1.11.3.min.js",
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
+                      //"~/Scripts/jquery-1.11.3.min.js",
                       "~/Scripts/moment.min.js",
                       "~/Scripts/fullcalendar.min.js"));
         }

@@ -16,7 +16,7 @@ namespace BookingSiteTest.Models
         public string url { get; set; }
         public string color { get; set; }
         public bool allDay { get; set; }
-        public bool fullyBooked { get; set; }
         public bool description { get; set; }
+        public string textColor { get; set; }        
     }
 }
