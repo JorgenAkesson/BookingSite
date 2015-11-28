@@ -15,6 +15,7 @@ namespace BookingSiteTest
                         "~/Scripts/jquery-ui-1.8.20.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery-migrate-1.2.1.js",
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
@@ -47,7 +48,7 @@ namespace BookingSiteTest
             //Calendar Script file
 
             bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
-                      //"~/Scripts/jquery-1.11.3.min.js",
+                //"~/Scripts/jquery-1.11.3.min.js",
                       "~/Scripts/moment.min.js",
                       "~/Scripts/fullcalendar.min.js"));
         }
