@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,13 +50,28 @@ namespace BookingSiteTest.Controllers
                 return HttpNotFound();
             }
 
-            var activities = db.Activities.Where(a => a.CalenderId == id).ToList();
+            // Get the first day of current day.
+            DayOfWeek firstDay = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+            DateTime firstDateInWeek = DateTime.Now.Date;
+            while (firstDateInWeek.DayOfWeek != firstDay)
+                firstDateInWeek = firstDateInWeek.AddDays(-1);
+            var lastDateInWeek = firstDateInWeek.AddDays(7);
+
+            //todo: remove
+            firstDateInWeek =new DateTime(2015, 11, 9);
+            lastDateInWeek = new DateTime(2015, 11, 16); 
+
+            // Get activites for the current week
+            var activities = db.Activities.Where(a => a.CalenderId == id && a.Date > firstDateInWeek && 
+                a.Date < lastDateInWeek).ToList();
+            
+            ViewData["FirstDateInWeek"] = firstDateInWeek;
             ViewData["ActivitiesData"] = activities;
 
             return View(calender);
         }
 
-        public ActionResult BookActivity(int id, int activityId)
+        public ActionResult BookActivity(int activityId)
         {
             var activity = db.Activities.FirstOrDefault(a => a.Id == activityId);
             //var person = db.Persons.FirstOrDefault(a => a.Id == personId);
@@ -174,6 +190,30 @@ namespace BookingSiteTest.Controllers
             var activity = db.Activities.FirstOrDefault(a => a.Id == id);
 
             return RedirectToAction("ViewWeek", new {id = activity.CalenderId});
+        }
+
+
+        public JsonResult GetEvents(string start, string end, int calenderId)
+        {
+            var calender = db.Calenders.FirstOrDefault(a=> a.Id == calenderId);
+
+            List<Events> eventList = new List<Events>();
+            foreach (var activity in calender.Activities)
+            {
+                var ev = new Events()
+                {
+                    id = activity.Id.ToString(),
+                    title = activity.Name,
+                    start = activity.Date.ToString(),
+                    end = activity.Date.AddMinutes(activity.Duration).ToString(),
+                    allDay = false,
+                    color = activity.Bookings.Count() >= activity.MaxPerson ? "#FF0000" : "#00ff63",
+                    description = activity.Bookings.Count() >= activity.MaxPerson ? true :false,
+                };
+                eventList.Add(ev);
+            }
+            var rows = eventList.ToArray();
+            return Json(rows, JsonRequestBehavior.AllowGet);
         }
     }
 }

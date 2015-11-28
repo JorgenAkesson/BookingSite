@@ -8,11 +8,11 @@ namespace BookingSiteTest
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/jquery-1.11.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui-1.8.20.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -38,6 +38,18 @@ namespace BookingSiteTest
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            //Calendar css file
+            bundles.Add(new StyleBundle("~/Content/fullcalendarcss").Include(
+                     "~/Content/themes/jquery.ui.all.css",
+                     "~/Content/fullcalendar.css"));
+
+            //Calendar Script file
+
+            bundles.Add(new ScriptBundle("~/Bundles/fullcalendarjs").Include(
+                      "~/Scripts/jquery-1.11.3.min.js",
+                      "~/Scripts/moment.min.js",
+                      "~/Scripts/fullcalendar.min.js"));
         }
     }
 }

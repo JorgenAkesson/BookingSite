@@ -6,26 +6,45 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>ViewWeek</h2>
-    <%--    <div>
-        <% foreach (var activityData in ViewData["ActivitiesData"] as List<BookingSiteTest.Models.Activity>)
-           { %>
-        <div>
-            <ul style="list-style-type: none; -webkit-padding-start: 5px">
-                <li>
-                    <%: activityData.Name %>
-                    <%: activityData.Date %>
-                    <%: activityData.Time %>
-                    <%: activityData.Duration %>
-                </li>
-            </ul>
-        </div>
 
-        <% } %>
-    </div>--%>
+    <h2>ViewWeek</h2>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: "prev, next,today",
+                    center: "title",
+                    right: " agendaWeek, month,"
+                },
+                editable: false,
+                defaultView: "agendaWeek",
+                //theme: true,
+                events: {
+                    url: '/Calender/GetEvents',
+                    data: {
+                        calenderId: <%: Model.Id %>
+                        }
+                },
+                eventClick: function(event) {
+                    if(event.description == false)
+                        window.location = "/Calender/BookActivity?activityId=" + event.id;
+                    var a = event.description;
+                }
+
+            });
+
+        });
+
+    </script>
+
+    <div id="calendar"></div>
+
+    <%--<% var firstDayNumber = ((DateTime)ViewData["FirstDateOfWeek"]).Day; %>--%>
 
     <%--Set--%>
-    <div style="position: relative; width: 600px; height: 500px">
+    <%--    <div style="position: relative; width: 600px; height: 500px">
         <% for (int x = 0; x <= 500; x = x + 50)
            { %>
         <hr style="margin: 0px; position: absolute; top: <%: x %>px; width: 600px" />
@@ -34,7 +53,7 @@
         <% var persId = ViewData["UserId"] as int?;
            foreach (var aD in ViewData["ActivitiesData"] as List<BookingSiteTest.Models.Activity>)
            {
-               int topMin = 8 * 60;
+               int topMin = 8 * 60; // Set starttime to 8 am
                int y = (aD.Date.Hour * 60 + aD.Date.Minute - topMin) / 2;
                int x = 100;
                var fullyBooked = aD.Bookings.Count() >= aD.MaxPerson;
@@ -50,25 +69,7 @@
             </a>
         </div>
         <% } %>
-    </div>
-
-    <%--    <fieldset>
-        <legend>Calender</legend>
-
-        <div class="display-label">
-            <%: Html.DisplayNameFor(model => model.Name) %>
-        </div>
-        <div class="display-field">
-            <%: Html.DisplayFor(model => model.Name) %>
-        </div>
-
-        <div class="display-label">
-            <%: Html.DisplayNameFor(model => model.CompanyID) %>
-        </div>
-        <div class="display-field">
-            <%: Html.DisplayFor(model => model.CompanyID) %>
-        </div>
-    </fieldset>--%>
+    </div>--%>
     <p>
 
         <%: Html.ActionLink("Edit", "Edit", new { id=Model.Id }) %> |
