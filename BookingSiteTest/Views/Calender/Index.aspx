@@ -35,7 +35,8 @@
             <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
             <%: Html.ActionLink("Details", "Details", new { id=item.Id }) %> |
             <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %> |
-            <%: Html.ActionLink("View", "ViewWeek", new { id=item.Id }) %>
+            <%: Html.ActionLink("View", "ViewWeek", new { id=item.Id }) %> |
+            <%: Html.ActionLink("Add activities", "Create", "Activity",new RouteValueDictionary(new { id = item.Id }), new { id=item.Id }) %>
         </td>
     </tr>
 <% } %>
