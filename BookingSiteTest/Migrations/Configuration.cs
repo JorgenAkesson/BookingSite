@@ -1,3 +1,5 @@
+using BookingSiteTest.Views.Calender;
+
 namespace BookingSiteTest.Migrations
 {
     using System;
@@ -16,12 +18,24 @@ namespace BookingSiteTest.Migrations
 
         protected override void Seed(BookingSiteTest.Models.DAL.BookingContext context)
         {
+            context.Addresses.AddOrUpdate(p => p.Name,
+               new Address()
+               {
+                   Name = "MyAddress1",
+                   Street = "MyStreet1",
+                   PostalNumber = "123 45",
+                   City = "MyCity1",
+               });
+            context.SaveChanges();
+
+            var address1 = context.Addresses.FirstOrDefault(a => a.Name == "MyAddress1");
+
             context.Companies.AddOrUpdate(p => p.Name,
                new Company
                {
                    Name = "MyCompany1",
+                   AddressId = address1.Id,
                });
-
             context.SaveChanges();
 
             var comp1 = context.Companies.FirstOrDefault(a => a.Name == "MyCompany1");
@@ -32,7 +46,6 @@ namespace BookingSiteTest.Migrations
                    CompanyID = comp1.Id,
                    Name = "MyCalender1",
                });
-
             context.SaveChanges();
 
             var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender1");

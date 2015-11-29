@@ -3,15 +3,8 @@
   <Class Name="BookingSiteTest.Models.Booking">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAADAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Models\Booking.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BookingSiteTest.Models.Company">
-    <Position X="5.75" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Company.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BookingSiteTest.Models.Calender">
@@ -26,6 +19,34 @@
     <TypeIdentifier>
       <HashCode>AIACAEAAAAAiAAAAAAAAAAQAAAAAAABBAAAAAAAAAQA=</HashCode>
       <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingSiteTest.Models.Images">
+    <Position X="7.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAABQAAAAAAA=</HashCode>
+      <FileName>Models\Images.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingSiteTest.Models.CompanyUser">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\CompanyUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingSiteTest.Views.Calender.Address">
+    <Position X="5.75" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAAAAIAAAAAAQAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingSiteTest.Models.Company">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAAACAgAAAAAAAAAAQAAAAAABBCiAAAIAAAAAA=</HashCode>
+      <FileName>Models\Company.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using BookingSiteTest.Views.Calender;
 
 namespace BookingSiteTest.Models.DAL
 {
@@ -15,6 +16,8 @@ namespace BookingSiteTest.Models.DAL
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyUser> CompanyPersons { get; set; }
         public DbSet<Test> Test { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Images> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
