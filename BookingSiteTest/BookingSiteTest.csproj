@@ -168,6 +168,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\CalenderController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -382,6 +383,11 @@
     <Content Include="Views\Calender\Edit.aspx" />
     <Content Include="Views\Calender\Index.aspx" />
     <Content Include="Views\Calender\ViewWeek.aspx" />
+    <Content Include="Views\Company\Create.aspx" />
+    <Content Include="Views\Company\Delete.aspx" />
+    <Content Include="Views\Company\Details.aspx" />
+    <Content Include="Views\Company\Edit.aspx" />
+    <Content Include="Views\Company\Index.aspx" />
     <Content Include="Views\Test\Create.aspx" />
     <Content Include="Views\Test\Delete.aspx" />
     <Content Include="Views\Test\Details.aspx" />

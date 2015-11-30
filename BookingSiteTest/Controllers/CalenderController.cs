@@ -20,9 +20,10 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Calender/
 
-        public ActionResult Index()
+        public ActionResult Index(int companyId)
         {
-            var calenders = db.Calenders.Include(c => c.Company);
+            var calenders = db.Calenders.Where(c => c.Company.Id == companyId);
+            //var calenders = db.Calenders.Include(c => c.Company);
             return View(calenders.ToList());
         }
 
