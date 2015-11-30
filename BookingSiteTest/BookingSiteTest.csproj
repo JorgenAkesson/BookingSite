@@ -218,10 +218,6 @@
     <Compile Include="Models\Address.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Booking.mdf" />
-    <Content Include="App_Data\Booking_log.ldf">
-      <DependentUpon>Booking.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\Default.mdf" />
     <Content Include="App_Data\Default_log.ldf">
       <DependentUpon>Default.mdf</DependentUpon>
