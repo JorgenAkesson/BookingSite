@@ -11,15 +11,15 @@
     <meta name="viewport" content="width=device-width" />
     <%: Styles.Render("~/Content/css") %>
     <%: Scripts.Render("~/bundles/modernizr") %>
-    
-    <%--<link rel="stylesheet" href="../../Content/themes/base/jquery.ui.all.css">--%>
+
+    <link rel="stylesheet" href="../../Content/themes/base/jquery.ui.all.css">
 
     <link href="../../Content/fullcalendar.css" rel="stylesheet" />
     <link href="../../Content/fullcalendar.print.css" rel="stylesheet" media="print" />
-    
+
 
     <script src="../../Scripts/jquery-1.11.3.js"></script>
-    <script src="../../Scripts/jquery-ui-1.8.20.js"></script>
+    <script src="../../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../../Scripts/moment.min.js"></script>
     <script src="../../Scripts/fullcalendar.min.js"></script>
 </head>

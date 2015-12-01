@@ -217,3 +217,7 @@ pip-log.txt
 *.ldf
 *.mdf
 *.mdf
+BookingSiteTest/App_Data/Booking.mdf
+*.mdf
+*.mdf
+BookingSiteTest/App_Data/Booking.mdf

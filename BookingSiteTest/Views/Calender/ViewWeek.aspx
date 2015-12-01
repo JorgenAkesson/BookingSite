@@ -13,7 +13,6 @@
     <script>
         $(document).ready(function () {
 
-            $( "#dialog" ).dialog();
             $('#calendar').fullCalendar({
                 header: {
                     left: "prev, next,today",
@@ -41,29 +40,30 @@
                 dayClick: function(date, jsEvent, view) {
 
                     debugger;
-                    //alert('Clicked on: ' + date.format());
                     //$( "#dialog" ).dialog();
+                    alert('Clicked on: ' + date.format());
+                    $( "#dialog" ).dialog();
                     
-                    //$("#dialog-alert").dialog({
-                    //    autoOpen: false,
-                    //    resizable: false,
-                    //    height: 170,
-                    //    width: 350,
-                    //    show: { effect: 'drop', direction: "up" },
-                    //    modal: true,
-                    //    draggable: true,
-                    //    open: function (event, ui) {
-                    //        $(".ui-dialog-titlebar-close").hide();
-                    //    },
-                    //    buttons: {
-                    //        "OK": function () {
-                    //            $(this).dialog("close");
-                    //        },
-                    //        "Cancel": function () {
-                    //            $(this).dialog("close");
-                    //        }
-                    //    }
-                    //});
+                    $("#dialog-alert").dialog({
+                        autoOpen: false,
+                        resizable: false,
+                        height: 170,
+                        width: 350,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: true,
+                        open: function (event, ui) {
+                            $(".ui-dialog-titlebar-close").hide();
+                        },
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            },
+                            "Cancel": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
 
                 }
 
@@ -75,8 +75,6 @@
     <div id="dialog" title="Basic dialog">
         <p>This is the default dialog!</p>
     </div>
-
-
 
     <div id="calendar"></div>
 
