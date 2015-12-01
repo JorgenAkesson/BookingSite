@@ -175,34 +175,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511251812398_InitialCreate.cs" />
-    <Compile Include="Migrations\201511251812398_InitialCreate.Designer.cs">
-      <DependentUpon>201511251812398_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511251835474_InitialCreate2.cs" />
-    <Compile Include="Migrations\201511251835474_InitialCreate2.Designer.cs">
-      <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511260648588_InitialCreat3.cs" />
-    <Compile Include="Migrations\201511260648588_InitialCreat3.Designer.cs">
-      <DependentUpon>201511260648588_InitialCreat3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511261620550_InitialCreat4.cs" />
-    <Compile Include="Migrations\201511261620550_InitialCreat4.Designer.cs">
-      <DependentUpon>201511261620550_InitialCreat4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511291530244_InitialCreate5.cs" />
-    <Compile Include="Migrations\201511291530244_InitialCreate5.Designer.cs">
-      <DependentUpon>201511291530244_InitialCreate5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511291542152_InitialCreate6.cs" />
-    <Compile Include="Migrations\201511291542152_InitialCreate6.Designer.cs">
-      <DependentUpon>201511291542152_InitialCreate6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511291548279_InitialCreate7.cs" />
-    <Compile Include="Migrations\201511291548279_InitialCreate7.Designer.cs">
-      <DependentUpon>201511291548279_InitialCreate7.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -218,6 +190,10 @@
     <Compile Include="Models\Address.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Booking.mdf" />
+    <Content Include="App_Data\Booking_log.ldf">
+      <DependentUpon>Booking.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Default.mdf" />
     <Content Include="App_Data\Default_log.ldf">
       <DependentUpon>Default.mdf</DependentUpon>
@@ -433,29 +409,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511251812398_InitialCreate.resx">
-      <DependentUpon>201511251812398_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511251835474_InitialCreate2.resx">
-      <DependentUpon>201511251835474_InitialCreate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511260648588_InitialCreat3.resx">
-      <DependentUpon>201511260648588_InitialCreat3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511261620550_InitialCreat4.resx">
-      <DependentUpon>201511261620550_InitialCreat4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511291530244_InitialCreate5.resx">
-      <DependentUpon>201511291530244_InitialCreate5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511291542152_InitialCreate6.resx">
-      <DependentUpon>201511291542152_InitialCreate6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511291548279_InitialCreate7.resx">
-      <DependentUpon>201511291548279_InitialCreate7.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -13,13 +13,14 @@
     <script>
         $(document).ready(function () {
 
+            $( "#dialog" ).dialog();
             $('#calendar').fullCalendar({
                 header: {
                     left: "prev, next,today",
                     center: "title",
                     right: " agendaWeek, month,"
                 },
-                editable: false,
+                editable: true,
                 minTime: "08:00",
                 maxTime: "19:00",
                 height: 575,
@@ -36,6 +37,34 @@
                     if(event.description == false)
                         window.location = "/Calender/BookActivity?activityId=" + event.id;
                     var a = event.description;
+                },
+                dayClick: function(date, jsEvent, view) {
+
+                    debugger;
+                    //alert('Clicked on: ' + date.format());
+                    //$( "#dialog" ).dialog();
+                    
+                    //$("#dialog-alert").dialog({
+                    //    autoOpen: false,
+                    //    resizable: false,
+                    //    height: 170,
+                    //    width: 350,
+                    //    show: { effect: 'drop', direction: "up" },
+                    //    modal: true,
+                    //    draggable: true,
+                    //    open: function (event, ui) {
+                    //        $(".ui-dialog-titlebar-close").hide();
+                    //    },
+                    //    buttons: {
+                    //        "OK": function () {
+                    //            $(this).dialog("close");
+                    //        },
+                    //        "Cancel": function () {
+                    //            $(this).dialog("close");
+                    //        }
+                    //    }
+                    //});
+
                 }
 
             });
@@ -43,6 +72,11 @@
         });
 
     </script>
+    <div id="dialog" title="Basic dialog">
+        <p>This is the default dialog!</p>
+    </div>
+
+
 
     <div id="calendar"></div>
 
@@ -80,7 +114,6 @@
         <%: Html.ActionLink("Edit", "Edit", new { id=Model.Id }) %> |
     <%: Html.ActionLink("Back to List", "Index") %>
     </p>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
