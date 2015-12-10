@@ -53,15 +53,6 @@
             <%: Html.EditorFor(model => model.Duration) %>
             <%: Html.ValidationMessageFor(model => model.Duration) %>
         </div>
-
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.CompanyId, "Company") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.DropDownList("CompanyId", String.Empty) %>
-            <%: Html.ValidationMessageFor(model => model.CompanyId) %>
-        </div>
-
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Time) %>
         </div>
@@ -69,15 +60,6 @@
             <%: Html.EditorFor(model => model.Time) %>
             <%: Html.ValidationMessageFor(model => model.Time) %>
         </div>
-
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.CityId, "City") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.DropDownList("CityId", String.Empty) %>
-            <%: Html.ValidationMessageFor(model => model.CityId) %>
-        </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

@@ -24,11 +24,13 @@ namespace BookingSiteTest.Models
         public string Phone { get; set; }
         public string WebPage { get; set; }
         public string Description { get; set; }
-        public Images Logotype { get; set; }
-        public Images CompanyImage { get; set; }
         public int? AddressId { get; set; }
+        public int? LogotypeImageId { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual ICollection<Calender> Calenders { get; set; }
         public virtual Address Address { get; set; }
+        public virtual Images LogotypeImage { get; set; }
+        public virtual Images CompanyImage { get; set; }
     }
 }

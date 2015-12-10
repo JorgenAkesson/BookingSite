@@ -6,11 +6,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Index</h2>
 
 <p>
-    <%: Html.ActionLink("Create New", "Create") %>
+    <%: Html.ActionLink("Create New", "Create", new {calenderId = ViewBag.CalenderId}) %>
 </p>
+
+<h2>Aktiviteter</h2>
+
 <table>
     <tr>
         <th>
@@ -29,13 +31,7 @@
             <%: Html.DisplayNameFor(model => model.Duration) %>
         </th>
         <th>
-            <%: Html.DisplayNameFor(model => model.Company.Name) %>
-        </th>
-        <th>
             <%: Html.DisplayNameFor(model => model.Time) %>
-        </th>
-        <th>
-            <%: Html.DisplayNameFor(model => model.City.Name) %>
         </th>
         <th></th>
     </tr>
@@ -58,17 +54,10 @@
             <%: Html.DisplayFor(modelItem => item.Duration) %>
         </td>
         <td>
-            <%: Html.DisplayFor(modelItem => item.Company.Name) %>
-        </td>
-        <td>
             <%: Html.DisplayFor(modelItem => item.Time) %>
         </td>
         <td>
-            <%: Html.DisplayFor(modelItem => item.City.Name) %>
-        </td>
-        <td>
             <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-            <%: Html.ActionLink("Details", "Details", new { id=item.Id }) %> |
             <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %>
         </td>
     </tr>

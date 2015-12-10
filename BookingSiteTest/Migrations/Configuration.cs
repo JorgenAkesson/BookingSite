@@ -26,7 +26,7 @@ namespace BookingSiteTest.Migrations
                    PostalNumber = "456 78",
                    City = "MyCity2",
                });
-            context.SaveChanges();
+            var id = context.SaveChanges();
 
             var address2 = context.Addresses.FirstOrDefault(a => a.Name == "MyAddress2");
 
@@ -36,7 +36,7 @@ namespace BookingSiteTest.Migrations
                    Name = "MyCompany2",
                    AddressId = address2.Id,
                });
-            context.SaveChanges();
+            id = context.SaveChanges();
 
             var comp2 = context.Companies.FirstOrDefault(a => a.Name == "MyCompany2");
 
@@ -46,7 +46,7 @@ namespace BookingSiteTest.Migrations
                    CompanyID = comp2.Id,
                    Name = "MyCalender2",
                });
-            context.SaveChanges();
+            id = context.SaveChanges();
 
             var cal2 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender2");
 
@@ -66,24 +66,28 @@ namespace BookingSiteTest.Migrations
             context.Addresses.AddOrUpdate(p => p.Name,
                new Address()
                {
-                   Name = "MyAddress1",
-                   Street = "MyStreet1",
-                   PostalNumber = "123 45",
-                   City = "MyCity1",
+                   Name = "Åkesson IT AB c/o Jörgen Åkesson",
+                   Street = "Babordsvägen 11",
+                   PostalNumber = "432 74",
+                   City = "Träslövsläge",
                });
-            context.SaveChanges();
+            id = context.SaveChanges();
 
-            var address1 = context.Addresses.FirstOrDefault(a => a.Name == "MyAddress1");
+            var address1 = context.Addresses.FirstOrDefault(a => a.Name == "Åkesson IT AB c/o Jörgen Åkesson");
 
             context.Companies.AddOrUpdate(p => p.Name,
                new Company
                {
-                   Name = "MyCompany1",
+                   Name = "Åkesson IT AB",
+                   Email = "jorg.akesson@gmail.com",
+                   Phone = "070-2732400",
+                   Description = "It konsult företag med inriktning på web och windows utveckling.",
+                   WebPage = "http://akessonit.se",
                    AddressId = address1.Id,
                });
-            context.SaveChanges();
+            id = context.SaveChanges();
 
-            var comp1 = context.Companies.FirstOrDefault(a => a.Name == "MyCompany1");
+            var comp1 = context.Companies.FirstOrDefault(a => a.Name == "Åkesson IT AB");
 
             context.Calenders.AddOrUpdate(p => p.Name,
                new Calender
@@ -91,7 +95,7 @@ namespace BookingSiteTest.Migrations
                    CompanyID = comp1.Id,
                    Name = "MyCalender1",
                });
-            context.SaveChanges();
+            id = context.SaveChanges();
 
             var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender1");
 

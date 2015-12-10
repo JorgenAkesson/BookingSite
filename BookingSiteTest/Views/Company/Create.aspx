@@ -57,9 +57,36 @@
         <div class="editor-label">
             <%: Html.LabelFor(model => model.AddressId, "Address") %>
         </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.Name) %>
+        </div>
         <div class="editor-field">
-            <%: Html.DropDownList("AddressId", String.Empty) %>
-            <%: Html.ValidationMessageFor(model => model.AddressId) %>
+            <%: Html.EditorFor(model => model.Address.Name) %>
+            <%: Html.ValidationMessageFor(model => model.Address.Name) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.Street) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.Street) %>
+            <%: Html.ValidationMessageFor(model => model.Address.Street) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.PostalNumber) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.PostalNumber) %>
+            <%: Html.ValidationMessageFor(model => model.Address.PostalNumber) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.City) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.City) %>
+            <%: Html.ValidationMessageFor(model => model.Address.City) %>
         </div>
 
         <p>

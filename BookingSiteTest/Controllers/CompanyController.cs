@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
+using BookingSiteTest.Views.Calender;
 
 namespace BookingSiteTest.Controllers
 {
+    [HandleError]
     public class CompanyController : Controller
     {
+        private const int UPLOAD_File_SIZE = 10000;
+
         private BookingContext db = new BookingContext();
 
         //
@@ -53,6 +60,13 @@ namespace BookingSiteTest.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (company.AddressId == null)
+                {
+                    db.Addresses.Add(company.Address);
+                    db.SaveChanges();
+                    company.AddressId = company.Address.Id;
+                }
+                company.Address.Id = (int)(company.AddressId);
                 db.Companies.Add(company);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,7 +98,15 @@ namespace BookingSiteTest.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (company.AddressId == null)
+                {
+                    db.Addresses.Add(company.Address);
+                    db.SaveChanges();
+                    company.AddressId = company.Address.Id;
+                }
+                company.Address.Id = (int)(company.AddressId);
                 db.Entry(company).State = EntityState.Modified;
+                db.Entry(company.Address).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -121,6 +143,43 @@ namespace BookingSiteTest.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult FileUpload(HttpPostedFileBase uploadFile, int companyId)
+        {
+            if (uploadFile.ContentLength > 0 && uploadFile.ContentLength < UPLOAD_File_SIZE)
+            {
+                string filePath = Path.Combine(HttpContext.Server.MapPath("../App_Data/Uploads"), Guid.NewGuid().ToString() + "jpg");
+                uploadFile.SaveAs(filePath);
+
+                var company = db.Companies.First(a => a.Id == companyId);
+                company.LogotypeImage = new Images()
+                {
+                    FilePath = filePath,
+                };
+                db.SaveChanges();
+            }
+            return RedirectToAction("Edit", new {id = companyId});
+        }
+
+        public FileResult GetImage(int imageId)
+        {
+            if (imageId == -1)
+                return null;
+
+            var im = db.Images.Find(imageId);
+
+            Image image = Image.FromFile(im.FilePath);
+            byte[] imageArray;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                image.Save(memoryStream, ImageFormat.Jpeg);
+                imageArray = memoryStream.ToArray();
+            }
+
+            return File(imageArray, "image/jpeg");
         }
     }
 }

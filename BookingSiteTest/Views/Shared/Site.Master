@@ -12,19 +12,19 @@
     <%: Styles.Render("~/Content/css") %>
     <%: Scripts.Render("~/bundles/modernizr") %>
 
-    <link rel="stylesheet" href="../../Content/themes/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="../../Scripts/jQuery/jquery-ui.min.css">
 
     <link href="../../Content/fullcalendar.css" rel="stylesheet" />
     <link href="../../Content/fullcalendar.print.css" rel="stylesheet" media="print" />
 
 
-    <script src="../../Scripts/jquery-1.11.3.js"></script>
-    <script src="../../Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="../../Scripts/jQuery/external/jquery/jquery.js"></script>
+    <script src="../../Scripts/jQuery/jquery-ui.js"></script>
     <script src="../../Scripts/moment.min.js"></script>
     <script src="../../Scripts/fullcalendar.min.js"></script>
+    <script src="../../Scripts/lang/sv.js"></script>
 </head>
 <body>
-    <h2>This is a heading</h2>
     <header>
         <div class="content-wrapper">
             <div class="float-left">

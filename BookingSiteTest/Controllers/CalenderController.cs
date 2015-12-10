@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
+using Newtonsoft.Json;
 using WebMatrix.WebData;
 
 namespace BookingSiteTest.Controllers
@@ -20,10 +21,11 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Calender/
 
-        public ActionResult Index(int companyId)
+        public ActionResult Index(int companyId = 0)
         {
             var calenders = db.Calenders.Where(c => c.Company.Id == companyId);
             //var calenders = db.Calenders.Include(c => c.Company);
+            ViewBag.CompanyId = companyId;
             return View(calenders.ToList());
         }
 
@@ -43,7 +45,7 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Calender/Details/5
 
-        public ActionResult ViewWeek(int id = 0)
+        public ActionResult ViewWeek(int id = 0, DateTime? activityDate = null)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
@@ -51,41 +53,30 @@ namespace BookingSiteTest.Controllers
                 return HttpNotFound();
             }
 
-            // Get the first day of current day.
-            DayOfWeek firstDay = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
-            DateTime firstDateInWeek = DateTime.Now.Date;
-            while (firstDateInWeek.DayOfWeek != firstDay)
-                firstDateInWeek = firstDateInWeek.AddDays(-1);
-            var lastDateInWeek = firstDateInWeek.AddDays(7);
 
-            //todo: remove
-            firstDateInWeek =new DateTime(2015, 11, 9);
-            lastDateInWeek = new DateTime(2015, 11, 16); 
+            if (activityDate == null)
+            {
+                activityDate = DateTime.Now;
+            }
 
-            // Get activites for the current week
-            var activities = db.Activities.Where(a => a.CalenderId == id && a.Date > firstDateInWeek && 
-                a.Date < lastDateInWeek).ToList();
-            
-            ViewData["FirstDateInWeek"] = firstDateInWeek;
-            ViewData["ActivitiesData"] = activities;
-
+            ViewData["ActivityDate"] = activityDate;
             return View(calender);
         }
 
         public ActionResult BookActivity(int activityId)
         {
             var activity = db.Activities.FirstOrDefault(a => a.Id == activityId);
-            //var person = db.Persons.FirstOrDefault(a => a.Id == personId);
             return View(activity);
         }
 
         //
         // GET: /Calender/Create
 
-        public ActionResult Create()
+        public ActionResult Create(string companyId)
         {
-            ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name");
+            ViewBag.CompanyID = companyId;
             //return ViewWeek();
+            ViewBag.CompanyId = companyId;
             return View();
         }
 
@@ -93,13 +84,13 @@ namespace BookingSiteTest.Controllers
         // POST: /Calender/Create
 
         [HttpPost]
-        public ActionResult Create(Calender calender)
+        public ActionResult Create(Calender calender, string companyId)
         {
             if (ModelState.IsValid)
             {
                 db.Calenders.Add(calender);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { companyId = companyId });
             }
 
             ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name", calender.CompanyID);
@@ -116,7 +107,7 @@ namespace BookingSiteTest.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name", calender.CompanyID);
+            ViewBag.CompanyID = calender.CompanyID;
             return View(calender);
         }
 
@@ -130,7 +121,8 @@ namespace BookingSiteTest.Controllers
             {
                 db.Entry(calender).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Index", new { companyId = calender.CompanyID});
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name", calender.CompanyID);
             return View(calender);
@@ -156,9 +148,11 @@ namespace BookingSiteTest.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Calender calender = db.Calenders.Find(id);
+            var companyId = calender.CompanyID;
             db.Calenders.Remove(calender);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", new { companyId = companyId });
         }
 
         protected override void Dispose(bool disposing)
@@ -167,8 +161,12 @@ namespace BookingSiteTest.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Book(int id)
+        // { 'bookNote': $("#bookNote").val(), 'activityId': event.id }
+        public ActionResult Book2(string jsonData) // ActivityId
         {
+            int id = 0;
+            Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+            id = int.Parse(data["activityId"]);
             if (!WebSecurity.Initialized)
             {
                 WebSecurity.InitializeDatabaseConnection(
@@ -181,22 +179,53 @@ namespace BookingSiteTest.Controllers
 
             //var fname = userProfile.FirstName;
             //var laname = userProfile.LastName;
-            
+
             db.Bookings.Add(new Booking()
             {
                 ActivityId = id,
-                UserId = WebSecurity.CurrentUserId,});
+                UserId = WebSecurity.CurrentUserId,
+            });
 
             db.SaveChanges();
             var activity = db.Activities.FirstOrDefault(a => a.Id == id);
 
-            return RedirectToAction("ViewWeek", new {id = activity.CalenderId});
+            return RedirectToAction("ViewWeek", new { id = activity.CalenderId });
+        }
+
+        //public ActionResult Book(string id, string note) // ActivityId
+        public void Book(string id, string note) // ActivityId
+        {
+            int idi = int.Parse(id);
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection(
+                    "DefaultConnection", "UserProfile", "UserId", "UserName",
+                    autoCreateTables: false);
+            }
+
+            UsersContext uc = new UsersContext();
+            UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
+
+            //var fname = userProfile.FirstName;
+            //var laname = userProfile.LastName;
+
+            db.Bookings.Add(new Booking()
+            {
+                ActivityId = idi,
+                UserId = WebSecurity.CurrentUserId,
+                Note = note,
+            });
+            db.SaveChanges();
+
+            var activity = db.Activities.FirstOrDefault(a => a.Id == idi);
+
+            //return RedirectToAction("ViewWeek", new { id = activity.CalenderId, activityDate = activity.Date });
         }
 
 
         public JsonResult GetEvents(string start, string end, int calenderId)
         {
-            var calender = db.Calenders.FirstOrDefault(a=> a.Id == calenderId);
+            var calender = db.Calenders.FirstOrDefault(a => a.Id == calenderId);
 
             List<Events> eventList = new List<Events>();
             foreach (var activity in calender.Activities)
@@ -210,7 +239,7 @@ namespace BookingSiteTest.Controllers
                     allDay = false,
                     color = activity.Bookings.Count() >= activity.MaxPerson ? "#FCBABB" : "#ABE99C",
                     textColor = "#444444",
-                    description = activity.Bookings.Count() >= activity.MaxPerson ? true :false,
+                    description = activity.Bookings.Count() >= activity.MaxPerson ? true : false,
                 };
                 eventList.Add(ev);
             }

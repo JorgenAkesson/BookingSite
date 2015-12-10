@@ -425,7 +425,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51860</DevelopmentServerPort>
+          <DevelopmentServerPort>55064</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://booking.babordsvagen.se</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

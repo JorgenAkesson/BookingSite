@@ -6,15 +6,16 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Edit</h2>
+    <h2>Edit</h2>
 
-<% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
 
     <fieldset>
         <legend>Calender</legend>
 
-        <%: Html.HiddenFor(model => model.Id) %>
+        <%: Html.HiddenFor(model => model.CompanyID) %>
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
@@ -23,24 +24,15 @@
             <%: Html.EditorFor(model => model.Name) %>
             <%: Html.ValidationMessageFor(model => model.Name) %>
         </div>
-
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.CompanyID, "Company") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.DropDownList("CompanyID", String.Empty) %>
-            <%: Html.ValidationMessageFor(model => model.CompanyID) %>
-        </div>
-
         <p>
             <input type="submit" value="Save" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Back to List", "Index") %>
-</div>
+    <div>
+        <%: Html.ActionLink("Back to List", "Index", new { companyId = Model.CompanyID}) %>
+    </div>
 
 </asp:Content>
 

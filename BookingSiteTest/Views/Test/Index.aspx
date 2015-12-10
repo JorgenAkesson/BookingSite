@@ -18,8 +18,9 @@
             </th>
             <th></th>
         </tr>
-    
-    <% foreach (var item in Model) { %>
+
+        <% foreach (var item in Model)
+           { %>
         <tr>
             <td>
                 <%: Html.DisplayFor(modelItem => item.Name) %>
@@ -30,8 +31,7 @@
                 <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %>
             </td>
         </tr>
-    <% } %>
-    
+        <% } %>
     </table>
 </body>
 </html>

@@ -6,15 +6,26 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Edit</h2>
+    <h2>Edit</h2>
 
-<% using (Html.BeginForm()) { %>
+
+
+    <% using (Html.BeginForm("FileUpload", "Company", FormMethod.Post, new { enctype = "multipart/form-data" }))
+       {%>
+    <%: Html.Hidden("companyId", Model.Id) %>
+    <input name="uploadFile" type="file" />
+    <input type="submit" value="Ladda upp logotype (.jpg)" />
+    <%} %>
+    <img src="<%: Url.Action("GetImage", new { imageId = Model.LogotypeImage != null ? Model.LogotypeImage.Id : -1 }) %>" height="100px" />    
+    
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
-
     <fieldset>
         <legend>Company</legend>
 
         <%: Html.HiddenFor(model => model.Id) %>
+        <%: Html.HiddenFor(model => model.LogotypeImageId) %>
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
@@ -59,20 +70,46 @@
         <div class="editor-label">
             <%: Html.LabelFor(model => model.AddressId, "Address") %>
         </div>
-        <div class="editor-field">
-            <%: Html.DropDownList("AddressId", String.Empty) %>
-            <%: Html.ValidationMessageFor(model => model.AddressId) %>
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.Name) %>
         </div>
-
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.Name) %>
+            <%: Html.ValidationMessageFor(model => model.Address.Name) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.Street) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.Street) %>
+            <%: Html.ValidationMessageFor(model => model.Address.Street) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.PostalNumber) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.PostalNumber) %>
+            <%: Html.ValidationMessageFor(model => model.Address.PostalNumber) %>
+        </div>
+        
+        <div class="editor-label">
+            <%: Html.LabelFor(model => model.Address.City) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.EditorFor(model => model.Address.City) %>
+            <%: Html.ValidationMessageFor(model => model.Address.City) %>
+        </div>
         <p>
             <input type="submit" value="Save" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Back to List", "Index") %>
-</div>
+    <div>
+        <%: Html.ActionLink("Back to List", "Index") %>
+    </div>
 
 </asp:Content>
 

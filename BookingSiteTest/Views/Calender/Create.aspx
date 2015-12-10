@@ -1,4 +1,4 @@
-﻿    <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Calender>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Calender>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Create
@@ -6,13 +6,16 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Create</h2>
+    <h2>Create</h2>
 
-<% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
 
     <fieldset>
-        <legend>Calender</legend>
+        <legend>Kalender</legend>
+
+        <input type="hidden" name="companyId" value="<%: ViewBag.CompanyID %>" />
 
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
@@ -22,23 +25,23 @@
             <%: Html.ValidationMessageFor(model => model.Name) %>
         </div>
 
-        <div class="editor-label">
+<%--        <div class="editor-label">
             <%: Html.LabelFor(model => model.CompanyID, "Company") %>
         </div>
         <div class="editor-field">
             <%: Html.DropDownList("CompanyID", String.Empty) %>
             <%: Html.ValidationMessageFor(model => model.CompanyID) %>
-        </div>
+        </div>--%>
 
         <p>
             <input type="submit" value="Create" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Back to List", "Index") %>
-</div>
+    <div>
+        <%: Html.ActionLink("Back to List", "Index", new {companyId = ViewBag.CompanyID}) %>
+    </div>
 
 </asp:Content>
 

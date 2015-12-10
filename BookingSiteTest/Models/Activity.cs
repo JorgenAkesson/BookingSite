@@ -19,6 +19,7 @@ namespace BookingSiteTest.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Date { get; set; }
         public int MaxPerson { get; set; }
         public int Duration { get; set; }

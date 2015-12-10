@@ -6,75 +6,62 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Delete</h2>
+    <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Activity</legend>
+    <h3>Are you sure you want to delete this?</h3>
+    <fieldset>
+        <legend>Activity</legend>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Name) %>
-    </div>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.Name) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.Name) %>
+        </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Description) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Description) %>
-    </div>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.Description) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.Description) %>
+        </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Date) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Date) %>
-    </div>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.Date) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.Date) %>
+        </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.MaxPerson) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.MaxPerson) %>
-    </div>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.MaxPerson) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.MaxPerson) %>
+        </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Duration) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Duration) %>
-    </div>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.Duration) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.Duration) %>
+        </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Company.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Company.Name) %>
-    </div>
-
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Time) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Time) %>
-    </div>
-
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.City.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.City.Name) %>
-    </div>
-</fieldset>
-<% using (Html.BeginForm()) { %>
+        <div class="display-label">
+            <%: Html.DisplayNameFor(model => model.Time) %>
+        </div>
+        <div class="display-field">
+            <%: Html.DisplayFor(model => model.Time) %>
+        </div>
+    </fieldset>
+    <% using (Html.BeginForm())
+       { %>
     <p>
-        <input type="submit" value="Delete" /> |
-        <%: Html.ActionLink("Back to List", "Index") %>
+        <input type="submit" value="Delete" />
+        |
+        <%: Html.ActionLink("Tillbaks till kalendern", "Index", new { calenderId = Model.CalenderId }) %>
     </p>
-<% } %>
-
+    <% } %>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

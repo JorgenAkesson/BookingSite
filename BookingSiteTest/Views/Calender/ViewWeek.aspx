@@ -7,7 +7,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>ViewWeek</h2>
+    <h2><%: Model.Company.Name %></h2>
+         <h3><%: Model.Name %></h3>
+    <br/>
+
     <%: Scripts.Render("~/bundles/fullcalendarjs") %>
 
     <script>
@@ -19,13 +22,13 @@
                     center: "title",
                     right: " agendaWeek, month,"
                 },
-                editable: true,
+                editable: false,
                 minTime: "08:00",
                 maxTime: "19:00",
-                height: 575,
+                height: 570,
                 defaultView: "agendaWeek",
                 allDaySlot: false,
-                //theme: true,
+                theme: true,
                 events: {
                     url: '/Calender/GetEvents',
                     data: {
@@ -33,47 +36,98 @@
                         }
                 },
                 eventClick: function(event) {
-                    if(event.description == false)
+                    if (event.description == false) {
                         window.location = "/Calender/BookActivity?activityId=" + event.id;
-                    var a = event.description;
+                        // Dialoge for Book Activity
+                        //$("#bookDialog").dialog(
+                        //{
+                        //    resizable: false,
+                        //    buttons: {
+                        //        "Save": function() {
+                        //        },
+                        //        "Book": function() {
+                        //            var data = { 'bookNote': $("#bookNote").val(), 'activityId': event.id };
+                        //            var jsonData = JSON.stringify(data);
+                        //            $.ajax({
+                        //                url: '../../Calender/Book',
+                            //            datatype: "text",
+                            //            type: "POST",
+                            //            data: { "jsonData": jsonData },
+                            //            success: function(data) {
+                            //                //debugger;
+                            //                window.location.reload();
+                            //            }
+                            //        });
+                            //        $(this).dialog("close");
+                            //        $(this).dialog("close");
+                            //    }
+                            //}
+                        //});
+                    }
                 },
                 dayClick: function(date, jsEvent, view) {
-
-                    debugger;
-                    //$( "#dialog" ).dialog();
-                    alert('Clicked on: ' + date.format());
-                    $( "#dialog" ).dialog();
-                    
-                    $("#dialog-alert").dialog({
-                        autoOpen: false,
+                    $("#startTime").val(date.format("HH:mm"));
+                    // Add Dialog for Create Activity
+                    $("#dialog").dialog(
+                    {
                         resizable: false,
-                        height: 170,
                         width: 350,
-                        show: { effect: 'drop', direction: "up" },
-                        modal: true,
-                        draggable: true,
-                        open: function (event, ui) {
-                            $(".ui-dialog-titlebar-close").hide();
-                        },
                         buttons: {
-                            "OK": function () {
+                            "OK": function() {
+                                var data = { 'name': $("#name").val(), 'nrOfPerson': $("#nrOfPerson").val(), 'date': date.format(), 'startTime': $("#startTime").val(), 'length': $("#length").val(), 'description': $("#description").val(), 'calenderId': <%: Model.Id%> };
+                                var jsonData = JSON.stringify(data);
+                                $.ajax({
+                                    url: '../../Activity/CreateFromDialog',
+                                    datatype: "text",
+                                    type: "POST",
+                                    data: { "jsonData": jsonData },
+                                    success: function(data) {
+                                        $('#calendar').fullCalendar('refetchEvents');
+                                    }
+                                });
                                 $(this).dialog("close");
                             },
-                            "Cancel": function () {
+                            "Cancel": function() {
                                 $(this).dialog("close");
                             }
                         }
                     });
-
                 }
-
             });
-
+            $('#calendar').fullCalendar('gotoDate', '<%:(DateTime)ViewData["ActivityDate"]%>' );
         });
 
     </script>
-    <div id="dialog" title="Basic dialog">
-        <p>This is the default dialog!</p>
+    <div style="visibility: collapse; display: none;">
+        <div id="dialog" title="Add Activity!">
+            <form>
+                <fieldset>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="Defalt Name">
+                    <label for="name">Description</label>
+                    <input type="text" id="description" value="Default description.">
+                    <label for="name">Nr of persons:</label>
+                    <input type="text" id="nrOfPerson" value="1">
+                    <label for="name">Start time:</label>
+                    <input type="text" id="startTime" value="">
+                    <label for="name">Length:</label>
+                    <input type="text" id="length" value="60">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div style="visibility: collapse; display: none;">
+        <div id="bookDialog" title="Book!">
+            <form>
+                <fieldset>
+                    <label for="name" id="userName">UName</label>
+                    <label for="name" id="activityName">ActivityName</label>
+                    <label for="name">Booking note:</label>
+                    <input type="text" id="bookNote" value="">
+                </fieldset>
+            </form>
+        </div>
     </div>
 
     <div id="calendar"></div>

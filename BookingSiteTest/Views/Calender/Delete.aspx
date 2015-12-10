@@ -29,7 +29,7 @@
 <% using (Html.BeginForm()) { %>
     <p>
         <input type="submit" value="Delete" /> |
-        <%: Html.ActionLink("Back to List", "Index") %>
+        <%: Html.ActionLink("Tillbaka till listan", "Index", new {companyId = Model.CompanyID}) %>
     </p>
 <% } %>
 
