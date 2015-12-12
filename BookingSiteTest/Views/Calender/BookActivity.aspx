@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="BookActivity" Language="C#" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Activity>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
-<asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent"></asp:Content>
+<asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
+    Bekräfta din bokning
+</asp:Content>
 
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
 
@@ -16,19 +18,20 @@
     <br>
 
     <input type="button" value="Boka" onclick="book()" />
-    <form action="<%: Url.Action("ViewWeek", new RouteValueDictionary(new { id = Model.Calender.Id, activityDate = Model.Date })) %>" style="float: left">
-        <input type="submit" value="Avbryt">
-    </form>
+    <input type="submit" value="Avbryt" onclick="cancel()">
 
     <script>
+        function cancel() {
+            window.location.href = "../../Calender/ViewWeek?id=" + '<%: Model.Calender.Id%>' + "&activityDate=" + '<%: Model.Date.ToShortDateString() %>';
+        }
         function book() {
             $.ajax({
                 url: '../../Calender/Book?id=' + '<%: Model.Id %>' +
-                                                  '&note=' + $('#note').val(),
+                    '&note=' + $('#note').val(),
                 datatype: "text",
                 type: 'POST',
                 success: function () {
-                    window.location.href = "../../Calender/ViewWeek?id=" + '<%: Model.Calender.Id%>' + "&activityDate=" + '<%: Model.Date %>';
+                    window.location.href = "../../Calender/ViewWeek?id=" + '<%: Model.Calender.Id%>' + "&activityDate=" + '<%: Model.Date.ToShortDateString() %>';
                 }
             });
         }

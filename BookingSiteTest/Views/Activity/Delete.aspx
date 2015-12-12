@@ -1,14 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Activity>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Delete
+    Ta bort Aktivitet
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Delete</h2>
-
-    <h3>Are you sure you want to delete this?</h3>
+    <h2>Ta bort Aktivitet</h2>
     <fieldset>
         <legend>Activity</legend>
 
@@ -59,7 +57,7 @@
     <p>
         <input type="submit" value="Delete" />
         |
-        <%: Html.ActionLink("Tillbaks till kalendern", "Index", new { calenderId = Model.CalenderId }) %>
+        <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", new { calenderId = Model.CalenderId }) %>
     </p>
     <% } %>
 </asp:Content>

@@ -1,14 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Activity>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Create
+    Skapa ny Aktivitet
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Create</h2>
+    <h2>Skapa ny Aktivitet</h2>
 
-<% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
 
     <fieldset>
@@ -64,11 +65,11 @@
             <input type="submit" value="Create" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Back to List", "Index") %>
-</div>
+    <div>
+        <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", "Activity", new {calenderId = ViewBag.CalenderId}, null) %>
+    </div>
 
 </asp:Content>
 

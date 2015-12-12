@@ -22,6 +22,7 @@ namespace BookingSiteTest.Controllers
         public ActionResult Index(int calenderId = 0)
         {
             var activities = db.Activities.Include(a => a.Calender).Where(b => b.CalenderId == calenderId);
+            ViewBag.CompanyId = db.Calenders.First(a => a.Id == calenderId).CompanyID;
             ViewBag.CalenderId = calenderId;
             return View(activities.ToList());
         }
@@ -41,21 +42,22 @@ namespace BookingSiteTest.Controllers
 
             var timeSpann = TimeSpan.Parse(data["startTime"]);
             var date = DateTime.Parse(data["date"]);
-            activity.Date = new DateTime(date.Year, date.Month, date.Day, timeSpann.Hours, timeSpann.Minutes, 0);
+            activity.Date = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
             activity.Time = timeSpann.Hours + ":" + timeSpann.Minutes;
 
             db.Activities.Add(activity);
             db.SaveChanges();
 
-            return RedirectToAction("ViewWeek", "Calender", new { id = activity.CalenderId, activityDate = activity.Date });
+            return RedirectToAction("ViewWeek", "Calender", new { id = activity.CalenderId, activityDate = activity.Date.ToShortDateString() });
         }
 
         //
         // GET: /Activity/Create
 
-        public ActionResult Create(int calenderId = 0)
+        public ActionResult Create(int calenderId = 0, int companyId = 0)
         {
             ViewBag.CalenderId = calenderId;
+            ViewBag.CompanyId = companyId;
             return View();
         }
 
@@ -72,7 +74,7 @@ namespace BookingSiteTest.Controllers
                 activity.Date = new DateTime(activity.Date.Year, activity.Date.Month, activity.Date.Day, timeSpann.Hours, timeSpann.Minutes, 0);
                 db.Activities.Add(activity);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { calenderId = calenderId});
+                return RedirectToAction("Index", new { calenderId = calenderId });
             }
 
             ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
@@ -114,6 +116,7 @@ namespace BookingSiteTest.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+
             Activity activity = db.Activities.Find(id);
             if (activity == null)
             {

@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Calender>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Create
+    Skapa ny Kalender
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Create</h2>
+    <h2>Skapa ny Kalender</h2>
 
     <% using (Html.BeginForm())
        { %>
@@ -40,7 +40,7 @@
     <% } %>
 
     <div>
-        <%: Html.ActionLink("Back to List", "Index", new {companyId = ViewBag.CompanyID}) %>
+        <%: Html.ActionLink("Tillbaks till Kalendrar", "Index", new {companyId = ViewBag.CompanyID}) %>
     </div>
 
 </asp:Content>

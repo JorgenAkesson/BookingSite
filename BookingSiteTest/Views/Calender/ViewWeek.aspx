@@ -1,15 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Calender>" %>
+<%@ Import Namespace="System.Globalization" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    ViewWeek
+    Kalender
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+    <%: Html.ActionLink("Tillbaks till Kalendrar","Index", "Calender", new {companyId = Model.CompanyID}, null) %>
     <h2><%: Model.Company.Name %></h2>
-         <h3><%: Model.Name %></h3>
-    <br/>
+    <h3><%: Model.Name %></h3>
+    <br />
 
     <%: Scripts.Render("~/bundles/fullcalendarjs") %>
 
@@ -50,18 +51,18 @@
                         //            var jsonData = JSON.stringify(data);
                         //            $.ajax({
                         //                url: '../../Calender/Book',
-                            //            datatype: "text",
-                            //            type: "POST",
-                            //            data: { "jsonData": jsonData },
-                            //            success: function(data) {
-                            //                //debugger;
-                            //                window.location.reload();
-                            //            }
-                            //        });
-                            //        $(this).dialog("close");
-                            //        $(this).dialog("close");
-                            //    }
-                            //}
+                        //            datatype: "text",
+                        //            type: "POST",
+                        //            data: { "jsonData": jsonData },
+                        //            success: function(data) {
+                        //                //debugger;
+                        //                window.location.reload();
+                        //            }
+                        //        });
+                        //        $(this).dialog("close");
+                        //        $(this).dialog("close");
+                        //    }
+                        //}
                         //});
                     }
                 },
@@ -94,7 +95,8 @@
                     });
                 }
             });
-            $('#calendar').fullCalendar('gotoDate', '<%:(DateTime)ViewData["ActivityDate"]%>' );
+            <% var date = DateTime.ParseExact((string) ViewData["ActivityDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture); %>
+            $('#calendar').fullCalendar('gotoDate', '<%: date %>' );
         });
 
     </script>
@@ -163,8 +165,6 @@
     </div>--%>
     <p>
 
-        <%: Html.ActionLink("Edit", "Edit", new { id=Model.Id }) %> |
-    <%: Html.ActionLink("Back to List", "Index") %>
     </p>
 </asp:Content>
 

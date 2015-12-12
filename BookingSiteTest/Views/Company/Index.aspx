@@ -1,19 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<BookingSiteTest.Models.Company>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Index1
+    Företag
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <p>
-        <%: Html.ActionLink("Skapa nytt företag", "Create") %>
-    </p>
+    <h2>Företag</h2>
+    <%: Html.ActionLink("Skapa nytt Företag", "Create") %>
     <table>
-        <tr>
-            <th>
-                <h2>Företag</h2>
-            </th>
-        </tr>
         <% foreach (var item in Model)
            { %>
         <tr>
@@ -23,15 +17,15 @@
                         <div>
                             <%:Html.DisplayFor(modelItem => item.Name) %>
                             <br />
-                            <%--<%:Html.DisplayFor(modelItem => item.Address.Name) %> ,--%> 
+                            <%--<%:Html.DisplayFor(modelItem => item.Address.Name) %> ,--%>
                             <%:Html.DisplayFor(modelItem => item.Address.Street) %> , 
                             <%:Html.DisplayFor(modelItem => item.Address.City) %>
                         </div>
                     </a>
                 </td>
                 <td>
-                    <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                    <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %>
+                    <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
+                    <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %>
                 </td>
             </div>
         </tr>

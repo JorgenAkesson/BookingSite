@@ -2,19 +2,14 @@
     Inherits="System.Web.Mvc.ViewPage<IEnumerable<BookingSiteTest.Models.Calender>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Index
+    Kalendrar
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <p>
-        <%: Html.ActionLink("Skapa ny kalender", "Create", new {companyId = ViewBag.CompanyId}) %>
-    </p>
+    <%: Html.ActionLink("Tillbaks till Företag","Index", "Company") %>
+    <h2>Kalendrar</h2>
+    <%: Html.ActionLink("Skapa ny Kalender", "Create", new {companyId = ViewBag.CompanyId}) %>
     <table>
-        <tr>
-            <th>
-                <h2>Kalendrar</h2>
-            </th>
-        </tr>
         <% foreach (var item in Model)
            { %>
         <tr>
@@ -27,16 +22,15 @@
                     </a>
                 </td>
                 <td>
-                    <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                    <%: Html.ActionLink("Delete", "Delete", new { id=item.Id }) %> |
-                    <%: Html.ActionLink("Visa activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %> |
-                    <%: Html.ActionLink("Add activities", "Create", "Activity",new RouteValueDictionary(new { calenderId = item.Id, companyId = item.CompanyID }), null) %>
+                    <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
+                    <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %> |
+                    <%: Html.ActionLink("Visa Activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %>
+                    <%--<%: Html.ActionLink("Lägg till Aktivitet", "Create", "Activity",new RouteValueDictionary(new { calenderId = item.Id, companyId = item.CompanyID }), null) %>--%>
                 </td>
             </div>
         </tr>
         <% } %>
     </table>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

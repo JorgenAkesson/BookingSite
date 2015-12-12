@@ -45,7 +45,9 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Calender/Details/5
 
-        public ActionResult ViewWeek(int id = 0, DateTime? activityDate = null)
+        // /Calender/ViewWeek?id=2&activityDate=2015-12-20 11:00:00	
+        //public ActionResult ViewWeek(int id = 0, DateTime? activityDate = null)
+        public ActionResult ViewWeek(int id = 0, string activityDate = null)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
@@ -56,14 +58,14 @@ namespace BookingSiteTest.Controllers
 
             if (activityDate == null)
             {
-                activityDate = DateTime.Now;
+                activityDate = DateTime.Now.ToShortDateString();
             }
 
             ViewData["ActivityDate"] = activityDate;
             return View(calender);
         }
 
-        public ActionResult BookActivity(int activityId)
+        public ActionResult BookActivity(int activityId = 0)
         {
             var activity = db.Activities.FirstOrDefault(a => a.Id == activityId);
             return View(activity);
@@ -161,37 +163,6 @@ namespace BookingSiteTest.Controllers
             base.Dispose(disposing);
         }
 
-        // { 'bookNote': $("#bookNote").val(), 'activityId': event.id }
-        public ActionResult Book2(string jsonData) // ActivityId
-        {
-            int id = 0;
-            Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
-            id = int.Parse(data["activityId"]);
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection(
-                    "DefaultConnection", "UserProfile", "UserId", "UserName",
-                    autoCreateTables: false);
-            }
-
-            UsersContext uc = new UsersContext();
-            UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
-
-            //var fname = userProfile.FirstName;
-            //var laname = userProfile.LastName;
-
-            db.Bookings.Add(new Booking()
-            {
-                ActivityId = id,
-                UserId = WebSecurity.CurrentUserId,
-            });
-
-            db.SaveChanges();
-            var activity = db.Activities.FirstOrDefault(a => a.Id == id);
-
-            return RedirectToAction("ViewWeek", new { id = activity.CalenderId });
-        }
-
         //public ActionResult Book(string id, string note) // ActivityId
         public void Book(string id, string note) // ActivityId
         {
@@ -230,12 +201,14 @@ namespace BookingSiteTest.Controllers
             List<Events> eventList = new List<Events>();
             foreach (var activity in calender.Activities)
             {
+                TimeSpan timeSpan = TimeSpan.Parse(activity.Time);
+                var startDate = activity.Date.AddHours(timeSpan.Hours).AddMinutes(timeSpan.Minutes);
                 var ev = new Events()
                 {
                     id = activity.Id.ToString(),
                     title = activity.Name,
-                    start = activity.Date.ToString(),
-                    end = activity.Date.AddMinutes(activity.Duration).ToString(),
+                    start = startDate.ToString(),
+                    end = startDate.AddMinutes(activity.Duration).ToString(),
                     allDay = false,
                     color = activity.Bookings.Count() >= activity.MaxPerson ? "#FCBABB" : "#ABE99C",
                     textColor = "#444444",

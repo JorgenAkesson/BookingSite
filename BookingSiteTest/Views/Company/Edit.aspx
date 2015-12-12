@@ -1,15 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Company>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Edit
+    Ändra Företag
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Edit</h2>
-
-
-
+    <h2>Ändra Företag</h2>
     <% using (Html.BeginForm("FileUpload", "Company", FormMethod.Post, new { enctype = "multipart/form-data" }))
        {%>
     <%: Html.Hidden("companyId", Model.Id) %>
@@ -108,7 +105,7 @@
     <% } %>
 
     <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
+        <%: Html.ActionLink("Tillbaks till Företag", "Index") %>
     </div>
 
 </asp:Content>

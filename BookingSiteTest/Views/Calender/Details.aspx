@@ -2,15 +2,15 @@
     Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.Calender>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Details
+    Kalender
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>Details</h2>
+<h2>Kalender</h2>
 
 <fieldset>
-    <legend>Calender</legend>
+    <legend>Kalender</legend>
 
     <div class="display-label">
         <%: Html.DisplayNameFor(model => model.Name) %>
@@ -28,8 +28,8 @@
 </fieldset>
 <p>
 
-    <%: Html.ActionLink("Edit", "Edit", new { id=Model.Id }) %> |
-    <%: Html.ActionLink("Back to List", "Index") %>
+    <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %> |
+    <%: Html.ActionLink("Tillbaks till Kalendrar", "Index") %>
 </p>
 
 </asp:Content>
