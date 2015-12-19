@@ -61,6 +61,7 @@ namespace BookingSiteTest.Migrations
                     Date = newDate,
                     MaxPerson = 2,
                     Duration = 60,
+                    Time = "11:00",
                 });
 
             context.Addresses.AddOrUpdate(p => p.Name,
@@ -93,55 +94,59 @@ namespace BookingSiteTest.Migrations
                new Calender
                {
                    CompanyID = comp1.Id,
-                   Name = "MyCalender1",
+                   Name = "Development",
                });
             id = context.SaveChanges();
 
-            var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "MyCalender1");
+            var cal1 = context.Calenders.FirstOrDefault(a => a.Name == "Development");
 
             date = DateTime.Now;
-            newDate = new DateTime(date.Year, date.Month, date.Day, 12, 00, 00);
+            newDate = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
                     CalenderId = cal1.Id,
-                    Name = "MyActivity1-1",
+                    Name = ".NET kurs",
                     Date = newDate,
                     MaxPerson = 2,
-                    Duration = 30,
+                    Duration = 60,
+                    Time = "12:00",
                 });
 
-            newDate = new DateTime(date.Year, date.Month, date.Day, 14, 00, 00);
+            newDate = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity
                 {
                     CalenderId = cal1.Id,
-                    Name = "MyActivity1-2",
+                    Name = "C# kurs",
                     Date = newDate,
                     MaxPerson = 2,
-                    Duration = 30,
+                    Duration = 60,
+                    Time = "14:00",
                 });
 
-            newDate = new DateTime(datePlusOne.Year, datePlusOne.Month, datePlusOne.Day, 14, 00, 00);
+            newDate = new DateTime(datePlusOne.Year, datePlusOne.Month, datePlusOne.Day, 0, 0, 0);
             context.Activities.AddOrUpdate(p => p.Name,
             new Activity
             {
                 CalenderId = cal1.Id,
-                Name = "MyActivity1-3",
+                Name = "IT konsultation",
                 Date = newDate,
                 MaxPerson = 2,
-                Duration = 30,
+                Duration = 60,
+                Time = "14:00",
             });
 
-            newDate = new DateTime(datePlusOne.Year, datePlusOne.Month, datePlusOne.Day, 16, 00, 00);
+            newDate = new DateTime(datePlusOne.Year, datePlusOne.Month, datePlusOne.Day, 0, 0, 0);
             context.Activities.AddOrUpdate(p => p.Name,
             new Activity
             {
                 CalenderId = cal1.Id,
-                Name = "MyActivity1-4",
+                Name = "Office utbildning",
                 Date = newDate,
                 MaxPerson = 2,
-                Duration = 30,
+                Duration = 60,
+                Time = "16:00",
             });
         }
     }

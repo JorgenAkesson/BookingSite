@@ -18,7 +18,7 @@ namespace BookingSiteTest.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
-    [Table("UserProfile")]
+    [Table("User")]
     public class UserProfile
     {
         [Key]

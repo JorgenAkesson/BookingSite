@@ -952,7 +952,6 @@ a.fc-more {
 
 .fc-ltr .fc-time-grid .fc-event-container { /* space on the sides of events for LTR (default) */
     margin: 0 2.5% 0 2px;
-    top: -10px;
 }
 
 .fc-rtl .fc-time-grid .fc-event-container { /* space on the sides of events for RTL */

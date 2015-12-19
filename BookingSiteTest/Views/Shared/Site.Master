@@ -23,6 +23,9 @@
     <script src="../../Scripts/moment.min.js"></script>
     <script src="../../Scripts/fullcalendar.min.js"></script>
     <script src="../../Scripts/lang/sv.js"></script>
+    <script src="../../Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Scripts/jquery.validate.js"></script>
+
 </head>
 <body>
     <header>

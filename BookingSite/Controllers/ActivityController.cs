@@ -58,6 +58,7 @@ namespace MvcApplication1.Controllers
         public ActionResult Index()
         {
             var userId = WebSecurity.CurrentUserId;
+
             var personId = db.Person.Where(a => a.UserId == userId).FirstOrDefault().Id;
             var company = db.Company.FirstOrDefault(a => a.AdministratorPersonId == personId);
             if (company == null)

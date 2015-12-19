@@ -5,10 +5,18 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+        $(document).ready(function() {
+            $(function() {
+                $(".datepicker").datepicker();
+            });
+        })
+    </script>
 
-<h2>Ändra Aktivitet</h2>
+    <h2>Ändra Aktivitet</h2>
 
-<% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
     <%: Html.ValidationSummary(true) %>
 
     <fieldset>
@@ -36,7 +44,7 @@
             <%: Html.LabelFor(model => model.Date) %>
         </div>
         <div class="editor-field">
-            <%: Html.EditorFor(model => model.Date) %>
+            <%: Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class="datepicker", @readonly="true" })%>
             <%: Html.ValidationMessageFor(model => model.Date) %>
         </div>
 
@@ -45,7 +53,7 @@
         </div>
         <div class="editor-field">
             <%: Html.EditorFor(model => model.MaxPerson) %>
-            <%: Html.ValidationMessageFor(model => model.MaxPerson) %>
+            <%: Html.ValidationMessageFor(model => model.MaxPerson ) %>
         </div>
 
         <div class="editor-label">
@@ -67,11 +75,11 @@
             <input type="submit" value="Save" />
         </p>
     </fieldset>
-<% } %>
+    <% } %>
 
-<div>
-    <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", new {calenderId = Model.CalenderId}) %>
-</div>
+    <div>
+        <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", new {calenderId = Model.CalenderId}) %>
+    </div>
 
 </asp:Content>
 

@@ -12,6 +12,7 @@ namespace BookingSiteTest.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Display(Name = "Namn")]
         public string Name { get; set; }
         public int CompanyID { get; set; }
 

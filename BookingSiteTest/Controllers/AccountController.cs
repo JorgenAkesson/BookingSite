@@ -79,7 +79,14 @@ namespace BookingSiteTest.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Phone =model.Phone});
+                    if (!WebSecurity.Initialized)
+                    {
+                        WebSecurity.InitializeDatabaseConnection(
+                            "DefaultConnection", "User", "UserId", "UserName",
+                            autoCreateTables: false);
+                    }
+
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Phone = model.Phone });
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }

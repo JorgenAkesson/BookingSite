@@ -24,7 +24,8 @@
                 <td>
                     <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
                     <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %> |
-                    <%: Html.ActionLink("Visa Activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %>
+                    <%: Html.ActionLink("Visa Activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %> |
+                    <%: Html.ActionLink("Visa Bokningar", "Bookings", new { calenderId = item.Id, fromDate = DateTime.Now, toDate = DateTime.Now }, null) %>
                     <%--<%: Html.ActionLink("Lägg till Aktivitet", "Create", "Activity",new RouteValueDictionary(new { calenderId = item.Id, companyId = item.CompanyID }), null) %>--%>
                 </td>
             </div>

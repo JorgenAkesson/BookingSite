@@ -9,6 +9,7 @@ using System.Web.Routing;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
 using Newtonsoft.Json;
+using WebMatrix.WebData;
 
 namespace BookingSiteTest.Controllers
 {
@@ -27,6 +28,34 @@ namespace BookingSiteTest.Controllers
             return View(activities.ToList());
         }
 
+        public ActionResult UnBook(int actionId, int bookingId)
+        {
+            var booking = db.Bookings.First(a => a.Id == bookingId);
+            var calenderId = booking.Activity.CalenderId;
+            db.Bookings.Remove(booking);
+            db.SaveChanges();
+            return RedirectToAction("Bookings", "Calender", new { calenderId = calenderId, fromDate = DateTime.Now, todate = DateTime.Now });           
+        }
+
+        [HttpPost]
+        public ActionResult UnBook(string jsonData)
+        {
+            Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+
+            var activityId = int.Parse(data["activityId"]);
+            var activityDate = DateTime.Parse(data["activityDate"]);
+            
+            var userId = WebSecurity.CurrentUserId;
+
+            // Find booking and delete
+            var activityToRemove = db.Bookings.FirstOrDefault(a => a.ActivityId == activityId && a.UserId == userId);
+            var calenderId = activityToRemove.Activity.CalenderId;
+            db.Bookings.Remove(activityToRemove);
+            db.SaveChanges();
+
+            return RedirectToAction("ViewWeek", "Calender", new { id = calenderId, activityDate = activityDate.ToShortDateString() });
+        }
+
         // { 'name': $("#name").val(), 'nrOfPerson': $("#nrOfPerson").val(), 'date': date.format(), 'startTime': $("#startTime").val(), 'length': $("#length").val(), 'description': $("#description").val(), 'calenderId': <%: Model.Id%> }
         [HttpPost]
         public ActionResult CreateFromDialog(string jsonData)
@@ -43,7 +72,7 @@ namespace BookingSiteTest.Controllers
             var timeSpann = TimeSpan.Parse(data["startTime"]);
             var date = DateTime.Parse(data["date"]);
             activity.Date = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-            activity.Time = timeSpann.Hours + ":" + timeSpann.Minutes;
+            activity.Time = timeSpann.Hours + ":" + timeSpann.ToString(@"mm");
 
             db.Activities.Add(activity);
             db.SaveChanges();
@@ -71,7 +100,7 @@ namespace BookingSiteTest.Controllers
             {
                 activity.CalenderId = calenderId;
                 var timeSpann = TimeSpan.Parse(activity.Time);
-                activity.Date = new DateTime(activity.Date.Year, activity.Date.Month, activity.Date.Day, timeSpann.Hours, timeSpann.Minutes, 0);
+                activity.Date = new DateTime(activity.Date.Year, activity.Date.Month, activity.Date.Day, 0, 0, 0);
                 db.Activities.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { calenderId = calenderId });

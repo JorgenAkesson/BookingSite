@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMatrix.WebData;
 
 namespace BookingSiteTest
 {
@@ -16,6 +17,15 @@ namespace BookingSiteTest
     {
         protected void Application_Start()
         {
+            try
+            {
+                if (!WebSecurity.Initialized)
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "User", "UserId", "UserName", autoCreateTables: false);
+            }
+            catch (Exception)
+            { }
+
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

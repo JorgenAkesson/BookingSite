@@ -5,6 +5,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".datepicker").datepicker();
+            });
+        })
+    </script>
 
     <h2>Skapa ny Aktivitet</h2>
 
@@ -35,7 +42,7 @@
             <%: Html.LabelFor(model => model.Date) %>
         </div>
         <div class="editor-field">
-            <%: Html.EditorFor(model => model.Date) %>
+            <%: Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class="datepicker", @readonly="true" })%>
             <%: Html.ValidationMessageFor(model => model.Date) %>
         </div>
 

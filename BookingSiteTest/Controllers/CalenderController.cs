@@ -167,12 +167,13 @@ namespace BookingSiteTest.Controllers
         public void Book(string id, string note) // ActivityId
         {
             int idi = int.Parse(id);
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection(
-                    "DefaultConnection", "UserProfile", "UserId", "UserName",
-                    autoCreateTables: false);
-            }
+            
+            //if (!WebSecurity.Initialized)
+            //{
+            //    WebSecurity.InitializeDatabaseConnection(
+            //        "DefaultConnection", "User", "UserId", "UserName",
+            //        autoCreateTables: false);
+            //}
 
             UsersContext uc = new UsersContext();
             UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
@@ -185,6 +186,7 @@ namespace BookingSiteTest.Controllers
                 ActivityId = idi,
                 UserId = WebSecurity.CurrentUserId,
                 Note = note,
+                //User = userProfile,
             });
             db.SaveChanges();
 
@@ -198,9 +200,22 @@ namespace BookingSiteTest.Controllers
         {
             var calender = db.Calenders.FirstOrDefault(a => a.Id == calenderId);
 
+            var userId = WebSecurity.CurrentUserId;
+
+
             List<Events> eventList = new List<Events>();
             foreach (var activity in calender.Activities)
             {
+                var bookedByMe = activity.Bookings.Any(a => a.UserId == userId);
+                var fullyBooked = activity.Bookings.Count() >= activity.MaxPerson;
+                string bGColor;
+                if (bookedByMe)
+                    bGColor = "#7FAAFF"; // Ljusblå
+                else if (fullyBooked)
+                    bGColor = "#FCBABB"; // Ljusröd
+                else
+                    bGColor = "#ABE99C"; // Grön
+
                 TimeSpan timeSpan = TimeSpan.Parse(activity.Time);
                 var startDate = activity.Date.AddHours(timeSpan.Hours).AddMinutes(timeSpan.Minutes);
                 var ev = new Events()
@@ -210,14 +225,33 @@ namespace BookingSiteTest.Controllers
                     start = startDate.ToString(),
                     end = startDate.AddMinutes(activity.Duration).ToString(),
                     allDay = false,
-                    color = activity.Bookings.Count() >= activity.MaxPerson ? "#FCBABB" : "#ABE99C",
+                    color = bGColor,
                     textColor = "#444444",
-                    description = activity.Bookings.Count() >= activity.MaxPerson ? true : false,
+                    fullyBooked = fullyBooked,
+                    bookedByMe = bookedByMe,
                 };
                 eventList.Add(ev);
             }
             var rows = eventList.ToArray();
             return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Bookings(int calenderid, DateTime fromdate, DateTime todate)
+        {
+            var udb = new UsersContext();
+            var calender = db.Calenders.FirstOrDefault(a => a.Id == calenderid);
+            var activities = calender.Activities.Where(a => a.Date.Date >= fromdate.Date && a.Date.Date <= todate.Date).ToList();
+            foreach (var activity in activities)
+            {
+                foreach (var booking in activity.Bookings)
+                {
+                    booking.User = udb.UserProfiles.First(a => a.UserId == booking.UserId);
+                }
+            }
+            ViewBag.CompanyId = calender.CompanyID;
+            ViewBag.CalenderId = calenderid;
+            ViewBag.FromDate = fromdate.Date.ToShortDateString();
+            return View(activities);
         }
     }
 }

@@ -175,6 +175,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512180538558_InitialCreate1.cs" />
+    <Compile Include="Migrations\201512180538558_InitialCreate1.Designer.cs">
+      <DependentUpon>201512180538558_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -372,6 +376,7 @@
     <Content Include="Views\Activity\Edit.aspx" />
     <Content Include="Views\Activity\Index.aspx" />
     <Content Include="Views\Calender\BookActivity.aspx" />
+    <Content Include="Views\Calender\Bookings.aspx" />
     <Content Include="Views\Calender\Create.aspx" />
     <Content Include="Views\Calender\Delete.aspx" />
     <Content Include="Views\Calender\Details.aspx" />
@@ -435,6 +440,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512180538558_InitialCreate1.resx">
+      <DependentUpon>201512180538558_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
