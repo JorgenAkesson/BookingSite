@@ -7,31 +7,32 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <%: Html.ActionLink("Tillbaks till Företag","Index", "Company") %>
-    <h2>Kalendrar</h2>
-    <%: Html.ActionLink("Skapa ny Kalender", "Create", new {companyId = ViewBag.CompanyId}) %>
-    <table>
+    <div class="left">
+        <div>
+            <h2><%: ViewBag.CompanyName %></h2>
+        </div>
+        <div>
+            <%: Html.ActionLink("Skapa ny Kalender", "Create", new {companyId = ViewBag.CompanyId}) %>
+        </div>
+    </div>
+    <div class="entries">
         <% foreach (var item in Model)
            { %>
-        <tr>
-            <div>
-                <td>
-                    <a href="/Calender/ViewWeek/<%:item.Id %>">
-                        <div>
-                            <%: Html.DisplayFor(modelItem => item.Name) %>
-                        </div>
-                    </a>
-                </td>
-                <td>
-                    <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
+        <div class="entry">
+            <a class="noUnderline" href="/Calender/ViewWeek/<%:item.Id %>">
+                <div>
+                    <h4><%: item.Name %></h4>
+
+                </div>
+            </a>
+            <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
                     <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %> |
-                    <%: Html.ActionLink("Visa Activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %> |
-                    <%: Html.ActionLink("Visa Bokningar", "Bookings", new { calenderId = item.Id, fromDate = DateTime.Now, toDate = DateTime.Now }, null) %>
-                    <%--<%: Html.ActionLink("Lägg till Aktivitet", "Create", "Activity",new RouteValueDictionary(new { calenderId = item.Id, companyId = item.CompanyID }), null) %>--%>
-                </td>
-            </div>
-        </tr>
+                    <%: Html.ActionLink("Activiteter", "Index", "Activity", new { calenderId = item.Id }, null) %> |
+                    <%: Html.ActionLink("Bokningar", "Bookings", new { calenderId = item.Id, fromDate = DateTime.Now, toDate = DateTime.Now }, null) %>
+            <%--<%: Html.ActionLink("Lägg till Aktivitet", "Create", "Activity",new RouteValueDictionary(new { calenderId = item.Id, companyId = item.CompanyID }), null) %>--%>
+        </div>
         <% } %>
-    </table>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

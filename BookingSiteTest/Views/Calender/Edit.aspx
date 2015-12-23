@@ -5,18 +5,14 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
     <h2>Ändra Kalender</h2>
-
     <% using (Html.BeginForm())
        { %>
     <%: Html.ValidationSummary(true) %>
 
     <fieldset>
         <legend>Calender</legend>
-
         <%: Html.HiddenFor(model => model.CompanyID) %>
-
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name) %>
         </div>

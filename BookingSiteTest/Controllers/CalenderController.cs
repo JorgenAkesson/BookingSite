@@ -24,8 +24,10 @@ namespace BookingSiteTest.Controllers
         public ActionResult Index(int companyId = 0)
         {
             var calenders = db.Calenders.Where(c => c.Company.Id == companyId);
+            var company = db.Companies.First(c => c.Id == companyId);
             //var calenders = db.Calenders.Include(c => c.Company);
             ViewBag.CompanyId = companyId;
+            ViewBag.CompanyName = company.Name;
             return View(calenders.ToList());
         }
 

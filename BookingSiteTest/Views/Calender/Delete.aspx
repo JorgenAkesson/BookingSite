@@ -5,32 +5,34 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="entries">
+        <h2>Ta bort Kalender</h2>
+        <fieldset>
+            <legend>Ta bort Kalender</legend>
 
-<h2>Ta bort Kalender</h2>
-<fieldset>
-    <legend>Ta bort Kalender</legend>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Name) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Name) %>
+            </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Name) %>
-    </div>
-
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Company.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Company.Name) %>
-    </div>
-</fieldset>
-<% using (Html.BeginForm()) { %>
-    <p>
-        <input type="submit" value="Delete" /> |
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Company.Name) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Company.Name) %>
+            </div>
+        </fieldset>
+        <% using (Html.BeginForm())
+           { %>
+        <p>
+            <input type="submit" value="Delete" />
+            |
         <%: Html.ActionLink("Tillbaka till Kalendrar", "Index", new {companyId = Model.CompanyID}) %>
-    </p>
-<% } %>
-
+        </p>
+        <% } %>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

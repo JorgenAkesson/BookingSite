@@ -17,7 +17,6 @@
     <link href="../../Content/fullcalendar.css" rel="stylesheet" />
     <link href="../../Content/fullcalendar.print.css" rel="stylesheet" media="print" />
 
-
     <script src="../../Scripts/jQuery/external/jquery/jquery.js"></script>
     <script src="../../Scripts/jQuery/jquery-ui.js"></script>
     <script src="../../Scripts/moment.min.js"></script>
@@ -28,40 +27,51 @@
 
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title"><%: Html.ActionLink("your logo here", "Index", "Home") %></p>
+    <div id="container">
+        <header id="header">
+            <div class="content-wrapper">
+                <table>
+                    <tr>
+                        <td>
+                            <p class="site-title">
+                                <%: Html.ActionLink("BokaTid", "Index", "Home") %>
+                            </p>
+                        </td>
+                        <td>
+                            <div class="float-right">
+                                <section id="login">
+                                    <%: Html.Partial("_LoginPartial") %>
+                                </section>
+                                <nav>
+                                    <ul id="menu">
+                                        <li><%: Html.ActionLink("Hem", "Index", "Home") %></li>
+                                        <li><%: Html.ActionLink("Om", "About", "Home") %></li>
+                                        <li><%: Html.ActionLink("Kontakta oss", "Contact", "Home") %></li>
+                                        <li><%: Html.ActionLink("Företag", "Index", "Company") %></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="float-right">
-                <section id="login">
-                    <%: Html.Partial("_LoginPartial") %>
-                </section>
-                <nav>
-                    <ul id="menu">
-                        <li><%: Html.ActionLink("Home", "Index", "Home") %></li>
-                        <li><%: Html.ActionLink("About", "About", "Home") %></li>
-                        <li><%: Html.ActionLink("Contact", "Contact", "Home") %></li>
-                        <li><%: Html.ActionLink("Company", "Index", "Company") %></li>
-                    </ul>
-                </nav>
-            </div>
+        </header>
+        <div id="content">
+            <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+            <section class="content-wrapper main-content clear-fix">
+                <div class="centered">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+            </section>
         </div>
-    </header>
-    <div id="body">
-        <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
-        <section class="content-wrapper main-content clear-fix">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </section>
+        <footer id="footer">
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; <%: DateTime.Now.Year %> - Åkesson IT AB</p>
+                </div>
+            </div>
+        </footer>
     </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET MVC Application</p>
-            </div>
-        </div>
-    </footer>
-
     <%--<%: Scripts.Render("~/bundles/jquery") %>--%>
 
     <asp:ContentPlaceHolder ID="ScriptsSection" runat="server" />

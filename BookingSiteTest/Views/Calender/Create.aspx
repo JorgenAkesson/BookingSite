@@ -5,27 +5,26 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="entries">
+        <h2>Skapa ny Kalender</h2>
+        <% using (Html.BeginForm())
+           { %>
+        <%: Html.ValidationSummary(true) %>
 
-    <h2>Skapa ny Kalender</h2>
+        <fieldset>
+            <legend>Kalender</legend>
 
-    <% using (Html.BeginForm())
-       { %>
-    <%: Html.ValidationSummary(true) %>
+            <input type="hidden" name="companyId" value="<%: ViewBag.CompanyID %>" />
 
-    <fieldset>
-        <legend>Kalender</legend>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Name) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Name) %>
+                <%: Html.ValidationMessageFor(model => model.Name) %>
+            </div>
 
-        <input type="hidden" name="companyId" value="<%: ViewBag.CompanyID %>" />
-
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Name) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Name) %>
-            <%: Html.ValidationMessageFor(model => model.Name) %>
-        </div>
-
-<%--        <div class="editor-label">
+            <%--        <div class="editor-label">
             <%: Html.LabelFor(model => model.CompanyID, "Company") %>
         </div>
         <div class="editor-field">
@@ -33,16 +32,16 @@
             <%: Html.ValidationMessageFor(model => model.CompanyID) %>
         </div>--%>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-    <% } %>
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+        <% } %>
 
-    <div>
-        <%: Html.ActionLink("Tillbaks till Kalendrar", "Index", new {companyId = ViewBag.CompanyID}) %>
+        <div>
+            <%: Html.ActionLink("Tillbaks till Kalendrar", "Index", new {companyId = ViewBag.CompanyID}) %>
+        </div>
     </div>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

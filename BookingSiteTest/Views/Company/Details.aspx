@@ -5,60 +5,59 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="entries">
+        <h2>Visa Företag</h2>
+        <fieldset>
+            <legend>Företag</legend>
 
-<h2>Visa Företag</h2>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Name) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Name) %>
+            </div>
 
-<fieldset>
-    <legend>Företag</legend>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Email) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Email) %>
+            </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Name) %>
-    </div>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Phone) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Phone) %>
+            </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Email) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Email) %>
-    </div>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.WebPage) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.WebPage) %>
+            </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Phone) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Phone) %>
-    </div>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Description) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Description) %>
+            </div>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.WebPage) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.WebPage) %>
-    </div>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Address.Name) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Address.Name) %>
+            </div>
+        </fieldset>
+        <p>
 
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Description) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Description) %>
-    </div>
-
-    <div class="display-label">
-        <%: Html.DisplayNameFor(model => model.Address.Name) %>
-    </div>
-    <div class="display-field">
-        <%: Html.DisplayFor(model => model.Address.Name) %>
-    </div>
-</fieldset>
-<p>
-
-    <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %> |
+            <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %> |
     <%: Html.ActionLink("Tillbaks till företag", "Index") %>
-</p>
-
+        </p>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

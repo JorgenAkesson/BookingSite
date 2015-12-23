@@ -5,24 +5,23 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
+    <div class="entries">
+        <h2>Bekräfta din bokning</h2>
 
-    <h2>Bekräfta din bokning</h2>
+        <h2><%: Model.Date.DayOfWeek %> <%: Model.Date.ToLongDateString() %></h2>
+        <h3>Name: <%: Model.Name %></h3>
 
-    <h2><%: Model.Date.DayOfWeek %> <%: Model.Date.ToLongDateString() %></h2>
-    <h3>Name: <%: Model.Name %></h3>
+        <p><%: Model.Description %></p>
 
-    <p><%: Model.Description %></p>
+        <p>Lämna ett meddelande!</p>
+        <textarea id="note" rows="2"></textarea>
+        <br>
 
-    <p> Lämna ett meddelande!</p>
-    <textarea id="note" rows="2"></textarea>
-    <br>
-
-    <input type="button" value="Boka" onclick="book()" />
-    <input type="submit" value="Avbryt" onclick="cancel()">
-
-    <script>
-        function cancel() {
-            window.location.href = "../../Calender/ViewWeek?id=" + '<%: Model.Calender.Id%>' + "&activityDate=" + '<%: Model.Date.ToShortDateString() %>';
+        <input type="button" value="Boka" onclick="book()" />
+        <input type="submit" value="Avbryt" onclick="cancel()">
+        <script>
+            function cancel() {
+                window.location.href = "../../Calender/ViewWeek?id=" + '<%: Model.Calender.Id%>' + "&activityDate=" + '<%: Model.Date.ToShortDateString() %>';
         }
         function book() {
             $.ajax({
@@ -35,6 +34,7 @@
                 }
             });
         }
-    </script>
+        </script>
+    </div>
 </asp:Content>
 <asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection"></asp:Content>

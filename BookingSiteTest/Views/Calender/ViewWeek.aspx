@@ -25,8 +25,9 @@
                     right: " agendaWeek, month,"
                 },
                 editable: false,
-                minTime: "08:00",
-                maxTime: "20:00",
+                //minTime: "08:00",
+                //maxTime: "20:00",
+                scrollTime: "08:00",
                 height: 582,
                 defaultView: "agendaWeek",
                 allDaySlot: false,
