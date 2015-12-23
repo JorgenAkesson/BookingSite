@@ -6,81 +6,81 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script>
-        $(document).ready(function() {
-            $(function() {
+        $(document).ready(function () {
+            $(function () {
                 $(".datepicker").datepicker();
             });
         })
     </script>
+    <div class="entries">
 
-    <h2>Ändra Aktivitet</h2>
+        <h2>Ändra Aktivitet</h2>
 
-    <% using (Html.BeginForm())
-       { %>
-    <%: Html.ValidationSummary(true) %>
+        <% using (Html.BeginForm())
+           { %>
+        <%: Html.ValidationSummary(true) %>
 
-    <fieldset>
-        <legend>Activity</legend>
+        <fieldset>
+            <legend>Activity</legend>
 
-        <%: Html.HiddenFor(model => model.CalenderId) %>
+            <%: Html.HiddenFor(model => model.CalenderId) %>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Name) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Name) %>
-            <%: Html.ValidationMessageFor(model => model.Name) %>
-        </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Name) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Name) %>
+                <%: Html.ValidationMessageFor(model => model.Name) %>
+            </div>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Description) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Description) %>
-            <%: Html.ValidationMessageFor(model => model.Description) %>
-        </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Description) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Description) %>
+                <%: Html.ValidationMessageFor(model => model.Description) %>
+            </div>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Date) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class="datepicker", @readonly="true" })%>
-            <%: Html.ValidationMessageFor(model => model.Date) %>
-        </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Date) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class="datepicker", @readonly="true" })%>
+                <%: Html.ValidationMessageFor(model => model.Date) %>
+            </div>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.MaxPerson) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.MaxPerson) %>
-            <%: Html.ValidationMessageFor(model => model.MaxPerson ) %>
-        </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.MaxPerson) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.MaxPerson) %>
+                <%: Html.ValidationMessageFor(model => model.MaxPerson ) %>
+            </div>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Duration) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Duration) %>
-            <%: Html.ValidationMessageFor(model => model.Duration) %>
-        </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Duration) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Duration) %>
+                <%: Html.ValidationMessageFor(model => model.Duration) %>
+            </div>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Time) %>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Time) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Time) %>
+                <%: Html.ValidationMessageFor(model => model.Time) %>
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+        <% } %>
+        <div>
+            <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", new {calenderId = Model.CalenderId}) %>
         </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Time) %>
-            <%: Html.ValidationMessageFor(model => model.Time) %>
-        </div>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-    <% } %>
-
-    <div>
-        <%: Html.ActionLink("Tillbaks till Aktiviteter", "Index", new {calenderId = Model.CalenderId}) %>
     </div>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

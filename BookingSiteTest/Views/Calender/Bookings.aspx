@@ -12,43 +12,43 @@
                 "&toDate=" + $("#datepicker").val();
         };
 
-        $(function() {
+        $(function () {
             $("#datepicker").datepicker();
         });
     </script>
+    <div class="entries">
+        <%: Html.ActionLink("Tillbaks till Kalendrar","Index", "Calender", new {companyId = ViewBag.CompanyId}, null) %>
 
-    <%: Html.ActionLink("Tillbaks till Kalendrar","Index", "Calender", new {companyId = ViewBag.CompanyId}, null) %>
-
-    <h2>Visa alla bokningar</h2>
-    <p>
-        Datum:
+        <h2>Visa alla bokningar</h2>
+        <p>
+            Datum:
         <input type="text" readonly id="datepicker" value="<%: ViewBag.FromDate %>">
-        <input type="submit" value="Byt datum" onclick="changDate()">
-    </p>
-    <%--<%: Html.ActionLink("Tillbaks till Företag","Index", "Company") %>--%>
-    <%--<%: Html.ActionLink("Skapa ny Kalender", "Create", new {companyId = ViewBag.CompanyId}) %>--%>
-    <table>
-        <% foreach (var item in Model)
-           { %>
-        <tr>
-            <td style="vertical-align: top">
-                <%: Html.DisplayFor(modelItem => item.Name) %><br />
-                Datum: <%: Html.DisplayFor(modelItem => item.Date) %><br />
-                Längd: <%: Html.DisplayFor(modelItem => item.Duration) %> Minuter
-            </td>
-            <td style="vertical-align: top">
-                <div>
-                    <% foreach (var booking in item.Bookings)
-                       { %>
-                    <%: Html.DisplayFor(modelItem => booking.User.FirstName) %>
-                    <%: Html.DisplayFor(modelItem => booking.User.LastName) %>
-                    <%: Html.DisplayFor(modelItem => booking.User.Phone) %>
-                    <%: Html.DisplayFor(modelItem => booking.User.Email) %>
-                    <%: Html.ActionLink("Ta bort bokning","UnBook", "Activity", new {actionId = item.Id, bookingId = booking.Id}, null) %>
-                    <br />
-                    <% } %>
-                </div>
-                <%--<table>
+            <input type="submit" value="Byt datum" onclick="changDate()">
+        </p>
+        <%--<%: Html.ActionLink("Tillbaks till Företag","Index", "Company") %>--%>
+        <%--<%: Html.ActionLink("Skapa ny Kalender", "Create", new {companyId = ViewBag.CompanyId}) %>--%>
+        <table>
+            <% foreach (var item in Model)
+               { %>
+            <tr>
+                <td style="vertical-align: top">
+                    <%: Html.DisplayFor(modelItem => item.Name) %><br />
+                    Datum: <%: Html.DisplayFor(modelItem => item.Date) %><br />
+                    Längd: <%: Html.DisplayFor(modelItem => item.Duration) %> Minuter
+                </td>
+                <td style="vertical-align: top">
+                    <div>
+                        <% foreach (var booking in item.Bookings)
+                           { %>
+                        <%: Html.DisplayFor(modelItem => booking.User.FirstName) %>
+                        <%: Html.DisplayFor(modelItem => booking.User.LastName) %>
+                        <%: Html.DisplayFor(modelItem => booking.User.Phone) %>
+                        <%: Html.DisplayFor(modelItem => booking.User.Email) %>
+                        <%: Html.ActionLink("Ta bort bokning","UnBook", "Activity", new {actionId = item.Id, bookingId = booking.Id}, null) %>
+                        <br />
+                        <% } %>
+                    </div>
+                    <%--<table>
                     <% foreach (var booking in item.Bookings)
                        { %>
                     <tr>
@@ -61,11 +61,11 @@
                     </tr>
                     <% } %>
                 </table>--%>
-            </td>
-        </tr>
-        <% } %>
-    </table>
-
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
 </asp:Content>
 <asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection"></asp:Content>
 
