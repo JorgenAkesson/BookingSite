@@ -14,8 +14,9 @@
 
     <link rel="stylesheet" href="../../Scripts/jQuery/jquery-ui.min.css">
 
-    <link href="../../Content/fullcalendar.css" rel="stylesheet" />
+    <link href="../../Content/fullcalendar.min.css" rel="stylesheet" />
     <link href="../../Content/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <link href="../../Content/PagedList.css" rel="stylesheet"/>
 
     <script src="../../Scripts/jQuery/external/jquery/jquery.js"></script>
     <script src="../../Scripts/jQuery/jquery-ui.js"></script>
@@ -29,7 +30,7 @@
 <body>
     <div id="container">
         <header id="header">
-            <div class="content-wrapper">
+            <div class="content-wrapper gradientHeader">
                 <table>
                     <tr>
                         <td>
@@ -47,7 +48,7 @@
                                         <li><%: Html.ActionLink("Hem", "Index", "Home") %></li>
                                         <li><%: Html.ActionLink("Om", "About", "Home") %></li>
                                         <li><%: Html.ActionLink("Kontakta oss", "Contact", "Home") %></li>
-                                        <li><%: Html.ActionLink("Företag", "Index", "Company") %></li>
+                                        <li><%: Html.ActionLink("BokaTid", "Index", "Company") %></li>
                                     </ul>
                                 </nav>
                             </div>

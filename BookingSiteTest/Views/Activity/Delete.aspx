@@ -11,6 +11,11 @@
         <fieldset>
             <legend>Activity</legend>
 
+            <input name="page" value="<%:ViewBag.Page %>" type="hidden" />
+            <input name="pageSize" value="<%:ViewBag.PageSize %>" type="hidden" />
+            <input name="sortOrder" value="<%:ViewBag.SortOrder %>" type="hidden"/>
+            <input name="searchString" value="<%:ViewBag.SearchString %>" type="hidden"/>
+
             <div class="display-label">
                 <%: Html.DisplayNameFor(model => model.Name) %>
             </div>

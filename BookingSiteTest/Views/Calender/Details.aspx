@@ -23,6 +23,12 @@
             <div class="display-field">
                 <%: Html.DisplayFor(model => model.Company.Name) %>
             </div>
+            <div class="display-label">
+                <%: Html.DisplayNameFor(model => model.Company.Description) %>
+            </div>
+            <div class="display-field">
+                <%: Html.DisplayFor(model => model.Company.Description) %>
+            </div>
         </fieldset>
         <p>
             <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %> |

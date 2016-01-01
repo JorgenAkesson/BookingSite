@@ -27,8 +27,7 @@
         <% using (Html.BeginForm())
            { %>
         <p>
-            <input type="submit" value="Delete" />
-            |
+            <input type="submit" value="Ta bort" />
         <%: Html.ActionLink("Tillbaka till Kalendrar", "Index", new {companyId = Model.CompanyID}) %>
         </p>
         <% } %>

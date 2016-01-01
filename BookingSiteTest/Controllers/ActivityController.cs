@@ -10,6 +10,7 @@ using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
 using Newtonsoft.Json;
 using WebMatrix.WebData;
+using PagedList;
 
 namespace BookingSiteTest.Controllers
 {
@@ -20,12 +21,40 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Activity/
 
-        public ActionResult Index(int calenderId = 0)
+        public ActionResult Index(int calenderId = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.SearchString = searchString;
+
             var activities = db.Activities.Include(a => a.Calender).Where(b => b.CalenderId == calenderId);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                activities = activities.Where(s => s.Name.Contains(searchString)
+                                       || s.Description.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    activities = activities.OrderByDescending(s => s.Name);
+                    break;
+                case "name_asc":
+                    activities = activities.OrderBy(s => s.Name);
+                    break;
+                case "date_desc":
+                    activities = activities.OrderByDescending(s => s.Date);
+                    break;
+                case "date_asc":
+                    activities = activities.OrderBy(s => s.Date);
+                    break;
+            }
+
+            PagedList<Activity> activitiesList = new PagedList<Activity>(activities.ToList(), page, pageSize);
+
             ViewBag.CompanyId = db.Calenders.First(a => a.Id == calenderId).CompanyID;
             ViewBag.CalenderId = calenderId;
-            return View(activities.ToList());
+            return View(activitiesList);
         }
 
         public ActionResult UnBook(int actionId, int bookingId)
@@ -34,7 +63,7 @@ namespace BookingSiteTest.Controllers
             var calenderId = booking.Activity.CalenderId;
             db.Bookings.Remove(booking);
             db.SaveChanges();
-            return RedirectToAction("Bookings", "Calender", new { calenderId = calenderId, fromDate = DateTime.Now, todate = DateTime.Now });           
+            return RedirectToAction("Bookings", "Calender", new { calenderId = calenderId, fromDate = DateTime.Now, todate = DateTime.Now });
         }
 
         [HttpPost]
@@ -44,7 +73,7 @@ namespace BookingSiteTest.Controllers
 
             var activityId = int.Parse(data["activityId"]);
             var activityDate = DateTime.Parse(data["activityDate"]);
-            
+
             var userId = WebSecurity.CurrentUserId;
 
             // Find booking and delete
@@ -113,14 +142,17 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Activity/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
             return View(activity);
         }
 
@@ -128,13 +160,13 @@ namespace BookingSiteTest.Controllers
         // POST: /Activity/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Activity activity)
+        public ActionResult Edit(Activity activity, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             if (ModelState.IsValid)
             {
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { calenderId = activity.CalenderId });
+                return RedirectToAction("Index", new { calenderId = activity.CalenderId, page = page, pageSize = pageSize, searchString = searchString, sortOrder = sortOrder });
             }
             ViewBag.CalenderId = new SelectList(db.Calenders, "Id", "Name", activity.CalenderId);
             return View(activity);
@@ -143,7 +175,7 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Activity/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
 
             Activity activity = db.Activities.Find(id);
@@ -151,6 +183,10 @@ namespace BookingSiteTest.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
             return View(activity);
         }
 
@@ -158,13 +194,13 @@ namespace BookingSiteTest.Controllers
         // POST: /Activity/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             Activity activity = db.Activities.Find(id);
             int calenderId = activity.CalenderId;
             db.Activities.Remove(activity);
             db.SaveChanges();
-            return RedirectToAction("Index", new { calenderId = calenderId });
+            return RedirectToAction("Index", new { calenderId = calenderId, page = page, pageSize = pageSize, searchString = searchString, sortOrder = sortOrder });
         }
 
         protected override void Dispose(bool disposing)

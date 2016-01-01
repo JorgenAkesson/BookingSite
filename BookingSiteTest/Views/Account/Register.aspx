@@ -5,12 +5,14 @@
 </asp:Content>
 
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup class="title">
-        <h1>Register.</h1>
-        <h2>Create a new account.</h2>
-    </hgroup>
+    <div class="entries">
+        <hgroup class="title">
+            <h1>Register.</h1>
+            <h2>Create a new account.</h2>
+        </hgroup>
 
-    <% using (Html.BeginForm()) { %>
+        <% using (Html.BeginForm())
+           { %>
         <%: Html.AntiForgeryToken() %>
         <%: Html.ValidationSummary() %>
 
@@ -48,7 +50,8 @@
             </ol>
             <input type="submit" value="Register" />
         </fieldset>
-    <% } %>
+        <% } %>
+    </div>
 </asp:Content>
 
 <asp:Content ID="scriptsContent" ContentPlaceHolderID="ScriptsSection" runat="server">

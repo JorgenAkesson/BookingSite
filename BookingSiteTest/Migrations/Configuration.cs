@@ -1,4 +1,5 @@
 using BookingSiteTest.Views.Calender;
+using WebMatrix.WebData;
 
 namespace BookingSiteTest.Migrations
 {
@@ -18,6 +19,136 @@ namespace BookingSiteTest.Migrations
 
         protected override void Seed(BookingSiteTest.Models.DAL.BookingContext context)
         {
+            //
+            // Users and roles
+            //
+            var userContext = new BookingSiteTest.Models.UsersContext();
+            userContext.UserProfiles.AddOrUpdate(p => p.UserName,
+                new UserProfile()
+                {
+                    UserName = "admin",
+                    FirstName = "Jörgen",
+                    LastName = "Åkesson",
+                    Email = "jorg.akesson@gmail.com",
+                    Phone = "0702732400",
+                });
+            userContext.SaveChanges();
+            
+            userContext.UserProfiles.AddOrUpdate(p => p.UserName,
+                new UserProfile()
+                {
+                    UserName = "cadmin",
+                    FirstName = "Ingrid",
+                    LastName = "Åkesson",
+                    Email = "ingakesson@gmail.com",
+                    Phone = "0340219316",
+                });
+            userContext.SaveChanges();
+
+            userContext.UserProfiles.AddOrUpdate(p => p.UserName,
+                new UserProfile()
+                {
+                    UserName = "user",
+                    FirstName = "Sture",
+                    LastName = "Åkesson",
+                    Email = "stugun@gmail.com",
+                    Phone = "034030514",
+                });
+            userContext.SaveChanges();
+            var regularUser = userContext.UserProfiles.First(a => a.UserName == "user");
+
+            userContext.Role.AddOrUpdate(p => p.RoleName,
+                new Role()
+                {
+                    RoleName = "admin"
+                });
+            userContext.SaveChanges();
+
+            userContext.Role.AddOrUpdate(p => p.RoleName,
+                new Role()
+                {
+                    RoleName = "companyAdmin"
+                });
+            userContext.SaveChanges();
+
+
+            var adminUser = userContext.UserProfiles.First(a => a.UserName == "admin");
+            var adminRole = userContext.Role.First(a => a.RoleName == "admin");
+            userContext.UserInRole.AddOrUpdate(p => p.UserId,
+                new UserInRole()
+                {
+                    UserId = adminUser.UserId,
+                    RoleId = adminRole.RoleId,
+                });
+            userContext.SaveChanges();
+
+            var companyAdminUser = userContext.UserProfiles.First(a => a.UserName == "cadmin");
+            var companyAdminRole = userContext.Role.First(a => a.RoleName == "companyAdmin");
+            userContext.UserInRole.AddOrUpdate(p => p.UserId,
+                new UserInRole()
+                {
+                    UserId = companyAdminUser.UserId,
+                    RoleId = companyAdminRole.RoleId,
+                });
+            userContext.SaveChanges();
+
+            // Admin user
+            userContext.Membership.AddOrUpdate(p=> p.UserId, 
+                new Membership()
+                {
+                    UserId = adminUser.UserId,
+                    CreateDate = DateTime.Now,
+                    //ConfirmationToken = "",
+                    IsConfirmed = true,
+                    LastPasswordFailureDate = DateTime.Now,
+                    PasswordFailuresSinceLastSuccess = 0,
+                    Password = "ABbz4fd9+hK7xRweDyQz+5qMYoNAlZPr9Y9RuKZ+/LQFWjQ7SjbtkDnYNqUcngkNcg==",
+                    PasswordChangedDate = DateTime.Now,
+                    PasswordSalt = "",
+                    //PasswordVerificationToken = "",
+                    PasswordVerificationTokenExpirationDate = DateTime.Now,
+                });
+            userContext.SaveChanges();
+
+            // cadmin user
+            userContext.Membership.AddOrUpdate(p => p.UserId,
+                new Membership()
+                {
+                    UserId = companyAdminUser.UserId,
+                    CreateDate = DateTime.Now,
+                    //ConfirmationToken = "",
+                    IsConfirmed = true,
+                    LastPasswordFailureDate = DateTime.Now,
+                    PasswordFailuresSinceLastSuccess = 0,
+                    Password = "AGPpkFLEmgzVsvqnyGyOvs1l7nLAG3SseAUFl6Xxd8epeKNtetmdry/4bsf61M4ejw==",
+                    PasswordChangedDate = DateTime.Now,
+                    PasswordSalt = "",
+                    //PasswordVerificationToken = "",
+                    PasswordVerificationTokenExpirationDate = DateTime.Now,
+                });
+            userContext.SaveChanges();
+
+            // regular user
+            userContext.Membership.AddOrUpdate(p => p.UserId,
+                new Membership()
+                {
+                    UserId = regularUser.UserId,
+                    CreateDate = DateTime.Now,
+                    //ConfirmationToken = "",
+                    IsConfirmed = true,
+                    LastPasswordFailureDate = DateTime.Now,
+                    PasswordFailuresSinceLastSuccess = 0,
+                    Password = "AJQgSUI3ho7JpWf5Gm4x+4wUqBmE6WFbIgotOTAjSoxJw47S0J2HPPGW/EEd9u5fWA==",
+                    PasswordChangedDate = DateTime.Now,
+                    PasswordSalt = "",
+                    //PasswordVerificationToken = "",
+                    PasswordVerificationTokenExpirationDate = DateTime.Now,
+                });
+            userContext.SaveChanges();
+
+            //
+            // Addresses
+            //
             context.Addresses.AddOrUpdate(p => p.Name,
                new Address()
                {

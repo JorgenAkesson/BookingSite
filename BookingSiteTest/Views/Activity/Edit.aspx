@@ -24,7 +24,11 @@
             <legend>Activity</legend>
 
             <%: Html.HiddenFor(model => model.CalenderId) %>
-
+            <input name="page" value="<%:ViewBag.Page %>" type="hidden"/>
+            <input name="pageSize" value="<%:ViewBag.PageSize %>" type="hidden"/>
+            <input name="sortOrder" value="<%:ViewBag.SortOrder %>" type="hidden"/>
+            <input name="searchString" value="<%:ViewBag.SearchString %>" type="hidden"/>
+                
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Name) %>
             </div>

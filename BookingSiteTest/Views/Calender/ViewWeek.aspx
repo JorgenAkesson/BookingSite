@@ -12,6 +12,7 @@
     <%: Html.ActionLink("Tillbaks till Kalendrar","Index", "Calender", new {companyId = Model.CompanyID}, null) %>
     <h2><%: Model.Company.Name %></h2>
     <h3><%: Model.Name %></h3>
+    <p><%: Model.Description %></p>
     <br />
 
     <%: Scripts.Render("~/bundles/fullcalendarjs") %>
@@ -25,8 +26,6 @@
                     right: " agendaWeek, month,"
                 },
                 editable: false,
-                //minTime: "08:00",
-                //maxTime: "20:00",
                 scrollTime: "08:00",
                 height: 582,
                 defaultView: "agendaWeek",
@@ -134,7 +133,7 @@
                         digits: "Ange endast siffror."
                     },
                     startTimeN: {
-                        required:"Starttid måste anges.",
+                        required: "Starttid måste anges.",
                         regex: 'Ange på formen tt:mm.'
                     },
                     nrOfPersonN: {
@@ -146,7 +145,6 @@
         });
 
     </script>
-
     <div style="display: none;">
         <div id="dialog" title="Lägg till Activitet!">
             <form id="addDialog">
@@ -163,7 +161,6 @@
             </form>
         </div>
     </div>
-
     <div style="display: none;">
         <div id="unBookDialog" title="Avboka din aktivitet!">
             <form>
@@ -175,38 +172,6 @@
     </div>
 
     <div id="calendar"></div>
-
-    <%--<% var firstDayNumber = ((DateTime)ViewData["FirstDateOfWeek"]).Day; %>--%>
-
-    <%--Set--%>
-    <%--    <div style="position: relative; width: 600px; height: 500px">
-        <% for (int x = 0; x <= 500; x = x + 50)
-           { %>
-        <hr style="margin: 0px; position: absolute; top: <%: x %>px; width: 600px" />
-        <% } %>
-
-        <% var persId = ViewData["UserId"] as int?;
-           foreach (var aD in ViewData["ActivitiesData"] as List<BookingSiteTest.Models.Activity>)
-           {
-               int topMin = 8 * 60; // Set starttime to 8 am
-               int y = (aD.Date.Hour * 60 + aD.Date.Minute - topMin) / 2;
-               int x = 100;
-               var fullyBooked = aD.Bookings.Count() >= aD.MaxPerson;
-               string color = "#00FF00";
-               if (fullyBooked)
-                   color = "#FF0000";
-        %>
-        <div style="position: absolute; top: <%: y.ToString() %>px; left: <%: x.ToString() %>px;">
-            <a href='<%: Url.Action("BookActivity", new RouteValueDictionary(new { id = Model.Id, activityId = aD.Id })) %>'>
-                <p>
-                    <input type="button" value="<%: aD.Name %>" style="background-color: <%: color%>" />
-                </p>
-            </a>
-        </div>
-        <% } %>
-    </div>--%>
-    <p>
-    </p>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

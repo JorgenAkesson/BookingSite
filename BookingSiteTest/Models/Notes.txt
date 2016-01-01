@@ -3,3 +3,16 @@ enable-migrations -contexttypename SchoolContext
 
 add-migration InitialCreate
 update-database
+
+Users:
+Li: admin 
+Pw: admin
+Role: admin
+
+Li: cadmin
+Pw: cadmin
+Role: companyAdmin
+
+Li: user
+Pw: user
+Role: -

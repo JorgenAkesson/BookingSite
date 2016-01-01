@@ -55,9 +55,8 @@
         <% using (Html.BeginForm())
            { %>
         <p>
-            <input type="submit" value="Delete" />
-            |
-        <%: Html.ActionLink("Tillbaks till Företag", "Index") %>
+            <input type="submit" value="Ta bort" />
+            <%: Html.ActionLink("Tillbaks till Företag", "Index") %>
         </p>
         <% } %>
     </div>

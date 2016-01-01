@@ -79,7 +79,6 @@ namespace BookingSiteTest.Controllers
         public ActionResult Create(string companyId)
         {
             ViewBag.CompanyID = companyId;
-            //return ViewWeek();
             ViewBag.CompanyId = companyId;
             return View();
         }
@@ -188,13 +187,10 @@ namespace BookingSiteTest.Controllers
                 ActivityId = idi,
                 UserId = WebSecurity.CurrentUserId,
                 Note = note,
-                //User = userProfile,
             });
             db.SaveChanges();
 
             var activity = db.Activities.FirstOrDefault(a => a.Id == idi);
-
-            //return RedirectToAction("ViewWeek", new { id = activity.CalenderId, activityDate = activity.Date });
         }
 
 

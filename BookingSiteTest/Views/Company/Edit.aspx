@@ -99,13 +99,13 @@
                 <%: Html.ValidationMessageFor(model => model.Address.City) %>
             </div>
             <p>
-                <input type="submit" value="Save" />
+                <input type="submit" value="Spara" />
+                <%: Html.ActionLink("Tillbaks till Företag", "Index") %>
             </p>
         </fieldset>
         <% } %>
 
         <div>
-            <%: Html.ActionLink("Tillbaks till Företag", "Index") %>
         </div>
     </div>
 </asp:Content>

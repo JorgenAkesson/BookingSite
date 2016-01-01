@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<BookingSiteTest.Models.Activity>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<PagedList.PagedList<BookingSiteTest.Models.Activity>>" %>
+
+<%@ Import Namespace="PagedList.Mvc" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Aktiviteter
@@ -10,28 +12,30 @@
         <h2>Aktiviteter</h2>
         <%: Html.ActionLink("Skapa ny Aktivitet", "Create", new {calenderId = ViewBag.CalenderId}) %>
 
+        <% var nameSortOrder = ViewBag.SortOrder == "name_asc" ? "name_desc" : "name_asc";
+           var dateSortOrder = ViewBag.SortOrder == "date_asc" ? "date_desc" : "date_asc"; %>
+
+        <% using (Html.BeginForm())
+           {%>
+        <p>
+            Sök: <%: Html.TextBox("searchString")%>
+            <input type="submit" value="Sök" />
+        </p>
+        <% }%>
         <table>
             <tr>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.Name) %>
-                </th>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.Description) %>
-                </th>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.Date) %>
-                </th>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.MaxPerson) %>
-                </th>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.Duration) %>
-                </th>
-                <th>
-                    <%: Html.DisplayNameFor(model => model.Time) %>
-                </th>
-                <th></th>
+                <td><%: Html.ActionLink("Namn", "Index", new { calenderId = ViewBag.CalenderId, sortOrder = nameSortOrder, page = Model.PageNumber, pageSize = Model.PageSize, searchString = ViewBag.SearchString })%>
+                </td>
+                <td>Beskrivning
+                </td>
+                <td><%: Html.ActionLink("Datum", "Index", new { calenderId = ViewBag.CalenderId, sortOrder = dateSortOrder, page = Model.PageNumber, pageSize = Model.PageSize, searchString = ViewBag.SearchString })%>
+                </td>
+                <td>Max personer</td>
+                <td>Längd</td>
+                <td>Tid</td>
             </tr>
+
+
 
             <% foreach (var item in Model)
                { %>
@@ -55,12 +59,15 @@
                     <%: Html.DisplayFor(modelItem => item.Time) %>
                 </td>
                 <td>
-                    <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %>
+                    <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id, sortOrder = ViewBag.SortOrder, page = Model.PageNumber, pageSize = Model.PageSize, searchString = ViewBag.SearchString }) %> |
+                <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id, sortOrder = ViewBag.SortOrder, page = Model.PageNumber, pageSize = Model.PageSize, searchString = ViewBag.SearchString }) %>
                 </td>
             </tr>
             <% } %>
         </table>
+        <br />
+        Sida <%: Model.PageNumber %> av <%: Model.PageCount %>
+        <%: Html.PagedListPager(Model, page => Url.Action("Index", new { page, calenderId = ViewBag.CalenderId, sortOrder = ViewBag.SortOrder, pageSize = Model.PageSize, searchString = ViewBag.SearchString })) %>
     </div>
 </asp:Content>
 

@@ -5,31 +5,36 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Ändra Kalender</h2>
-    <% using (Html.BeginForm())
-       { %>
-    <%: Html.ValidationSummary(true) %>
+    <div class="entries">
+        <h2>Ändra Kalender</h2>
+        <% using (Html.BeginForm())
+           { %>
+        <%: Html.ValidationSummary(true) %>
 
-    <fieldset>
-        <legend>Calender</legend>
-        <%: Html.HiddenFor(model => model.CompanyID) %>
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Name) %>
-        </div>
-        <div class="editor-field">
-            <%: Html.EditorFor(model => model.Name) %>
-            <%: Html.ValidationMessageFor(model => model.Name) %>
-        </div>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-    <% } %>
-
-    <div>
-        <%: Html.ActionLink("Tillbaks till Kalendrar", "Index", new { companyId = Model.CompanyID}) %>
+        <fieldset>
+            <legend>Calender</legend>
+            <%: Html.HiddenFor(model => model.CompanyID) %>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Name) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Name) %>
+                <%: Html.ValidationMessageFor(model => model.Name) %>
+            </div>
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Description) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.EditorFor(model => model.Description) %>
+                <%: Html.ValidationMessageFor(model => model.Description) %>
+            </div>
+            <p>
+                <input type="submit" value="Spara" />
+                <%: Html.ActionLink("Tillbaks till Kalendrar", "Index", new { companyId = Model.CompanyID}) %>
+            </p>
+        </fieldset>
+        <% } %>
     </div>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">

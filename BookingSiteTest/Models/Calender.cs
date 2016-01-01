@@ -16,6 +16,8 @@ namespace BookingSiteTest.Models
         public string Name { get; set; }
         public int CompanyID { get; set; }
 
+        [Display(Name = "Beskrivning")]
+        public string Description { get; set; }
 
         public virtual ICollection<Activity> Activities { get; set; }
         public virtual Company Company { get; set; }

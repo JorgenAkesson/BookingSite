@@ -6,15 +6,15 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="MainContentCenter">
-        <div class="left">
-            <div>
-                <h2>Företag</h2>
-            </div>
-            <div>
-                <%: Html.ActionLink("Skapa nytt Företag", "Create") %>
-            </div>
-        </div>
         <div class="entries">
+            <div class="entry nohover">
+                <div>
+                    <h2>Företag</h2>
+                </div>
+                <div>
+                    <%: Html.ActionLink("Skapa nytt Företag", "Create") %>
+                </div>
+            </div>
             <% foreach (var item in Model)
                { %>
             <div class="entry">

@@ -54,8 +54,8 @@
         </fieldset>
         <p>
 
-            <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %> |
-    <%: Html.ActionLink("Tillbaks till företag", "Index") %>
+            <%: Html.ActionLink("Ändra", "Edit", new { id=Model.Id }) %>
+            <%: Html.ActionLink("Tillbaks till företag", "Index") %>
         </p>
     </div>
 </asp:Content>

@@ -1,13 +1,13 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<BookingSiteTest.Models.LocalPasswordModel>" %>
 
-<h3>Change password</h3>
+<h3>Byt löenord</h3>
 
 <% using (Html.BeginForm("Manage", "Account")) { %>
     <%: Html.AntiForgeryToken() %>
     <%: Html.ValidationSummary() %>
 
     <fieldset>
-        <legend>Change Password Form</legend>
+        <legend>Byt lösenord</legend>
         <ol>
             <li>
                 <%: Html.LabelFor(m => m.OldPassword) %>
@@ -22,6 +22,6 @@
                 <%: Html.PasswordFor(m => m.ConfirmPassword) %>
             </li>
         </ol>
-        <input type="submit" value="Change password" />
+        <input type="submit" value="Byt lösenord" />
     </fieldset>
 <% } %>
