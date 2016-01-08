@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BookingSiteTest.Helpers;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
 using Newtonsoft.Json;
@@ -16,11 +17,10 @@ namespace BookingSiteTest.Controllers
 {
     public class CalenderController : Controller
     {
-        private BookingContext db = new BookingContext();
+        private UsersContext db = new UsersContext();
 
         //
         // GET: /Calender/
-
         public ActionResult Index(int companyId = 0)
         {
             var calenders = db.Calenders.Where(c => c.Company.Id == companyId);
@@ -33,13 +33,18 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Calender/Details/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Details(int id = 0)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
             }
             return View(calender);
         }
@@ -56,8 +61,6 @@ namespace BookingSiteTest.Controllers
             {
                 return HttpNotFound();
             }
-
-
             if (activityDate == null)
             {
                 activityDate = DateTime.Now.ToShortDateString();
@@ -75,9 +78,14 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Calender/Create
-
-        public ActionResult Create(string companyId)
+        [Authorize(Roles = "companyAdmin, admin")]
+        public ActionResult Create(int companyId)
         {
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(companyId);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
             ViewBag.CompanyID = companyId;
             ViewBag.CompanyId = companyId;
             return View();
@@ -87,6 +95,7 @@ namespace BookingSiteTest.Controllers
         // POST: /Calender/Create
 
         [HttpPost]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Create(Calender calender, string companyId)
         {
             if (ModelState.IsValid)
@@ -102,13 +111,18 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Calender/Edit/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Edit(int id = 0)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
             }
             ViewBag.CompanyID = calender.CompanyID;
             return View(calender);
@@ -118,14 +132,15 @@ namespace BookingSiteTest.Controllers
         // POST: /Calender/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Edit(Calender calender)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(calender).State = EntityState.Modified;
                 db.SaveChanges();
-                
-                return RedirectToAction("Index", new { companyId = calender.CompanyID});
+
+                return RedirectToAction("Index", new { companyId = calender.CompanyID });
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "Id", "Name", calender.CompanyID);
             return View(calender);
@@ -133,20 +148,26 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Calender/Delete/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Delete(int id = 0)
         {
             Calender calender = db.Calenders.Find(id);
             if (calender == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("IncorrectData", "Error");
             }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             return View(calender);
         }
 
         //
         // POST: /Calender/Delete/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -168,7 +189,7 @@ namespace BookingSiteTest.Controllers
         public void Book(string id, string note) // ActivityId
         {
             int idi = int.Parse(id);
-            
+
             //if (!WebSecurity.Initialized)
             //{
             //    WebSecurity.InitializeDatabaseConnection(
@@ -234,10 +255,21 @@ namespace BookingSiteTest.Controllers
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Bookings(int calenderid, DateTime fromdate, DateTime todate)
         {
             var udb = new UsersContext();
             var calender = db.Calenders.FirstOrDefault(a => a.Id == calenderid);
+            if (calender == null)
+            {
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var activities = calender.Activities.Where(a => a.Date.Date >= fromdate.Date && a.Date.Date <= todate.Date).ToList();
             foreach (var activity in activities)
             {

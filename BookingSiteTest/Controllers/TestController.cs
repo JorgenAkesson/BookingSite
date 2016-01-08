@@ -12,7 +12,7 @@ namespace BookingSiteTest.Controllers
 {
     public class TestController : Controller
     {
-        private BookingContext db = new BookingContext();
+        private UsersContext db = new UsersContext();
 
         //
         // GET: /Test/

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<BookingSiteTest.Models.Company>>" %>
+<%@ Import Namespace="BookingSiteTest.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Företag
@@ -12,7 +13,7 @@
                     <h2>Företag</h2>
                 </div>
                 <div>
-                    <%: Html.ActionLink("Skapa nytt Företag", "Create") %>
+                    <%: Html.ActionLinkAuthorized("Skapa nytt Företag", "Create") %>
                 </div>
             </div>
             <% foreach (var item in Model)
@@ -24,8 +25,8 @@
                         <%:Html.DisplayFor(modelItem => item.Address.Street) %> , <%:Html.DisplayFor(modelItem => item.Address.City) %>
                     </div>
                 </a>
-                <%: Html.ActionLink("Ändra", "Edit", new { id=item.Id }) %>
-                <%: Html.ActionLink("Ta bort", "Delete", new { id=item.Id }) %>
+                <%: Html.ActionLinkAuthorized("Ändra", "Edit", new { id=item.Id }, item.Id) %>
+                <%: Html.ActionLinkAuthorized("Ta bort", "Delete", new { id=item.Id }, item.Id) %>
             </div>
             <% } %>
         </div>

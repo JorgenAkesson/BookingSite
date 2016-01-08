@@ -12,6 +12,7 @@ Role: admin
 Li: cadmin
 Pw: cadmin
 Role: companyAdmin
+CompanyAdmin to Akesson IT AB
 
 Li: user
 Pw: user

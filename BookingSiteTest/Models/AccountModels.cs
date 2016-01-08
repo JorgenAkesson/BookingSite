@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
 using System.Web.Security;
+using BookingSiteTest.Views.Calender;
 
 namespace BookingSiteTest.Models
 {
@@ -18,7 +19,16 @@ namespace BookingSiteTest.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<UserInRole> UserInRole { get; set; }
-        public DbSet<Membership> Membership { get; set; } 
+        public DbSet<Membership> Membership { get; set; }
+
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Calender> Calenders { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyAdmin> CompanyAdmin { get; set; }
+        public DbSet<Test> Test { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Images> Images { get; set; }
     }
 
     [Table("User")]

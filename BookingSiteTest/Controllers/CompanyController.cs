@@ -19,7 +19,7 @@ namespace BookingSiteTest.Controllers
     {
         private const int UPLOAD_File_SIZE = 10000;
 
-        private BookingContext db = new BookingContext();
+        private UsersContext db = new UsersContext();
 
         //
         // GET: /Company/
@@ -32,7 +32,7 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Company/Details/5
-
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int id = 0)
         {
             Company company = db.Companies.Find(id);
@@ -46,6 +46,7 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Company/Create
 
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             ViewBag.AddressId = new SelectList(db.Addresses, "Id", "Name");
@@ -56,6 +57,7 @@ namespace BookingSiteTest.Controllers
         // POST: /Company/Create
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Create(Company company)
         {
             if (ModelState.IsValid)
@@ -79,6 +81,7 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Company/Edit/5
 
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id = 0)
         {
             Company company = db.Companies.Find(id);
@@ -94,6 +97,7 @@ namespace BookingSiteTest.Controllers
         // POST: /Company/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(Company company)
         {
             if (ModelState.IsValid)
@@ -117,6 +121,7 @@ namespace BookingSiteTest.Controllers
         //
         // GET: /Company/Delete/5
 
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id = 0)
         {
             Company company = db.Companies.Find(id);
@@ -131,6 +136,7 @@ namespace BookingSiteTest.Controllers
         // POST: /Company/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Company company = db.Companies.Find(id);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BookingSiteTest.Helpers;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
 using Newtonsoft.Json;
@@ -16,13 +17,25 @@ namespace BookingSiteTest.Controllers
 {
     public class ActivityController : Controller
     {
-        private BookingContext db = new BookingContext();
+        private UsersContext db = new UsersContext();
 
         //
         // GET: /Activity/
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Index(int calenderId = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
+            // Validate authority
+            Calender calender = db.Calenders.Find(calenderId);
+            if (calender == null)
+            {
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             ViewBag.SortOrder = sortOrder;
             ViewBag.SearchString = searchString;
 
@@ -87,6 +100,7 @@ namespace BookingSiteTest.Controllers
 
         // { 'name': $("#name").val(), 'nrOfPerson': $("#nrOfPerson").val(), 'date': date.format(), 'startTime': $("#startTime").val(), 'length': $("#length").val(), 'description': $("#description").val(), 'calenderId': <%: Model.Id%> }
         [HttpPost]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult CreateFromDialog(string jsonData)
         {
             Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
@@ -111,9 +125,19 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Activity/Create
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Create(int calenderId = 0, int companyId = 0)
         {
+            Calender calender = db.Calenders.Find(calenderId);
+            if (calender == null)
+            {
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
             ViewBag.CalenderId = calenderId;
             ViewBag.CompanyId = companyId;
             return View();
@@ -121,8 +145,8 @@ namespace BookingSiteTest.Controllers
 
         //
         // POST: /Activity/Create
-
         [HttpPost]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Create(Activity activity, int calenderId = 0)
         {
             if (ModelState.IsValid)
@@ -141,13 +165,18 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Activity/Edit/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Edit(int id = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(activity.Calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
             }
             ViewBag.Page = page;
             ViewBag.PageSize = pageSize;
@@ -160,6 +189,7 @@ namespace BookingSiteTest.Controllers
         // POST: /Activity/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Edit(Activity activity, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             if (ModelState.IsValid)
@@ -174,14 +204,19 @@ namespace BookingSiteTest.Controllers
 
         //
         // GET: /Activity/Delete/5
-
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult Delete(int id = 0, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
 
             Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("IncorrectData", "Error");
+            }
+            bool IsAdmin = LinkExtensions.IsLoggedInUserAdmin(activity.Calender.CompanyID);
+            if (!IsAdmin)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
             }
             ViewBag.Page = page;
             ViewBag.PageSize = pageSize;
@@ -192,8 +227,8 @@ namespace BookingSiteTest.Controllers
 
         //
         // POST: /Activity/Delete/5
-
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "companyAdmin, admin")]
         public ActionResult DeleteConfirmed(int id, string sortOrder = "", int page = 1, int pageSize = 10, string searchString = "")
         {
             Activity activity = db.Activities.Find(id);
