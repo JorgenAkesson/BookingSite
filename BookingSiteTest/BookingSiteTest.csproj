@@ -183,6 +183,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LinkExtensions.cs" />
+    <Compile Include="Migrations\201601082253235_InitialCreate.cs" />
+    <Compile Include="Migrations\201601082253235_InitialCreate.Designer.cs">
+      <DependentUpon>201601082253235_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601082318355_InitialCreate2.cs" />
+    <Compile Include="Migrations\201601082318355_InitialCreate2.Designer.cs">
+      <DependentUpon>201601082318355_InitialCreate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601082323428_InitialCreate3.cs" />
+    <Compile Include="Migrations\201601082323428_InitialCreate3.Designer.cs">
+      <DependentUpon>201601082323428_InitialCreate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601082343427_InitialCreate4.cs" />
+    <Compile Include="Migrations\201601082343427_InitialCreate4.Designer.cs">
+      <DependentUpon>201601082343427_InitialCreate4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -445,6 +461,20 @@
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
     <Folder Include="Models\ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601082253235_InitialCreate.resx">
+      <DependentUpon>201601082253235_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601082318355_InitialCreate2.resx">
+      <DependentUpon>201601082318355_InitialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601082323428_InitialCreate3.resx">
+      <DependentUpon>201601082323428_InitialCreate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601082343427_InitialCreate4.resx">
+      <DependentUpon>201601082343427_InitialCreate4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

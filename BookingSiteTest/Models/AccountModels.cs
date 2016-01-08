@@ -20,7 +20,8 @@ namespace BookingSiteTest.Models
         public DbSet<Role> Role { get; set; }
         public DbSet<UserInRole> UserInRole { get; set; }
         public DbSet<Membership> Membership { get; set; }
-
+        public DbSet<OAuthMembership> OAuthMembership { get; set; }
+        
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Calender> Calenders { get; set; }
@@ -68,18 +69,27 @@ namespace BookingSiteTest.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
         public string ConfirmationToken { get; set; }
         public bool IsConfirmed { get; set; }
-        public DateTime LastPasswordFailureDate { get; set; }
+        public DateTime? LastPasswordFailureDate { get; set; }
         public int PasswordFailuresSinceLastSuccess { get; set; }
         public string Password { get; set; }
-        public DateTime PasswordChangedDate { get; set; }
+        public DateTime? PasswordChangedDate { get; set; }
         public string PasswordSalt { get; set; }
         public string PasswordVerificationToken { get; set; }
-        public DateTime PasswordVerificationTokenExpirationDate { get; set; }
+        public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
     }
 
+    [Table("webpages_OAuthMembership")]
+    public class OAuthMembership
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
+        public int UserId { get; set; }
+        public string Provider { get; set; }
+        public string ProviderUserId { get; set; }
+    }
 
     public class RegisterExternalLoginModel
     {

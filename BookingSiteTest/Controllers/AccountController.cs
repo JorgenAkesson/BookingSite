@@ -86,7 +86,8 @@ namespace BookingSiteTest.Controllers
                             autoCreateTables: false);
                     }
 
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Phone = model.Phone });
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { FirstName = model.FirstName, LastName = model.LastName, 
+                        Email = model.Email, Phone = model.Phone});
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
