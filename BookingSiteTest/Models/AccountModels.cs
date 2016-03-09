@@ -30,6 +30,7 @@ namespace BookingSiteTest.Models
         public DbSet<Test> Test { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Images> Images { get; set; }
+        public DbSet<Customer> Customer { get; set; }
     }
 
     [Table("User")]

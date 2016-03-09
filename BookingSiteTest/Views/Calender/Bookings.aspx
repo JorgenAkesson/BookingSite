@@ -40,10 +40,10 @@
                     <div>
                         <% foreach (var booking in item.Bookings)
                            { %>
-                        <%: Html.DisplayFor(modelItem => booking.User.FirstName) %>
-                        <%: Html.DisplayFor(modelItem => booking.User.LastName) %>
-                        <%: Html.DisplayFor(modelItem => booking.User.Phone) %>
-                        <%: Html.DisplayFor(modelItem => booking.User.Email) %>
+                        <%: booking.UserId != null ? Html.DisplayFor(modelItem => booking.User.FirstName) : Html.DisplayFor(modelItem => booking.Customer.FirstName) %>
+                        <%: booking.UserId != null ? Html.DisplayFor(modelItem => booking.User.LastName) : Html.DisplayFor(modelItem => booking.Customer.LastName)%>
+                        <%: booking.UserId != null ? Html.DisplayFor(modelItem => booking.User.Phone) : Html.DisplayFor(modelItem => booking.Customer.Phone)%>
+                        <%: booking.UserId != null ? Html.DisplayFor(modelItem => booking.User.Email) : Html.DisplayFor(modelItem => booking.Customer.Email)%>
                         <%: Html.ActionLink("Ta bort bokning","UnBook", "Activity", new {actionId = item.Id, bookingId = booking.Id}, null) %>
                         <br />
                         <% } %>

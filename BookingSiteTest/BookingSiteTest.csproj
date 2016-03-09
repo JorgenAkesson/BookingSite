@@ -199,6 +199,22 @@
     <Compile Include="Migrations\201601082343427_InitialCreate4.Designer.cs">
       <DependentUpon>201601082343427_InitialCreate4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601151540481_InitialCreate5.cs" />
+    <Compile Include="Migrations\201601151540481_InitialCreate5.Designer.cs">
+      <DependentUpon>201601151540481_InitialCreate5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601152235414_InitialCreate51.cs" />
+    <Compile Include="Migrations\201601152235414_InitialCreate51.Designer.cs">
+      <DependentUpon>201601152235414_InitialCreate51.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601152244367_InitialCreate52.cs" />
+    <Compile Include="Migrations\201601152244367_InitialCreate52.Designer.cs">
+      <DependentUpon>201601152244367_InitialCreate52.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601152251186_InitialCreate53.cs" />
+    <Compile Include="Migrations\201601152251186_InitialCreate53.Designer.cs">
+      <DependentUpon>201601152251186_InitialCreate53.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -206,14 +222,18 @@
     <Compile Include="Models\Calender.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyAdmin.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DAL\BookingContext.cs" />
     <Compile Include="Models\Events.cs" />
     <Compile Include="Models\Images.cs" />
     <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\ViewModels\ActivityBooking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Address.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Default.mdf" />
+    <Content Include="App_Data\Default_log.ldf" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Images\emma.jpg" />
     <Content Include="Images\kust.jpg" />
@@ -460,7 +480,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201601082253235_InitialCreate.resx">
@@ -474,6 +493,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601082343427_InitialCreate4.resx">
       <DependentUpon>201601082343427_InitialCreate4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601151540481_InitialCreate5.resx">
+      <DependentUpon>201601151540481_InitialCreate5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601152235414_InitialCreate51.resx">
+      <DependentUpon>201601152235414_InitialCreate51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601152244367_InitialCreate52.resx">
+      <DependentUpon>201601152244367_InitialCreate52.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601152251186_InitialCreate53.resx">
+      <DependentUpon>201601152251186_InitialCreate53.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

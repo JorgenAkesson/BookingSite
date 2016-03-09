@@ -10,6 +10,7 @@ using System.Web.Routing;
 using BookingSiteTest.Helpers;
 using BookingSiteTest.Models;
 using BookingSiteTest.Models.DAL;
+using BookingSiteTest.Models.ViewModels;
 using Newtonsoft.Json;
 using WebMatrix.WebData;
 
@@ -67,13 +68,36 @@ namespace BookingSiteTest.Controllers
             }
 
             ViewData["ActivityDate"] = activityDate;
+            ViewBag.IsUserAdmin = LinkExtensions.IsLoggedInUserAdmin(calender.CompanyID);
             return View(calender);
         }
 
         public ActionResult BookActivity(int activityId = 0)
         {
             var activity = db.Activities.FirstOrDefault(a => a.Id == activityId);
-            return View(activity);
+            var activityBooking = new ActivityBooking()
+            {
+                Activity = activity,
+                Customer = new Customer(),
+                Note = "",
+            };
+            return View(activityBooking);
+        }
+
+        [HttpPost]
+        public ActionResult BookActivity(ActivityBooking activityBooking)
+        {
+            var a = activityBooking;
+
+            db.Bookings.Add(new Booking()
+            {
+                ActivityId = activityBooking.Activity.Id,
+                Note = activityBooking.Note,
+                Customer = activityBooking.Customer,
+            });
+            db.SaveChanges();
+
+            return RedirectToAction("ViewWeek", "Calender", new { id = activityBooking.Activity.CalenderId, activityDate = activityBooking.Activity.Date.ToShortDateString() });
         }
 
         //
@@ -275,7 +299,8 @@ namespace BookingSiteTest.Controllers
             {
                 foreach (var booking in activity.Bookings)
                 {
-                    booking.User = udb.UserProfiles.First(a => a.UserId == booking.UserId);
+                    if (booking.UserId != null)
+                        booking.User = udb.UserProfiles.First(a => a.UserId == booking.UserId);
                 }
             }
             ViewBag.CompanyId = calender.CompanyID;

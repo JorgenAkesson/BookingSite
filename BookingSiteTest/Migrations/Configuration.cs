@@ -219,6 +219,13 @@ namespace BookingSiteTest.Migrations
 
             var comp1 = context.Companies.FirstOrDefault(a => a.Name == "Åkesson IT AB");
 
+            context.CompanyAdmin.AddOrUpdate(p => p.CompanyId,
+                new CompanyAdmin
+                {
+                    CompanyId = comp1.Id,
+                    UserId = companyAdminUser.UserId,
+                });
+
             context.Calenders.AddOrUpdate(p => p.Name,
                new Calender
                {

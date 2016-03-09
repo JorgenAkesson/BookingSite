@@ -59,7 +59,8 @@ namespace BookingSiteTest.Helpers
         {
             UsersContext uc = new UsersContext();
             UserProfile userProfile = uc.UserProfiles.Where(x => x.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
-
+            if (userProfile == null)
+                return false;
             var isAdmin = System.Web.Security.Roles.GetRolesForUser().Contains("admin"); // Admin always see.
 
             UsersContext db = new UsersContext();

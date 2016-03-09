@@ -67,6 +67,8 @@
                         window.location = "/Calender/BookActivity?activityId=" + event.id;
                     }
                 },
+                <% if (ViewBag.IsUserAdmin)
+                   { %>
                 dayClick: function (date, jsEvent, view) {
                     $("#startTime").val(date.format("HH:mm"));
                     // Add Dialog for Create Activity
@@ -77,7 +79,7 @@
                         buttons: {
                             "OK": function () {
                                 if ($('#addDialog').valid()) {
-                                    var data = { 'name': $("#name").val(), 'nrOfPerson': $("#nrOfPerson").val(), 'date': date.format(), 'startTime': $("#startTime").val(), 'length': $("#length").val(), 'description': $("#description").val(), 'calenderId': '<%: Model.Id%>' };
+                                    var data = { 'name': $("#name").val(), 'nrOfPerson': $("#nrOfPerson").val(), 'date': date.format(), 'startTime': $("#startTime").val(), 'length': $("#length").val(), 'description': $("#description").val(), 'calenderId': '<%: Model.Id %>' };
                                     var jsonData = JSON.stringify(data);
                                     $.ajax({
                                         url: '../../Activity/CreateFromDialog',
@@ -97,6 +99,7 @@
                         }
                     });
                 }
+                <% } %>
             });
             <% var date = DateTime.ParseExact((string)ViewData["ActivityDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture); %>
             $('#calendar').fullCalendar('gotoDate', '<%: date %>');
